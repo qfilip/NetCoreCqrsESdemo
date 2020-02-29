@@ -13,19 +13,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Queries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 
 namespace NetCoreCQRSdemo.Api
 {
     public class Startup
     {
-        private readonly string dataSource;
+        private readonly string _dataSource;
+        private Assembly _assemblyBL;
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
-            string datasource = $"Datasource=" + environment.WebRootPath;
-            this.dataSource = Path.Combine(datasource, "db.db3");
+            string path = GlobalVariables.DatasourcePrefix + environment.WebRootPath;
+            
+            _dataSource = Path.Combine(path, GlobalVariables.DatabaseName);
+            _assemblyBL = Assembly.Load(GlobalVariables.BusinessLogicAssemblyName);
         }
 
         public IConfiguration Configuration { get; }
@@ -34,9 +39,9 @@ namespace NetCoreCQRSdemo.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(this.dataSource));
+            services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(_dataSource));
             services.AddSingleton<CommandService>();
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(this._assemblyBL);
 
             services.AddCors(x =>
                 x.AddDefaultPolicy(b =>

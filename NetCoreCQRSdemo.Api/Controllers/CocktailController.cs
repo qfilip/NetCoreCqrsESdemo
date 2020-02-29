@@ -26,7 +26,7 @@ namespace NetCoreCQRSdemo.Api.Controllers
         [Route("all")]
         public async Task<IActionResult> GetAllCocktailsAsync()
         {
-            var result = await _mediator.Send(new GetAllCocktailsQuery(_context));
+            var result = await _mediator.Send(new GetAllCocktailsQuery());
             return Ok(result);
         }
     }

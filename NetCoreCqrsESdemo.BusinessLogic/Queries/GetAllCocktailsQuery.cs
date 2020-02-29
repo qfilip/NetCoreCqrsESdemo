@@ -12,10 +12,10 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries
 {
     public class GetAllCocktailsQuery : IRequest<List<Cocktail>>
     {
-        public ApplicationDbContext Context;
-        public GetAllCocktailsQuery(ApplicationDbContext context)
+        //public ApplicationDbContext Context;
+        public GetAllCocktailsQuery()
         {
-            Context = context;
+            //Context = context;
         }
     }
 
