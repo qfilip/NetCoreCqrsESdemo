@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Services;
 
 namespace NetCoreCQRSdemo.Api
 {
@@ -32,6 +35,12 @@ namespace NetCoreCQRSdemo.Api
         {
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(this.dataSource));
+            services.AddSingleton<CommandService>();
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddCors(x =>
+                x.AddDefaultPolicy(b =>
+                    b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +52,8 @@ namespace NetCoreCQRSdemo.Api
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
