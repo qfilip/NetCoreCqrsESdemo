@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NetCoreCQRSdemo.Domain\NetCoreCQRSdemo.Domain.csproj" />
     <ProjectReference Include="..\NetCoreCQRSdemo.Persistence\NetCoreCQRSdemo.Persistence.csproj" />
+    <ProjectReference Include="..\NetCoreCqrsESdemo.BusinessLogic\NetCoreCqrsESdemo.BusinessLogic.csproj" />
   </ItemGroup>
 
   <ItemGroup>

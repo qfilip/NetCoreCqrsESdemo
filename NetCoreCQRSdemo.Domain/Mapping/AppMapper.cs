@@ -3,4 +3,6 @@
     public class AppMapper
     {
     }
+
+    public interface IAppMapper { }
 }
