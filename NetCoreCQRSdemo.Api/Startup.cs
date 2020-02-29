@@ -41,7 +41,7 @@ namespace NetCoreCQRSdemo.Api
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(_dataSource));
             services.AddSingleton<CommandService>();
-            services.AddMediatR(this._assemblyBL);
+            services.AddMediatR(_assemblyBL);
 
             services.AddCors(x =>
                 x.AddDefaultPolicy(b =>

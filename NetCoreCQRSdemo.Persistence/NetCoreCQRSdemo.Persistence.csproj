@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200229162246_Intil_Seed.Designer.cs" />
     <Compile Remove="Migrations\20200229162922_int.cs" />
     <Compile Remove="Migrations\20200229162922_int.Designer.cs" />
+    <Compile Remove="Migrations\20200229211658_Initial_Schema.cs" />
+    <Compile Remove="Migrations\20200229211658_Initial_Schema.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

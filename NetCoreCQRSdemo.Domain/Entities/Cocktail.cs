@@ -10,6 +10,7 @@ namespace NetCoreCQRSdemo.Domain.Entities
             Ingredients = new HashSet<Ingredient>();
         }
         public string Name { get; set; }
+        public int Strength { get; set; }
         public ICollection<Ingredient> Ingredients { get; set; }
     }
 }

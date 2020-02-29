@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
+using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,12 +12,10 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Queries
 {
-    public class GetAllCocktailsQuery : IRequest<List<Cocktail>>
+    public class GetAllCocktailsQuery : BaseQuery, IRequest<List<Cocktail>>
     {
-        //public ApplicationDbContext Context;
-        public GetAllCocktailsQuery()
+        public GetAllCocktailsQuery(ApplicationDbContext context) : base(context)
         {
-            //Context = context;
         }
     }
 
@@ -23,13 +23,11 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries
     {
         public async Task<List<Cocktail>> Handle(GetAllCocktailsQuery request, CancellationToken cancellationToken)
         {
-            var cocktail = new Cocktail {
-                Id = "12"
-            };
-            await Task.Delay(50);
-            var list = new List<Cocktail>();
-            list.Add(cocktail);
-            return list;
+            var result = await request.context.Cocktails
+                .Include(x => x.Ingredients)
+                .ToListAsync();
+            
+            return result;
         }
     }
 }

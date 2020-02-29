@@ -1,21 +1,19 @@
 ﻿using MediatR;
+using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
-    public abstract class BaseQuery<TResponse> : IRequest<TResponse>
+    public abstract class BaseQuery
     {
-        public BaseQuery()
-        {
-        }
-    }
+        public readonly ApplicationDbContext context;
 
-    public abstract class BaseQuery : IRequest
-    {
-        public BaseQuery()
+        public BaseQuery(ApplicationDbContext context)
         {
+            this.context = context;
         }
     }
 }
