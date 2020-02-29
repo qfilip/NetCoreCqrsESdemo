@@ -7,7 +7,8 @@ namespace NetCoreCQRSdemo.Persistence.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            base.Database.EnsureCreated();
+            // base.Database.EnsureCreated();
+            base.Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
