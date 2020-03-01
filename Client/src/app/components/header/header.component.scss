@@ -1,0 +1,11 @@
+.header-container > div {
+    border-bottom: 4px solid black;
+    font-size: 1.5rem;
+    transition: .5s;
+
+    &:hover {
+        cursor: pointer;
+        border-bottom: 4px solid orangered;
+        color: orangered;
+    }
+}

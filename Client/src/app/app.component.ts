@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { IIngredientDto } from './_generated/interfaces';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'NetCoreCQRSdemo';
-
-  public crap = {} as IIngredient;
 }
