@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { ICocktailDto } from 'src/app/_generated/interfaces';
 
 @Component({
   selector: 'app-presenter',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PresenterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService) { }
+
+  cocktails: ICocktailDto[];
 
   ngOnInit(): void {
+    this.api.getAllCocktails().subscribe(response => {console.log(response)});
   }
-
 }
