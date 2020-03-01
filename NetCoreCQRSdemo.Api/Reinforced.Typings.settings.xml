@@ -15,7 +15,7 @@
 			It is not used if RtDivideTypesAmongFiles='true' specified.
 			Important! Do not forget to include generated file to solution.
 		-->
-    <RtTargetFile>$(SolutionDir)NetCoreCQRSdemo.Api\Client\src\app\_generated\interfaces.ts</RtTargetFile>
+    <RtTargetFile>$(SolutionDir)\Client\src\app\_generated\interfaces.ts</RtTargetFile>
 
     <!--
 			This property sets RT configuration method for fluent configuration.

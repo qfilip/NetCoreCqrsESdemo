@@ -2,9 +2,18 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
-module NetCoreCQRSdemo.Domain.DomainBase {
-	export interface IBaseDto
+module NetCoreCQRSdemo.Domain.Dtos {
+	export interface ICocktailDto
 	{
-		id: string;
+		name: string;
+		strength: number;
+		ingredients: NetCoreCQRSdemo.Domain.Dtos.IIngredientDto[];
+	}
+	export interface IIngredientDto
+	{
+		cocktailId: string;
+		name: string;
+		amount: number;
+		unitOfMeasure: string;
 	}
 }

@@ -1,9 +1,11 @@
 ﻿using NetCoreCQRSdemo.Domain.DomainBase;
+using NetCoreCQRSdemo.Domain.Dtos;
+using NetCoreCqrsESdemo.BusinessLogic.Base;
 using Reinforced.Typings.Fluent;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace NetCoreCQRSdemo.Api.FluentConfigurations
 {
@@ -11,10 +13,12 @@ namespace NetCoreCQRSdemo.Api.FluentConfigurations
     {
         public static void Configure(ConfigurationBuilder builder)
         {
-            // first get all that inherits from base dto
-            builder.ExportAsInterface<BaseDto>()
-                .WithPublicProperties(cfg => cfg.CamelCase())
-                .WithPublicFields(cfg => cfg.CamelCase());
+            var commands = typeof(BaseDto).Assembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(BaseDto)));
+
+            builder.Global(cfg => cfg.CamelCaseForProperties().UseModules());
+            builder.ExportAsInterfaces(commands, cfg => cfg.WithPublicProperties());
+           
         }
     }
 }

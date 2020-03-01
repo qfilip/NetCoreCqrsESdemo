@@ -17,6 +17,7 @@ using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Queries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
+using Reinforced.Typings.Attributes;
 
 namespace NetCoreCQRSdemo.Api
 {
