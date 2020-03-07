@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using NetCoreCQRSdemo.Domain.Mapping;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System;
