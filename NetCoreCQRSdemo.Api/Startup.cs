@@ -9,6 +9,8 @@ using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using NetCoreCqrsESdemo.BusinessLogic.Tests;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.IO;
 using System.Reflection;
 
@@ -32,7 +34,11 @@ namespace NetCoreCQRSdemo.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(o => {
+                o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
             services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(_dataSource));
             services.AddSingleton<CommandService>();
             services.AddMediatR(_assemblyBL);
