@@ -31,12 +31,8 @@ namespace NetCoreCQRSdemo.Persistence.Context
                 e.HasOne(e => e.Cocktail);
             });
 
-            modelBuilder.Entity<AppEvent>(e =>
-            {
-                e.HasKey(e => e.Id);
-            });
-
-            modelBuilder.Entity<EventCount>(e => e.HasNoKey());
+            modelBuilder.Entity<AppEvent>(e => e.HasKey(e => e.Id));
+            modelBuilder.Entity<EventCount>(e => e.HasKey(e => e.Id));
 
 
             base.OnModelCreating(modelBuilder);

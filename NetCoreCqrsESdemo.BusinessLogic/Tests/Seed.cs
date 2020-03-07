@@ -16,8 +16,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Tests
             _context = context;
         }
 
-        [Test]
-        private void SeedDb()
+        public int SeedDb()
         {
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
@@ -57,7 +56,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Tests
                 _context.Cocktails.AddRange(c);
             }
 
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
     }
 }

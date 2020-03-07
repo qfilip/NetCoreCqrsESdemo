@@ -8,8 +8,8 @@ using NetCoreCQRSdemo.Persistence.Context;
 namespace NetCoreCQRSdemo.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200229225752_initial-migration")]
-    partial class initialmigration
+    [Migration("20200307211231_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,8 +63,16 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
 
             modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.EventCount", b =>
                 {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("CurrentCount")
                         .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.ToTable("EventCount");
                 });

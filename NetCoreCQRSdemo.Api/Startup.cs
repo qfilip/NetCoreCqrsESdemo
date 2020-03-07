@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
+using NetCoreCqrsESdemo.BusinessLogic.Tests;
 using System.IO;
 using System.Reflection;
 

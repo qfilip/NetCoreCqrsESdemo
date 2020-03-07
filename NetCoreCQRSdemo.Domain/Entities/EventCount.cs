@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NetCoreCQRSdemo.Domain.Entities
 {
-    public class EventCount
+    public class EventCount : BaseEntity
     {
         public int CurrentCount { get; set; }
     }

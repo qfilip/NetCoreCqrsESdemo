@@ -61,8 +61,16 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
 
             modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.EventCount", b =>
                 {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedOn")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("CurrentCount")
                         .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
 
                     b.ToTable("EventCount");
                 });

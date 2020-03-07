@@ -2,7 +2,7 @@
 
 namespace NetCoreCQRSdemo.Persistence.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,10 +39,13 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 name: "EventCount",
                 columns: table => new
                 {
+                    Id = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<string>(nullable: true),
                     CurrentCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_EventCount", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
