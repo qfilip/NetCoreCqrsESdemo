@@ -11,6 +11,7 @@ export class PresenterComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
+  dataLoaded = true;
   cocktails: ICocktailDto[];
 
   ngOnInit(): void {

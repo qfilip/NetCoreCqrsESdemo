@@ -9,6 +9,7 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { IndexComponent } from "./components/index/index.component";
 import { PresenterComponent } from './components/presenter/presenter.component';
 import { ApiService } from './services/api.service';
+import { CocktailComponent } from './components/presenter/cocktail/cocktail.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ApiService } from './services/api.service';
     HeaderComponent,
     FooterComponent,
     IndexComponent,
-    PresenterComponent
+    PresenterComponent,
+    CocktailComponent
   ],
   imports: [
     BrowserModule,

@@ -1,23 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
-using NetCoreCqrsESdemo.BusinessLogic.Queries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
-using Reinforced.Typings.Attributes;
+using System.IO;
+using System.Reflection;
 
 namespace NetCoreCQRSdemo.Api
 {
@@ -31,7 +23,7 @@ namespace NetCoreCQRSdemo.Api
             string path = GlobalVariables.DatasourcePrefix + environment.WebRootPath;
             
             _dataSource = Path.Combine(path, GlobalVariables.DatabaseName);
-            _assemblyBL = Assembly.Load(GlobalVariables.BusinessLogicAssemblyName);
+            _assemblyBL = Assembly.Load(GlobalVariables.NMSP_BusinessLogic);
         }
 
         public IConfiguration Configuration { get; }

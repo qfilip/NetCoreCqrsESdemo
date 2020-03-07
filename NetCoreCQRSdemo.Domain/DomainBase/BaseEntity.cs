@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetCoreCQRSdemo.Domain.DomainBase
+namespace NetCoreCQRSdemo.Domain
 {
     public class BaseEntity
     {

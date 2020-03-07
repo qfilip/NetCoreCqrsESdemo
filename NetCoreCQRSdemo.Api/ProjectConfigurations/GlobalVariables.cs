@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace NetCoreCQRSdemo.Api.ProjectConfigurations
+﻿namespace NetCoreCQRSdemo.Api.ProjectConfigurations
 {
     public static class GlobalVariables
     {
         public static string DatasourcePrefix = "Datasource=";
         public static string DatabaseName = "db.db3";
-        public static string BusinessLogicAssemblyName = "NetCoreCqrsESdemo.BusinessLogic";
+
+        // namespaces
+        public static string NMSP_Solution = "NetCoreCQRSdemo";
+        public static string NMSP_BusinessLogic = "NetCoreCqrsESdemo.BusinessLogic";
+        public static string NMSP_DomainDtos = "NetCoreCQRSdemo.Domain.Dtos";
     }
 }

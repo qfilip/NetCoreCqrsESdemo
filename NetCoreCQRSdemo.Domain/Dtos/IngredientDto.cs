@@ -1,9 +1,4 @@
-﻿using NetCoreCQRSdemo.Domain.DomainBase;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NetCoreCQRSdemo.Domain.Dtos
+﻿namespace NetCoreCQRSdemo.Domain.Dtos
 {
     public class IngredientDto : BaseDto
     {

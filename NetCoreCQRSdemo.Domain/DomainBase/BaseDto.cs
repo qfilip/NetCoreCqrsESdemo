@@ -1,4 +1,4 @@
-﻿namespace NetCoreCQRSdemo.Domain.DomainBase
+﻿namespace NetCoreCQRSdemo.Domain.Dtos
 {
     public class BaseDto
     {

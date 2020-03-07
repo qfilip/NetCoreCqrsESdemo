@@ -2,13 +2,17 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
-export interface ICocktailDto
+export interface IBaseDto
+{
+	id: string;
+}
+export interface ICocktailDto extends IBaseDto
 {
 	name: string;
 	strength: number;
 	ingredients: IIngredientDto[];
 }
-export interface IIngredientDto
+export interface IIngredientDto extends IBaseDto
 {
 	cocktailId: string;
 	name: string;

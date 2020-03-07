@@ -1,9 +1,5 @@
-﻿using NetCoreCQRSdemo.Domain.DomainBase;
-using NetCoreCQRSdemo.Domain.Dtos;
-using NetCoreCqrsESdemo.BusinessLogic.Base;
+﻿using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using Reinforced.Typings.Fluent;
-using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -13,12 +9,18 @@ namespace NetCoreCQRSdemo.Api.FluentConfigurations
     {
         public static void Configure(ConfigurationBuilder builder)
         {
-            var commands = typeof(BaseDto).Assembly.GetTypes()
-                .Where(t => t.IsSubclassOf(typeof(BaseDto)));
+            //var commands = typeof(BaseDto).Assembly.GetTypes()
+            //    .Where(t => t.IsSubclassOf(typeof(BaseDto)));
+
+            var dtos = Assembly.GetAssembly(typeof(NetCoreCQRSdemo.Domain.Dtos.BaseDto)).ExportedTypes
+                .Where(i => i.Namespace.StartsWith(GlobalVariables.NMSP_DomainDtos))
+                .OrderBy(i => i.Name)
+                .OrderBy(i => i.Name != nameof(NetCoreCQRSdemo.Domain.Dtos.BaseDto))
+                .ToArray();
 
             builder.Global(cfg => cfg.CamelCaseForProperties().UseModules());
-            builder.ExportAsInterfaces(commands, cfg => cfg.WithPublicProperties());
-           
+
+            builder.ExportAsInterfaces(dtos, cfg => cfg.WithPublicProperties());
         }
     }
 }

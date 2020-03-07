@@ -1,4 +1,4 @@
-﻿using NetCoreCQRSdemo.Domain.DomainBase;
+﻿using NetCoreCQRSdemo.Domain.Dtos;
 using System.Collections.Generic;
 
 namespace NetCoreCQRSdemo.Domain.Entities
