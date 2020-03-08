@@ -10,6 +10,8 @@ import { IndexComponent } from "./components/index/index.component";
 import { PresenterComponent } from './components/presenter/presenter.component';
 import { ApiService } from './services/api.service';
 import { CocktailComponent } from './components/presenter/cocktail/cocktail.component';
+import { PageLoaderComponent } from './shared/page-loader/page-loader.component';
+import { PageLoaderService } from './services/page-loader.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { CocktailComponent } from './components/presenter/cocktail/cocktail.comp
     FooterComponent,
     IndexComponent,
     PresenterComponent,
-    CocktailComponent
+    CocktailComponent,
+    PageLoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { CocktailComponent } from './components/presenter/cocktail/cocktail.comp
     HttpClientModule
   ],
   providers: [
-    ApiService
+    ApiService,
+    PageLoaderService,
   ],
   bootstrap: [AppComponent]
 })

@@ -15,6 +15,6 @@ export class PresenterComponent implements OnInit {
   cocktails: ICocktailDto[];
 
   ngOnInit(): void {
-    this.api.getAllCocktails().subscribe(response => {console.log(response)});
+    this.api.getAllCocktails().subscribe(response => { console.log(response) });
   }
 }
