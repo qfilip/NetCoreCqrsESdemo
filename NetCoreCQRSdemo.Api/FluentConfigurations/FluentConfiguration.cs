@@ -1,4 +1,5 @@
 ﻿using NetCoreCQRSdemo.Api.ProjectConfigurations;
+using NetCoreCQRSdemo.Domain.Enumerations;
 using Reinforced.Typings.Fluent;
 using System;
 using System.Linq;
@@ -21,9 +22,14 @@ namespace NetCoreCQRSdemo.Api.FluentConfigurations
 
             builder.Global(cfg => cfg.CamelCaseForProperties().UseModules());
 
-            builder.ExportAsInterfaces(dtos, cfg => cfg.WithPublicProperties());
+            builder.ExportAsInterfaces(dtos, cfg =>
+                cfg.WithPublicProperties()
+                .ExportTo("interfaces.ts"));
 
-            // builder.ExportAsEnums();
+            builder.ExportAsEnums(new Type[] {
+                typeof(eCommand)
+            },
+            cfg => cfg.ExportTo("enums.ts"));
         }
     }
 }
