@@ -1,5 +1,7 @@
 .loader-container {
-    position: fixed;
-    z-index: 1000000;
+    position: absolute;
+    min-width: 100vw;
+    min-height: 100vh;
+    //z-index: 1000000;
     background: #702d00a4;
 }
