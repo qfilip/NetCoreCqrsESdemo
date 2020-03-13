@@ -35,7 +35,10 @@ namespace NetCoreCQRSdemo.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(o => {
-                o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                o.SerializerSettings.ContractResolver = new DefaultContractResolver()
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                };
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 

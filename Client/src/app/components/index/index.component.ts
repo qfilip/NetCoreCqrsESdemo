@@ -8,16 +8,8 @@ import { PageLoaderService } from 'src/app/services/page-loader.service';
 })
 export class IndexComponent implements OnInit {
 
-  constructor(private pageLoaderService: PageLoaderService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  test() {
-    this.pageLoaderService.show();
-  }
-
-  test2() {
-    this.pageLoaderService.hide();
   }
 }

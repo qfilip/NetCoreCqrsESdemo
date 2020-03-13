@@ -5,3 +5,7 @@
 export enum eCommand { 
 	TestCommand = 0
 }
+export enum eCommandRunType { 
+	RunOnChange = 0, 
+	Batch = 1
+}

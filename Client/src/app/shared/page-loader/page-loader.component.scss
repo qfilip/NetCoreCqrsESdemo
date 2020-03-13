@@ -1,7 +1,116 @@
 .loader-container {
-    position: absolute;
-    min-width: 100vw;
-    min-height: 100vh;
-    //z-index: 1000000;
-    background: #702d00a4;
+  position: absolute;
+  min-width: 100vw;
+  min-height: 100vh;
+  background: #000000cc;
+}
+
+.loader-message {
+  font-size: 4rem;
+  animation-name: loadanim;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes loadanim {
+  0% {
+    background: linear-gradient(
+      to bottom right,
+      red,
+      black,
+      black,
+      black,
+      black
+    );
+    //box-shadow: 0px 0px 2px red;
+    color: yellow;
+  }
+  12.5% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      red,
+      black,
+      black,
+      black
+    );
+    //box-shadow: 0px 0px 4px red;
+    color: orange;
+  }
+  25% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      red,
+      black,
+      black
+    );
+    //box-shadow: 0px 0px 6px red;
+    color: orangered;
+  }
+  37.5% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      black,
+      red,
+      black
+    );
+    //box-shadow: 0px 0px 4px red;
+    color: orange;
+  }
+  50% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      black,
+      black,
+      red
+    );
+    //box-shadow: 0px 0px 2px red;
+    color: yellow;
+  }
+  62.5% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      black,
+      black,
+      black
+    );
+  }
+  75% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      black,
+      black,
+      black
+    );
+  }
+  87.5% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      black,
+      black,
+      black
+    );
+  }
+  100% {
+    background: linear-gradient(
+      to bottom right,
+      black,
+      black,
+      black,
+      black,
+      black
+    );
+  }
 }

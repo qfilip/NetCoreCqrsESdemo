@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+.btn {
+    border: transparent;
+    transition: .2s;
+    &:focus {
+        outline: transparent;
+    }
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+    cursor: pointer;
+}
+
+.btn-disabled {
+    border: transparent;
+    color: #aaa;
+    background-color: #333;
+    &:focus {
+        outline: transparent;
+    }
+}

@@ -1,6 +1,11 @@
 <div class="w3-container">
-    <div><b>{{ cocktail.name }}</b></div>
-    <div class="w3-light-grey">
-        <div class="w3-container w3-green w3-center" [ngStyle]="{'width':strength}">25%</div>
-    </div>
+    <details>
+        <summary>{{ cocktail.name }}</summary>
+        <div>
+            <div *ngFor="let ingredient of cocktail.ingredients">
+                <div>{{ ingredient.name }}</div>
+                <input type="text" [(ngModel)]="ingredient.amount" />
+            </div>
+        </div>
+    </details>
 </div>

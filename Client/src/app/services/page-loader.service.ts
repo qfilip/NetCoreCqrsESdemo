@@ -10,7 +10,7 @@ export class PageLoaderService {
     private loaderInfo$: Subject<PageLoaderInfo> = new BehaviorSubject(null);
 
     show(message: string = null) {
-        const msg = (!!message) ? message : 'default message';
+        const msg = (!!message) ? message : 'Loading...';
         const info = { loading: true, message: msg } as PageLoaderInfo;
         
         this.loaderInfo$.next(info);

@@ -12,6 +12,7 @@ import { ApiService } from './services/api.service';
 import { CocktailComponent } from './components/presenter/cocktail/cocktail.component';
 import { PageLoaderComponent } from './shared/page-loader/page-loader.component';
 import { PageLoaderService } from './services/page-loader.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PageLoaderService } from './services/page-loader.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [
     ApiService,
