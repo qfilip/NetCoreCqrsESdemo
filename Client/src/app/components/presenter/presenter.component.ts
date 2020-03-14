@@ -21,12 +21,13 @@ export class PresenterComponent implements OnInit {
 
   ngOnInit(): void {
     this.savingType = eCommandRunType.RunOnChange;
-    this.loader.show();
-    this.api.getAllCocktails().subscribe(response => {
-      this.cocktails = response;
-      this.dataLoaded = true;
-      this.loader.hide();
-    });
+    // this.loader.show();
+    // this.api.getAllCocktails().subscribe(response => {
+    //   this.cocktails = response;
+    //   this.dataLoaded = true;
+    //   this.loader.hide();
+    // });
+    this.dataLoaded = true;
   }
 
   toggleSavingType() {

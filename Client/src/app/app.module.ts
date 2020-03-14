@@ -13,6 +13,7 @@ import { CocktailComponent } from './components/presenter/cocktail/cocktail.comp
 import { PageLoaderComponent } from './shared/page-loader/page-loader.component';
 import { PageLoaderService } from './services/page-loader.service';
 import { FormsModule } from '@angular/forms';
+import { EventPanelComponent } from './components/presenter/event-panel/event-panel.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     IndexComponent,
     PresenterComponent,
     CocktailComponent,
-    PageLoaderComponent
+    PageLoaderComponent,
+    EventPanelComponent
   ],
   imports: [
     BrowserModule,

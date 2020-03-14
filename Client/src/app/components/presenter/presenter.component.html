@@ -1,24 +1,29 @@
 <div *ngIf="dataLoaded" class="w3-container">
-    <div class="w3-row">
+    <div class="w3-row w3-container">
         <p>
             This is the core of the program.
             Select whether or not you wish to save each change upon editing,
             or run a batch of commands when clicking on 'save' button
         </p>
+        <div class="w3-row button-container">
+            <button (click)="toggleSavingType()" class="btn">Turn {{ _eConvert[savingType] }} on</button>
+        </div>
     </div>
-    <div class="w3-row button-container">
-        <button (click)="toggleSavingType()" class="btn">Turn {{ _eConvert[savingType] }} on</button>
-    </div>
+    <br/>
     <div class="w3-row w3-container">
-        <button (click)="createCocktail()" class="w3-button w3-large w3-circle w3-xlarge">+</button>
-        <br />
-        <div class="w3-container w3-twothird w3-blue-gray">
-            <div *ngFor="let cocktail of cocktails">
-                <app-cocktail [cocktail]="cocktail"></app-cocktail>
+        <div class="w3-twothird w3-pale-blue">
+            <button (click)="createCocktail()" class="w3-button w3-large w3-circle w3-xlarge">+</button>
+            <br />
+            <div class="w3-container w3-twothird w3-blue-gray">
+                <div *ngFor="let cocktail of cocktails">
+                    <app-cocktail [cocktail]="cocktail"></app-cocktail>
+                </div>
             </div>
         </div>
 
-        <div class="w3-container w3-third w3-gray">Tasty text placeholder</div>
+        <div class="w3-third w3-teal">
+            <app-event-panel></app-event-panel>
+        </div>
     </div>
 
     <div>
