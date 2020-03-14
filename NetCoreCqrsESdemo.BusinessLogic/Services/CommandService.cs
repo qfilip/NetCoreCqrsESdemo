@@ -1,4 +1,5 @@
-﻿using NetCoreCqrsESdemo.BusinessLogic.Base;
+﻿using NetCoreCQRSdemo.Domain.Enumerations;
+using NetCoreCqrsESdemo.BusinessLogic.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,8 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
 {
     public class CommandService
     {
-        private IDictionary<int, Type> _applicationCommands;
+        private IDictionary<int, Type> _appCommands;
+        private IDictionary<eCommand, int> _appCommandsEnumerated;
 
         public CommandService()
         {
@@ -17,18 +19,28 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                 .SelectMany(assembly => assembly.GetTypes())
                 .Where(type => type.IsSubclassOf(typeof(BaseCommand)));
 
-            _applicationCommands = new Dictionary<int, Type>();
-
+            _appCommands = new Dictionary<int, Type>();
+            _appCommandsEnumerated = new Dictionary<eCommand, int>();
+            
             foreach (var command in commands)
             {
                 var commandCode = command.GetHashCode();
-                _applicationCommands.Add(commandCode, command);
+                eCommand commandEnum =
+                    (eCommand)Enum.Parse(typeof(eCommand), command.Name);
+                
+                _appCommands.Add(commandCode, command);
+                _appCommandsEnumerated.Add(commandEnum, commandCode);
             }
         }
 
         public Type GetCommandByCode(int commandCode)
         {
-            return _applicationCommands[commandCode];
+            return _appCommands[commandCode];
+        }
+
+        public int GetCommandCodeByEnum(eCommand commandEnumeration)
+        {
+            return _appCommandsEnumerated[commandEnumeration];
         }
     }
 }

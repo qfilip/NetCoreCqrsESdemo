@@ -1,11 +1,62 @@
 ﻿using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NetCoreCQRSdemo.Domain.Mapping
 {
     public class AppMapper
     {
+        #region TO_ENTITIES
+        public Cocktail ToEntity(CocktailDto dto)
+        {
+            var entity = new Cocktail
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Strength = dto.Strength,
+                Ingredients = ToEntities(dto.Ingredients).ToList()
+            };
+
+            return entity;
+        }
+        public Ingredient ToEntity(IngredientDto dto)
+        {
+            return new Ingredient()
+            {
+                Id = dto.Id,
+                CocktailId = dto.CocktailId,
+                Amount = dto.Amount,
+                Name = dto.Name,
+                UnitOfMeasure = dto.UnitOfMeasure
+            };
+        }
+        
+        public IEnumerable<Cocktail> ToEntities(IEnumerable<CocktailDto> dtos)
+        {
+            var entites = new List<Cocktail>();
+            foreach (var dto in dtos)
+            {
+                var entity = ToEntity(dto);
+                entites.Add(entity);
+            }
+
+            return entites;
+        }
+        public IEnumerable<Ingredient> ToEntities(IEnumerable<IngredientDto> dtos)
+        {
+            var entites = new List<Ingredient>();
+            foreach (var dto in dtos)
+            {
+                var entity = ToEntity(dto);
+                entites.Add(entity);
+            }
+
+            return entites;
+        }
+        #endregion
+
+        #region TO_DTOS
         public CocktailDto ToDto(Cocktail cocktail)
         {
             var dto = new CocktailDto
@@ -13,23 +64,11 @@ namespace NetCoreCQRSdemo.Domain.Mapping
                 Id = cocktail.Id,
                 Name = cocktail.Name,
                 Strength = cocktail.Strength,
-                Ingredients = ToDto(cocktail.Ingredients),
+                Ingredients = ToDtos(cocktail.Ingredients).ToList(),
             };
 
             return dto;
         }
-
-        public List<CocktailDto> ToDtos(List<Cocktail> cocktails)
-        {
-            var dtos = new List<CocktailDto>();
-            foreach (var cocktail in cocktails)
-            {
-                dtos.Add(ToDto(cocktail));
-            }
-
-            return dtos;
-        }
-
         public IngredientDto ToDto(Ingredient ingredient)
         {
             var dto = new IngredientDto
@@ -43,8 +82,18 @@ namespace NetCoreCQRSdemo.Domain.Mapping
 
             return dto;
         }
+        
+        public IEnumerable<CocktailDto> ToDtos(IEnumerable<Cocktail> cocktails)
+        {
+            var dtos = new List<CocktailDto>();
+            foreach (var cocktail in cocktails)
+            {
+                dtos.Add(ToDto(cocktail));
+            }
 
-        private List<IngredientDto> ToDto(ICollection<Ingredient> ingredients)
+            return dtos;
+        }
+        public IEnumerable<IngredientDto> ToDtos(IEnumerable<Ingredient> ingredients)
         {
             var dtos = new List<IngredientDto>();
             foreach(var ingredient in ingredients)
@@ -54,5 +103,6 @@ namespace NetCoreCQRSdemo.Domain.Mapping
 
             return dtos;
         }
+        #endregion
     }
 }

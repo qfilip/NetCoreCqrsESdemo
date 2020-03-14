@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NetCoreCQRSdemo.Domain.Entities;
+using NetCoreCQRSdemo.Domain.Mapping;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System.Linq;
@@ -10,11 +11,13 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
     public abstract class BaseCommand
     {
-        private readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext _context;
+        protected readonly AppMapper _mapper;
 
         public BaseCommand(ApplicationDbContext context)
         {
             _context = context;
+            _mapper = new AppMapper();
         }
 
         public abstract void Handle();
