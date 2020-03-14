@@ -1,6 +1,9 @@
 <div class="w3-container">
     <details>
-        <summary>{{ cocktail.name }}</summary>
+        <summary>
+            {{ cocktail.name }}
+            <button class="w3-button w3-large w3-circle w3-xlarge">-</button>
+        </summary>
         <div>
             <div *ngFor="let ingredient of cocktail.ingredients">
                 <div>{{ ingredient.name }}</div>

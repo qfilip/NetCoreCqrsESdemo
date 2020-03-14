@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Domain.Mapping;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
+using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,21 +13,17 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
     public abstract class BaseCommand
     {
-        protected readonly ApplicationDbContext _context;
-        protected readonly AppMapper _mapper;
-
-        public BaseCommand(ApplicationDbContext context)
+        public ApplicationDbContext dbContext;
+        public BaseCommand(ApplicationDbContext dbContext)
         {
-            _context = context;
-            _mapper = new AppMapper();
+            this.dbContext = dbContext;
         }
 
-        public abstract void Handle();
         public abstract string SerializeArguments();
-        public abstract void Reinvoke(string args);
-        protected async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand
+        public abstract TDto DeserializeArguments<TDto>(string args) where TDto : BaseDto;
+        public async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand
         {
-            var counter = await _context.EventCount.FirstOrDefaultAsync();
+            var counter = await dbContext.EventCount.FirstOrDefaultAsync();
 
             var @event = new AppEvent()
             {
@@ -35,9 +33,9 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
             };
 
             counter.CurrentCount += 1;
-            await _context.Events.AddAsync(@event);
-
-            await _context.SaveChangesAsync();
+            
+            await dbContext.Events.AddAsync(@event);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

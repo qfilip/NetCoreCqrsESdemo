@@ -7,6 +7,7 @@ using NetCoreCqrsESdemo.BusinessLogic.Base;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries
                 .Include(x => x.Ingredients)
                 .ToListAsync();
 
-            return _appMapper.ToDtos(result);
+            return _appMapper.ToDtos(result).ToList();
         }
     }
 }

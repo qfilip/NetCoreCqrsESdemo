@@ -10,7 +10,12 @@ export class ApiService {
 
     getAllCocktails(): Observable<ICocktailDto[]> {
         const url = g.apiUrl + g.cocktailController + g.allCocktails;
-        console.log(url);
         return this.http.get<ICocktailDto[]>(url);
+    }
+
+    createCocktail(cocktailDto: ICocktailDto): Observable<ICocktailDto> {
+        const url = g.apiUrl + g.cocktailController + g.createCocktail;
+        console.log(url);
+        return this.http.post<ICocktailDto>(url, cocktailDto);
     }
 }

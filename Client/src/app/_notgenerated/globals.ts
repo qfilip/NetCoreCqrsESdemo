@@ -5,3 +5,4 @@ export const cocktailController = 'cocktails/';
 
 // end points
 export const allCocktails = 'all';
+export const createCocktail = 'create';

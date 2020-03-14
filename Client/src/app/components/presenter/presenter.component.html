@@ -10,6 +10,7 @@
         <button (click)="toggleSavingType()" class="btn">Turn {{ _eConvert[savingType] }} on</button>
     </div>
     <div class="w3-row w3-container">
+        <button (click)="createCocktail()" class="w3-button w3-large w3-circle w3-xlarge">+</button>
         <br />
         <div class="w3-container w3-twothird w3-blue-gray">
             <div *ngFor="let cocktail of cocktails">

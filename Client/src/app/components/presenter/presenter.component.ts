@@ -38,4 +38,17 @@ export class PresenterComponent implements OnInit {
         this.saveBtnEnabled = false;
       }
   }
+
+  createCocktail() {
+      let cocktail = {
+          name: 'Bees knees',
+          strength: 30,
+          ingredients: []
+      } as ICocktailDto;
+
+      this.api.createCocktail(cocktail)
+        .subscribe(result => {
+            console.log(result);
+        });
+  }
 }
