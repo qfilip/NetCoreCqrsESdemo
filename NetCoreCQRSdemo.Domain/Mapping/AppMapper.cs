@@ -82,6 +82,15 @@ namespace NetCoreCQRSdemo.Domain.Mapping
 
             return dto;
         }
+        public AppEventDto ToDto(AppEvent appEvent)
+        {
+            return new AppEventDto()
+            {
+                Id = appEvent.Id,
+                Arguments = appEvent.Arguments,
+                CommandCode = appEvent.CommandCode
+            };
+        }
         
         public IEnumerable<CocktailDto> ToDtos(IEnumerable<Cocktail> cocktails)
         {
@@ -101,6 +110,17 @@ namespace NetCoreCQRSdemo.Domain.Mapping
                 dtos.Add(ToDto(ingredient));
             }
 
+            return dtos;
+        }
+        public IEnumerable<AppEventDto> ToDtos(IEnumerable<AppEvent> appEvents)
+        {
+            var dtos = new List<AppEventDto>();
+            foreach(var appEvent in appEvents)
+            {
+                var dto = ToDto(appEvent);
+                dtos.Add(dto);
+            }
+            
             return dtos;
         }
         #endregion

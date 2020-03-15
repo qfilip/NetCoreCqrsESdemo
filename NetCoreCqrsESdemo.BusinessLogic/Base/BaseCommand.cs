@@ -26,7 +26,6 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
         {
             var @event = new AppEvent()
             {
-                Id = Guid.NewGuid().ToString(),
                 Arguments = command.SerializeArguments(),
                 CommandCode = (typeof(TCommand)).GetHashCode(),
                 CreatedOn = DateTime.Now

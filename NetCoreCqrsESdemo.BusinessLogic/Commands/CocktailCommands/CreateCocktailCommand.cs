@@ -37,7 +37,6 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands
             
             await request.dbContext.AddAsync(entity);
             await request.LogEvent(request);
-            await request.dbContext.SaveChangesAsync();
             
             return request.Dto;
         }

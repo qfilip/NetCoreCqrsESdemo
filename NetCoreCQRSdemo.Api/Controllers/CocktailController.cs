@@ -50,5 +50,13 @@ namespace NetCoreCQRSdemo.Api.Controllers
             var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
             return Ok(result);
         }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<IActionResult> DeleteCocktail([FromBody] CocktailDto dto)
+        {
+            var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
+            return Ok(result);
+        }
     }
 }

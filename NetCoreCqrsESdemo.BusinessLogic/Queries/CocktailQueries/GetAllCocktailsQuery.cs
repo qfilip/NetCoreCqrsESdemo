@@ -1,14 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NetCoreCQRSdemo.Domain.Dtos;
-using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
-using NetCoreCqrsESdemo.BusinessLogic.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

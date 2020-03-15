@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { IAppEventDto } from "src/app/_generated/interfaces";
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: "app-event-panel",
@@ -6,13 +8,20 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./event-panel.component.scss"]
 })
 export class EventPanelComponent implements OnInit {
-  events: number[];
-  constructor() {}
+  dataLoaded = false;
+  events: IAppEventDto[];
+  
+  constructor(private api: ApiService) {}
 
   ngOnInit() {
-      this.events = [];
-      for(let i = 0; i < 100; i++) {
-          this.events.push(i);
-      }
+    this.getEvents();
+  }
+
+  getEvents() {
+    this.api.getAllEvents()
+    .subscribe(result => {
+        this.events = result;
+        this.dataLoaded = true;
+    })
   }
 }

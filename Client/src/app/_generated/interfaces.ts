@@ -6,6 +6,11 @@ export interface IBaseDto
 {
 	id: string;
 }
+export interface IAppEventDto extends IBaseDto
+{
+	arguments: string;
+	commandCode: number;
+}
 export interface ICocktailDto extends IBaseDto
 {
 	name: string;
