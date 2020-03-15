@@ -7,8 +7,8 @@ namespace NetCoreCQRSdemo.Persistence.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            // base.Database.EnsureCreated();
-            // base.Database.Migrate();
+            //base.Database.EnsureDeleted();
+            //base.Database.Migrate();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -16,7 +16,6 @@ namespace NetCoreCQRSdemo.Persistence.Context
             modelBuilder.Entity<Cocktail>().ToTable(nameof(Cocktail));
             modelBuilder.Entity<Ingredient>().ToTable(nameof(Ingredient));
             modelBuilder.Entity<AppEvent>().ToTable(nameof(AppEvent));
-            modelBuilder.Entity<EventCount>().ToTable(nameof(EventCount));
 
             modelBuilder.Entity<Cocktail>(e =>
             {
@@ -31,8 +30,10 @@ namespace NetCoreCQRSdemo.Persistence.Context
                 e.HasOne(e => e.Cocktail);
             });
 
-            modelBuilder.Entity<AppEvent>(e => e.HasKey(e => e.Id));
-            modelBuilder.Entity<EventCount>(e => e.HasKey(e => e.Id));
+            modelBuilder.Entity<AppEvent>(e =>
+            {
+                e.HasKey(e => e.Id);
+            });
 
 
             base.OnModelCreating(modelBuilder);
@@ -42,6 +43,5 @@ namespace NetCoreCQRSdemo.Persistence.Context
         public DbSet<Cocktail> Cocktails { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<AppEvent> Events { get; set; }
-        public DbSet<EventCount> EventCount { get; set; }
     }
 }

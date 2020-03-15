@@ -8,7 +8,6 @@ using Microsoft.Extensions.Hosting;
 using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
-using NetCoreCqrsESdemo.BusinessLogic.Tests;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.IO;

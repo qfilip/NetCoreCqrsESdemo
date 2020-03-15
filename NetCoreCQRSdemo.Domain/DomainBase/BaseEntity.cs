@@ -9,6 +9,6 @@ namespace NetCoreCQRSdemo.Domain
             Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
-        public string CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

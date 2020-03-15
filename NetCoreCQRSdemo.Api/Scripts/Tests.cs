@@ -1,17 +1,16 @@
 ﻿using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
-namespace NetCoreCqrsESdemo.BusinessLogic.Tests
+namespace NetCoreCQRSdemo.Api.Scripts
 {
-    public class Seed
+    public class Tests
     {
         private readonly ApplicationDbContext _context;
-        public Seed(ApplicationDbContext context)
+        public Tests(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -20,9 +19,6 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Tests
         {
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
-
-            var eCount = new EventCount { CurrentCount = 0 };
-            _context.EventCount.Add(eCount);
 
             var rand = new Random();
             var names = new string[] { "Moscow Mule", "Dark n Stormy", "Negroni" };
@@ -46,7 +42,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Tests
                 {
                     Name = names[i],
                     Strength = rand.Next(0, 101),
-                    CreatedOn = DateTime.Now.ToString()
+                    CreatedOn = DateTime.Now
                 };
 
                 var cIngs = ings.Skip(i * 3).Take(3).ToList();
@@ -56,7 +52,23 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Tests
                 _context.Cocktails.AddRange(c);
             }
 
+            var @event = new AppEvent()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Arguments = "testargs",
+                CommandCode = 0,
+                CreatedOn = DateTime.Now
+            };
+
+            _context.Events.Add(@event);
+
             return _context.SaveChanges();
+        }
+
+
+        public void GetEvent()
+        {
+            var @event = _context.Events.FirstOrDefault();
         }
     }
 }

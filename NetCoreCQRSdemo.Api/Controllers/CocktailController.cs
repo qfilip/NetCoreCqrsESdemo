@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreCQRSdemo.Api.Scripts;
 using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Commands;
@@ -24,6 +25,14 @@ namespace NetCoreCQRSdemo.Api.Controllers
         {
             _mediator = mediator;
             _context = context;
+        }
+
+        [HttpGet]
+        [Route("seed")]
+        public void SeedDatabase()
+        {
+            var t = new Tests(_context);
+            t.GetEvent();
         }
 
         [HttpGet]

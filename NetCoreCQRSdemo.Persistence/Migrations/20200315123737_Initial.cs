@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetCoreCQRSdemo.Persistence.Migrations
 {
@@ -11,10 +12,9 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     Arguments = table.Column<string>(nullable: true),
-                    CommandCode = table.Column<int>(nullable: false),
-                    OrderNumber = table.Column<int>(nullable: false)
+                    CommandCode = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,7 +26,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Strength = table.Column<int>(nullable: false)
                 },
@@ -36,24 +36,11 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventCount",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
-                    CurrentCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventCount", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Ingredient",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
                     CocktailId = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
@@ -92,9 +79,6 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AppEvent");
-
-            migrationBuilder.DropTable(
-                name: "EventCount");
 
             migrationBuilder.DropTable(
                 name: "Ingredient");

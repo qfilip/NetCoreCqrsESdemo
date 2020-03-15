@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreCQRSdemo.Domain", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreCQRSdemo.Persistence", "NetCoreCQRSdemo.Persistence\NetCoreCQRSdemo.Persistence.csproj", "{A86FD824-A07C-4B52-8550-60A8F85FCA36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreCqrsESdemo.BusinessLogic", "NetCoreCqrsESdemo.BusinessLogic\NetCoreCqrsESdemo.BusinessLogic.csproj", "{360FD089-0EE6-4C19-B34B-8D7A8470E8A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreCqrsESdemo.BusinessLogic", "NetCoreCqrsESdemo.BusinessLogic\NetCoreCqrsESdemo.BusinessLogic.csproj", "{360FD089-0EE6-4C19-B34B-8D7A8470E8A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

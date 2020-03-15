@@ -6,6 +6,7 @@ using NetCoreCQRSdemo.Domain.Mapping;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,16 +24,13 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
         public abstract TDto DeserializeArguments<TDto>(string args) where TDto : BaseDto;
         public async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand
         {
-            var counter = await dbContext.EventCount.FirstOrDefaultAsync();
-
             var @event = new AppEvent()
             {
+                Id = Guid.NewGuid().ToString(),
                 Arguments = command.SerializeArguments(),
                 CommandCode = (typeof(TCommand)).GetHashCode(),
-                OrderNumber = counter.CurrentCount++
+                CreatedOn = DateTime.Now
             };
-
-            counter.CurrentCount += 1;
             
             await dbContext.Events.AddAsync(@event);
             await dbContext.SaveChangesAsync();
