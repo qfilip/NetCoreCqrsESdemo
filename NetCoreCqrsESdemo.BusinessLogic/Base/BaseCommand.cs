@@ -21,7 +21,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
         }
 
         public abstract string SerializeArguments();
-        public abstract TDto DeserializeArguments<TDto>(string args) where TDto : BaseDto;
+        public abstract TDto DeserializeArguments<TDto>(string args) where TDto : BaseDto, new();
         public async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand
         {
             var @event = new AppEvent()

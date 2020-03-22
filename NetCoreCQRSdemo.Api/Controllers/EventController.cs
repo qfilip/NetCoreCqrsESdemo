@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Commands.SnapshotCommands;
 using NetCoreCqrsESdemo.BusinessLogic.Queries.EventQueries;
 using System;
 using System.Collections.Generic;
@@ -35,5 +36,12 @@ namespace NetCoreCQRSdemo.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("clear")]
+        public async Task<IActionResult> ClearEvents()
+        {
+            var result = await _mediator.Send(new SetInitialStateCommand(_context));
+            return Ok(result);
+        }
     }
 }

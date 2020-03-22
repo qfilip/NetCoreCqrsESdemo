@@ -2,6 +2,9 @@
 {
     public enum eCommand
     {
-        CreateCocktailCommand
+        CreateCocktailCommand,
+        DeleteCocktailCommand,
+
+        SetInitialStateCommand
     }
 }
