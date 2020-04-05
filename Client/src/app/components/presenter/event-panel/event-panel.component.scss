@@ -22,3 +22,7 @@
         color: red;
     }
 }
+
+.disabled > * {
+    color: grey !important;
+}

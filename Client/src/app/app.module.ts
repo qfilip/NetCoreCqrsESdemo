@@ -14,6 +14,7 @@ import { PageLoaderComponent } from './shared/page-loader/page-loader.component'
 import { PageLoaderService } from './services/page-loader.service';
 import { FormsModule } from '@angular/forms';
 import { EventPanelComponent } from './components/presenter/event-panel/event-panel.component';
+import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EventPanelComponent } from './components/presenter/event-panel/event-pa
     PresenterComponent,
     CocktailComponent,
     PageLoaderComponent,
-    EventPanelComponent
+    EventPanelComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

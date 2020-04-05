@@ -1,12 +1,21 @@
 <div class="event-panel">
-    <h3 class="w3-center">Event Collection</h3>
-    <hr/>
-
-    <div *ngIf="dataLoaded" class="w3-container w3-center">
-        <div class="w3-container event-container">
-            <span *ngFor="let event of events; let i = index" class="event-block">
-                event number: {{ i }}
-            </span>
+    <div>
+        <h3 class="w3-center">Database Event Collection</h3>
+        <hr/>
+    
+        <div *ngIf="dataLoaded" class="w3-container w3-center">
+            <div class="w3-container event-container">
+                <span *ngFor="let event of events; let i = index" class="event-block">
+                    event number: {{ i }}
+                </span>
+            </div>
         </div>
     </div>
+    
+    <div [ngClass]="{ disabled: !localChangesEnabled }">
+        <h3 class="w3-center">Local unsaved Changes</h3>
+        <hr/>
+    </div>
+
+
 </div>

@@ -3,9 +3,11 @@
 //     the code is regenerated.
 
 export enum eCommand { 
-	CreateCocktailCommand = 0
+	CreateCocktailCommand = 0, 
+	DeleteCocktailCommand = 1, 
+	SetInitialStateCommand = 2
 }
-export enum eCommandRunType { 
-	RunOnChange = 0, 
+export enum eSaveChangeType { 
+	Single = 0, 
 	Batch = 1
 }

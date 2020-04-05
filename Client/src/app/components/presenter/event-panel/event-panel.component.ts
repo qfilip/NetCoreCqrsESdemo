@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { IAppEventDto } from "src/app/_generated/interfaces";
 import { ApiService } from 'src/app/services/api.service';
+import { eSaveChangeType } from 'src/app/_generated/enums';
 
 @Component({
   selector: "app-event-panel",
@@ -10,6 +11,9 @@ import { ApiService } from 'src/app/services/api.service';
 export class EventPanelComponent implements OnInit {
   dataLoaded = false;
   events: IAppEventDto[];
+  localChangesDisabled = true;
+
+  @Input() localChangesEnabled: boolean = false;
   
   constructor(private api: ApiService) {}
 
