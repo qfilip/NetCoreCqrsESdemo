@@ -11,9 +11,10 @@ import { EventPanelComponent } from './event-panel/event-panel.component';
     styleUrls: ["./presenter.component.scss"]
 })
 export class PresenterComponent implements OnInit {
+    toggleButtonMesage = 'Turn batch save on';
     dataLoaded = false;
     cocktails: ICocktailDto[];
-    savingType: eSaveChangeType;
+    savingType: eSaveChangeType = eSaveChangeType.Single;
     saveBtnEnabled = false;
 
     _eConvert = eSaveChangeType;
@@ -23,8 +24,6 @@ export class PresenterComponent implements OnInit {
     constructor(private api: ApiService, private loader: PageLoaderService) { }
 
     ngOnInit(): void {
-        this.savingType = eSaveChangeType.Single;
-
         this.loader.show();
         this.api.getAllCocktails().subscribe(response => {
             this.cocktails = response;
@@ -34,13 +33,17 @@ export class PresenterComponent implements OnInit {
     }
 
     toggleSavingType() {
+        let state;
         if (this.savingType === eSaveChangeType.Single) {
             this.savingType = eSaveChangeType.Batch;
             this.saveBtnEnabled = true;
+            state = 'off';
         } else {
             this.savingType = eSaveChangeType.Single;
             this.saveBtnEnabled = false;
+            state = 'on';
         }
+        this.toggleButtonMesage = `Turn batch save ${state}`;
     }
 
     createCocktail() {

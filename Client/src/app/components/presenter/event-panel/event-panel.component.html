@@ -12,7 +12,7 @@
         </div>
     </div>
     
-    <div [ngClass]="{ disabled: localChangesEnabled }">
+    <div [ngClass]="{ disabled: !localChangesEnabled }">
         <h3 class="w3-center">Local unsaved Changes</h3>
         <hr/>
     </div>
