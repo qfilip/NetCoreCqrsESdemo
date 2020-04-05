@@ -16,7 +16,7 @@
         <div>
             <div *ngFor="let ingredient of cocktail.ingredients">
                 <div>{{ ingredient.name }}</div>
-                <input type="text" [(ngModel)]="ingredient.amount" />
+                <progress max="10" [value]="ingredient.amount"></progress>
             </div>
         </div>
     </details>

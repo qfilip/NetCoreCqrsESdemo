@@ -4,28 +4,28 @@ import { ApiService } from 'src/app/services/api.service';
 import { eSaveChangeType } from 'src/app/_generated/enums';
 
 @Component({
-  selector: "app-event-panel",
-  templateUrl: "./event-panel.component.html",
-  styleUrls: ["./event-panel.component.scss"]
+    selector: "app-event-panel",
+    templateUrl: "./event-panel.component.html",
+    styleUrls: ["./event-panel.component.scss"]
 })
 export class EventPanelComponent implements OnInit {
-  dataLoaded = false;
-  events: IAppEventDto[];
-  localChangesDisabled = true;
+    dataLoaded = false;
+    events: IAppEventDto[];
+    localChangesDisabled = true;
 
-  @Input() localChangesEnabled: boolean = false;
-  
-  constructor(private api: ApiService) {}
+    @Input() localChangesEnabled: boolean = false;
 
-  ngOnInit() {
-    this.getEvents();
-  }
+    constructor(private api: ApiService) { }
 
-  getEvents() {
-    this.api.getAllEvents()
-    .subscribe(result => {
-        this.events = result;
-        this.dataLoaded = true;
-    })
-  }
+    ngOnInit() {
+        this.getEvents();
+    }
+
+    getEvents() {
+        this.api.getAllEvents()
+            .subscribe(result => {
+                this.events = result;
+                this.dataLoaded = true;
+            })
+    }
 }
