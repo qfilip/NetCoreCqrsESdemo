@@ -4,9 +4,9 @@ using System.Text;
 
 namespace NetCoreCQRSdemo.Domain.Enumerations
 {
-    public enum eCommandRunType
+    public enum eSaveChangeType
     {
-        RunOnChange,
+        Single,
         Batch
     }
 }

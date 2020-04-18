@@ -12,10 +12,10 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
     public abstract class BaseHandler<TRequest, TResponse> : IRequestHandler<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
-        protected readonly AppMapper _appMapper;
+        protected readonly ManualMapper _appMapper;
         public BaseHandler()
         {
-            _appMapper = new AppMapper();
+            _appMapper = new ManualMapper();
         }
 
         public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);

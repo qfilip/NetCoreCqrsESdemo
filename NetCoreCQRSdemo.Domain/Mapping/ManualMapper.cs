@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace NetCoreCQRSdemo.Domain.Mapping
 {
-    public class AppMapper
+    public class ManualMapper
     {
         #region TO_ENTITIES
         public Cocktail ToEntity(CocktailDto dto)
