@@ -7,8 +7,7 @@ namespace NetCoreCQRSdemo.Persistence.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            //base.Database.EnsureDeleted();
-            //base.Database.Migrate();
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

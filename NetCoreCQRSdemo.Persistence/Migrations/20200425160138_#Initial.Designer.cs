@@ -9,7 +9,7 @@ using NetCoreCQRSdemo.Persistence.Context;
 namespace NetCoreCQRSdemo.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200315123737_Initial")]
+    [Migration("20200425160138_#Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,32 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
                     b.ToTable("AppEvent");
                 });
 
             modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.Cocktail", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Cocktail");
+                });
+
+            modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.Ingredient", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -56,10 +78,10 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Cocktail");
+                    b.ToTable("Ingredient");
                 });
 
-            modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.Ingredient", b =>
+            modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.RecipeExcerpt", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
@@ -73,10 +95,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UnitOfMeasure")
+                    b.Property<string>("IngredientId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -86,14 +105,20 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Ingredient");
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("RecipeExcerpt");
                 });
 
-            modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.Ingredient", b =>
+            modelBuilder.Entity("NetCoreCQRSdemo.Domain.Entities.RecipeExcerpt", b =>
                 {
                     b.HasOne("NetCoreCQRSdemo.Domain.Entities.Cocktail", "Cocktail")
-                        .WithMany("Ingredients")
+                        .WithMany("Excerpts")
                         .HasForeignKey("CocktailId");
+
+                    b.HasOne("NetCoreCQRSdemo.Domain.Entities.Ingredient", "Ingredient")
+                        .WithMany("Excerpts")
+                        .HasForeignKey("IngredientId");
                 });
 #pragma warning restore 612, 618
         }

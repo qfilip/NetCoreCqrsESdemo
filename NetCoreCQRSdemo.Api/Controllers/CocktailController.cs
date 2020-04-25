@@ -32,7 +32,8 @@ namespace NetCoreCQRSdemo.Api.Controllers
         public void SeedDatabase()
         {
             var t = new Tests(_context);
-            t.GetEvent();
+            t.SeedDb();
+            // t.GetEvent();
         }
 
         [HttpGet]
