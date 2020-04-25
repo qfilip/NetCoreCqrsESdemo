@@ -7,15 +7,15 @@ import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { IndexComponent } from "./components/index/index.component";
-import { PresenterComponent } from './components/presenter/presenter.component';
 import { ApiService } from './services/api.service';
-import { CocktailComponent } from './components/presenter/cocktail/cocktail.component';
 import { PageLoaderComponent } from './shared/page-loader/page-loader.component';
 import { PageLoaderService } from './services/page-loader.service';
 import { FormsModule } from '@angular/forms';
-import { EventPanelComponent } from './components/presenter/event-panel/event-panel.component';
 import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.component';
-import { CreateCocktailDialog } from './components/presenter/cocktail/create-cocktail-dialog/create-cocktail-dialog.component';
+import { NavPanelComponent } from './components/nav-panel/nav-panel.component';
+import { CocktailsComponent } from './components/app-components/cocktails/cocktails.component';
+import { IngredientsComponent } from './components/app-components/ingredients/ingredients.component';
+import { EventsComponent } from './components/app-components/events/events.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +23,13 @@ import { CreateCocktailDialog } from './components/presenter/cocktail/create-coc
     HeaderComponent,
     FooterComponent,
     IndexComponent,
-    PresenterComponent,
-    CocktailComponent,
     PageLoaderComponent,
-    EventPanelComponent,
     ConfirmModalComponent,
-    CreateCocktailDialog
+    NavPanelComponent,
+    
+    CocktailsComponent,
+    IngredientsComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,

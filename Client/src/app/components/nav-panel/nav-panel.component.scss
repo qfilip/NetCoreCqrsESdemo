@@ -1,0 +1,30 @@
+@import '../../../styles.scss';
+
+.nav-wrapper {
+    position: absolute;
+    float: left;
+    min-height: 90vh;
+    width: 10px;
+    opacity: 0;
+    transition: .5s;
+    background: $background-dark;
+    color: white;
+
+    &:hover {
+        width: 200px;
+        opacity: 1;
+    }
+}
+
+.nav-content {
+    margin: auto 0 0 0;
+    min-height: inherit;
+    width: 95%;
+    margin: auto;
+}
+
+.nav-btn {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: $text-default;
+}

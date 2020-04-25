@@ -1,6 +1,7 @@
-.header-container > div {
+.header-container > h1 {
     border-bottom: 4px solid black;
-    font-size: 1.5rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
     transition: .5s;
 
     &:hover {

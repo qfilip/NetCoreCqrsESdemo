@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 .index-container {
     margin-top: 5%;
 }
@@ -6,4 +8,8 @@
     padding: 5px;
     font-size: larger;
     font-weight: bolder;
+}
+
+u {
+    color: $text-highlighted;
 }

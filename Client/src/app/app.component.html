@@ -1,5 +1,16 @@
 <app-page-loader></app-page-loader>
 <div class="app-background w3-dark-grey">
-  <app-header></app-header>
-  <router-outlet></router-outlet>
+
+    <app-header (onClicked)="updateCurrentRoute($event)">
+    </app-header>
+
+    <div class="w3-center">
+        <h3>{{ currentRoute }}</h3>
+        <hr />
+    </div>
+
+    <nav-panel (onClicked)="updateCurrentRoute($event)">
+    </nav-panel>
+
+    <router-outlet></router-outlet>
 </div>

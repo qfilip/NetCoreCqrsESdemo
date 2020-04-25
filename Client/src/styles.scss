@@ -1,14 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+/*colors*/
+$text-default: whitesmoke;
+$text-highlighted: yellow;
+
+$background-dark: #444;
+
 .btn {
-    border: transparent;
+    border: 2px solid transparent;
+    border-top: 2px solid silver;
+    border-bottom: 2px solid silver;
+    background: transparent;
+
     transition: .2s;
     &:focus {
         outline: transparent;
     }
     &:hover {
         background-color: black;
-        color: white;
+        color: orangered;
+        border-top: 2px solid orangered;
+        border-bottom: 2px solid orangered;
     }
     cursor: pointer;
 }
