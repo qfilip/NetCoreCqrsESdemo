@@ -24,7 +24,7 @@ export interface IIngredientDto extends IBaseDto
 }
 export interface IRecipeExcerptDto extends IBaseDto
 {
-	cocktailId: any;
-	ingredientId: any;
+	cocktailId: string;
+	ingredientId: string;
 	amount: number;
 }
