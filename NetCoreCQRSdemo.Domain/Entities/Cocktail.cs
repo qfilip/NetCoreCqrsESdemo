@@ -7,10 +7,9 @@ namespace NetCoreCQRSdemo.Domain.Entities
     {
         public Cocktail()
         {
-            Ingredients = new HashSet<Ingredient>();
+            Excerpts = new HashSet<RecipeExcerpt>();
         }
         public string Name { get; set; }
-        public int Strength { get; set; }
-        public ICollection<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<RecipeExcerpt> Excerpts { get; set; }
     }
 }

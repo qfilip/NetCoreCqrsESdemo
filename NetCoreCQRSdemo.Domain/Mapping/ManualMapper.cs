@@ -1,5 +1,6 @@
 ﻿using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,15 +8,13 @@ namespace NetCoreCQRSdemo.Domain.Mapping
 {
     public class ManualMapper
     {
-        #region TO_ENTITIES
         public Cocktail ToEntity(CocktailDto dto)
         {
             var entity = new Cocktail
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                Strength = dto.Strength,
-                Ingredients = ToEntities(dto.Ingredients).ToList()
+                Excerpts = MapRelations(dto.Excerpts, ToEntity).ToList()
             };
 
             return entity;
@@ -25,104 +24,83 @@ namespace NetCoreCQRSdemo.Domain.Mapping
             return new Ingredient()
             {
                 Id = dto.Id,
-                CocktailId = dto.CocktailId,
-                Amount = dto.Amount,
                 Name = dto.Name,
-                UnitOfMeasure = dto.UnitOfMeasure
+                Strength = dto.Strength,
+                Excerpts = MapRelations(dto.Excerpts, ToEntity).ToList()
             };
         }
-        
-        public IEnumerable<Cocktail> ToEntities(IEnumerable<CocktailDto> dtos)
+        public RecipeExcerpt ToEntity(RecipeExcerptDto dto)
         {
-            var entites = new List<Cocktail>();
-            foreach (var dto in dtos)
+            return new RecipeExcerpt()
             {
-                var entity = ToEntity(dto);
-                entites.Add(entity);
-            }
-
-            return entites;
+                Id = dto.Id,
+                CocktailId = dto.CocktailId,
+                IngredientId = dto.IngredientId,
+                Amount = dto.Amount
+            };
         }
-        public IEnumerable<Ingredient> ToEntities(IEnumerable<IngredientDto> dtos)
+        public AppEvent ToEntity(AppEventDto dto)
         {
-            var entites = new List<Ingredient>();
-            foreach (var dto in dtos)
+            return new AppEvent()
             {
-                var entity = ToEntity(dto);
-                entites.Add(entity);
-            }
-
-            return entites;
+                Id = dto.Id,
+                Arguments = dto.Arguments,
+                CommandCode = dto.CommandCode
+            };
         }
-        #endregion
 
-        #region TO_DTOS
-        public CocktailDto ToDto(Cocktail cocktail)
+        public CocktailDto ToDto(Cocktail entity)
         {
             var dto = new CocktailDto
             {
-                Id = cocktail.Id,
-                Name = cocktail.Name,
-                Strength = cocktail.Strength,
-                Ingredients = ToDtos(cocktail.Ingredients).ToList(),
+                Id = entity.Id,
+                Name = entity.Name,
+                Excerpts = MapRelations(entity.Excerpts, ToDto).ToList(),
             };
 
             return dto;
         }
-        public IngredientDto ToDto(Ingredient ingredient)
+        public IngredientDto ToDto(Ingredient entity)
         {
             var dto = new IngredientDto
             {
-                Id = ingredient.Id,
-                CocktailId = ingredient.CocktailId,
-                Name = ingredient.Name,
-                Amount = ingredient.Amount,
-                UnitOfMeasure = ingredient.UnitOfMeasure
+                Id = entity.Id,
+                Name = entity.Name,
+                Strength = entity.Strength,
+                Excerpts = MapRelations(entity.Excerpts, ToDto).ToList()
             };
 
             return dto;
         }
-        public AppEventDto ToDto(AppEvent appEvent)
+        public RecipeExcerptDto ToDto(RecipeExcerpt entity)
+        {
+            return new RecipeExcerptDto()
+            {
+                Id = entity.Id,
+                CocktailId = entity.CocktailId,
+                IngredientId = entity.IngredientId,
+                Amount = entity.Amount
+            };
+        }
+        public AppEventDto ToDto(AppEvent entity)
         {
             return new AppEventDto()
             {
-                Id = appEvent.Id,
-                Arguments = appEvent.Arguments,
-                CommandCode = appEvent.CommandCode
+                Id = entity.Id,
+                Arguments = entity.Arguments,
+                CommandCode = entity.CommandCode
             };
         }
-        
-        public IEnumerable<CocktailDto> ToDtos(IEnumerable<Cocktail> cocktails)
+
+        public IEnumerable<TResult> MapRelations<TInput, TResult>(IEnumerable<TInput> inputs, Func<TInput, TResult> mapDefinition)
         {
-            var dtos = new List<CocktailDto>();
-            foreach (var cocktail in cocktails)
+            var resultSet = new List<TResult>();
+            foreach(var input in inputs)
             {
-                dtos.Add(ToDto(cocktail));
+                resultSet.Add(mapDefinition.Invoke(input));
             }
 
-            return dtos;
+            return resultSet;
         }
-        public IEnumerable<IngredientDto> ToDtos(IEnumerable<Ingredient> ingredients)
-        {
-            var dtos = new List<IngredientDto>();
-            foreach(var ingredient in ingredients)
-            {
-                dtos.Add(ToDto(ingredient));
-            }
-
-            return dtos;
-        }
-        public IEnumerable<AppEventDto> ToDtos(IEnumerable<AppEvent> appEvents)
-        {
-            var dtos = new List<AppEventDto>();
-            foreach(var appEvent in appEvents)
-            {
-                var dto = ToDto(appEvent);
-                dtos.Add(dto);
-            }
-            
-            return dtos;
-        }
-        #endregion
     }
 }

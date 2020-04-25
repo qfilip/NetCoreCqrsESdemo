@@ -21,3 +21,14 @@
         outline: transparent;
     }
 }
+
+.dialog {
+    z-index: 999;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    background-color: rgba(0,0,0,.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

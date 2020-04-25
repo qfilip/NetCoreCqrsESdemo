@@ -1,14 +1,16 @@
 ﻿using NetCoreCQRSdemo.Domain.Dtos;
+using System.Collections.Generic;
 
 namespace NetCoreCQRSdemo.Domain.Entities
 {
     public class Ingredient : BaseEntity
     {
-        public string CocktailId { get; set; }
+        public Ingredient()
+        {
+            Excerpts = new HashSet<RecipeExcerpt>();
+        }
         public string Name { get; set; }
-        public int Amount { get; set; }
-        public string UnitOfMeasure { get; set; }
-
-        public virtual Cocktail Cocktail { get; set; }
+        public int Strength { get; set; }
+        public virtual ICollection<RecipeExcerpt> Excerpts { get; set; }
     }
 }

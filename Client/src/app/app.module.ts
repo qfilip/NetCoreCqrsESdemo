@@ -15,6 +15,7 @@ import { PageLoaderService } from './services/page-loader.service';
 import { FormsModule } from '@angular/forms';
 import { EventPanelComponent } from './components/presenter/event-panel/event-panel.component';
 import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.component';
+import { CreateCocktailDialog } from './components/presenter/cocktail/create-cocktail-dialog/create-cocktail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.comp
     CocktailComponent,
     PageLoaderComponent,
     EventPanelComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    CreateCocktailDialog
   ],
   imports: [
     BrowserModule,
