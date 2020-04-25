@@ -22,10 +22,11 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries
         public async override Task<List<CocktailDto>> Handle(GetAllCocktailsQuery request, CancellationToken cancellationToken)
         {
             var result = await request.context.Cocktails
-                .Include(x => x.Ingredients)
+                .Include(x => x.Excerpts)
+                    .ThenInclude(x => x.Ingredient)
                 .ToListAsync();
 
-            return _appMapper.ToDtos(result).ToList();
+            return _appMapper.MultiMap(result, _appMapper.ToDto).ToList();
         }
     }
 }

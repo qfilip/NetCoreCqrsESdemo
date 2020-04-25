@@ -14,13 +14,17 @@ export interface IAppEventDto extends IBaseDto
 export interface ICocktailDto extends IBaseDto
 {
 	name: string;
-	strength: number;
-	ingredients: IIngredientDto[];
+	excerpts: IRecipeExcerptDto[];
 }
 export interface IIngredientDto extends IBaseDto
 {
-	cocktailId: string;
 	name: string;
+	strength: number;
+	excerpts: IRecipeExcerptDto[];
+}
+export interface IRecipeExcerptDto extends IBaseDto
+{
+	cocktailId: any;
+	ingredientId: any;
 	amount: number;
-	unitOfMeasure: string;
 }

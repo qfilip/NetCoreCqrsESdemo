@@ -14,7 +14,7 @@ namespace NetCoreCQRSdemo.Domain.Mapping
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                Excerpts = MapRelations(dto.Excerpts, ToEntity).ToList()
+                Excerpts = MultiMap(dto.Excerpts, ToEntity).ToList()
             };
 
             return entity;
@@ -26,7 +26,7 @@ namespace NetCoreCQRSdemo.Domain.Mapping
                 Id = dto.Id,
                 Name = dto.Name,
                 Strength = dto.Strength,
-                Excerpts = MapRelations(dto.Excerpts, ToEntity).ToList()
+                Excerpts = MultiMap(dto.Excerpts, ToEntity).ToList()
             };
         }
         public RecipeExcerpt ToEntity(RecipeExcerptDto dto)
@@ -55,7 +55,7 @@ namespace NetCoreCQRSdemo.Domain.Mapping
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Excerpts = MapRelations(entity.Excerpts, ToDto).ToList(),
+                Excerpts = MultiMap(entity.Excerpts, ToDto).ToList(),
             };
 
             return dto;
@@ -67,7 +67,7 @@ namespace NetCoreCQRSdemo.Domain.Mapping
                 Id = entity.Id,
                 Name = entity.Name,
                 Strength = entity.Strength,
-                Excerpts = MapRelations(entity.Excerpts, ToDto).ToList()
+                Excerpts = MultiMap(entity.Excerpts, ToDto).ToList()
             };
 
             return dto;
@@ -92,7 +92,8 @@ namespace NetCoreCQRSdemo.Domain.Mapping
             };
         }
 
-        public IEnumerable<TResult> MapRelations<TInput, TResult>(IEnumerable<TInput> inputs, Func<TInput, TResult> mapDefinition)
+
+        public IEnumerable<TResult> MultiMap<TInput, TResult>(IEnumerable<TInput> inputs, Func<TInput, TResult> mapDefinition)
         {
             var resultSet = new List<TResult>();
             foreach(var input in inputs)

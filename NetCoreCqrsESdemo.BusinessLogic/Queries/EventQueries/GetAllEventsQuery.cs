@@ -25,7 +25,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries.EventQueries
                 .OrderBy(x => x.CreatedOn)
                 .ToListAsync();
 
-            return _appMapper.ToDtos(result).ToList();
+            return _appMapper.MultiMap(result, _appMapper.ToDto).ToList();
         }
     }
 }

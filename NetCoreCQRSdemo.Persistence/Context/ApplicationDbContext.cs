@@ -15,6 +15,7 @@ namespace NetCoreCQRSdemo.Persistence.Context
         {
             modelBuilder.Entity<Cocktail>().ToTable(nameof(Cocktail));
             modelBuilder.Entity<Ingredient>().ToTable(nameof(Ingredient));
+            modelBuilder.Entity<RecipeExcerpt>().ToTable(nameof(RecipeExcerpt));
             modelBuilder.Entity<AppEvent>().ToTable(nameof(AppEvent));
 
             modelBuilder.Entity<Cocktail>(e =>
@@ -27,14 +28,19 @@ namespace NetCoreCQRSdemo.Persistence.Context
             {
                 e.HasKey(e => e.Id);
                 e.HasIndex(e => e.Id).IsUnique();
-                e.HasOne(e => e.Cocktail);
+            });
+
+            modelBuilder.Entity<RecipeExcerpt>(e =>
+            {
+                e.HasKey(e => e.Id);
+                e.HasIndex(e => e.Id).IsUnique();
             });
 
             modelBuilder.Entity<AppEvent>(e =>
             {
                 e.HasKey(e => e.Id);
+                e.HasIndex(e => e.Id).IsUnique();
             });
-
 
             base.OnModelCreating(modelBuilder);
         }
@@ -42,6 +48,7 @@ namespace NetCoreCQRSdemo.Persistence.Context
         // DbSets
         public DbSet<Cocktail> Cocktails { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<RecipeExcerpt> Excerpts { get; set; }
         public DbSet<AppEvent> Events { get; set; }
     }
 }
