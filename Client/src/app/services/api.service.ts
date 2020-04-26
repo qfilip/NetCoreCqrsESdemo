@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as g from '../_notgenerated/globals';
 import { HttpClient } from '@angular/common/http';
-import { ICocktailDto, IAppEventDto } from '../_generated/interfaces';
+import { ICocktailDto, IAppEventDto, IIngredientDto } from '../_generated/interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
@@ -24,6 +24,13 @@ export class ApiService {
         return this.http.post<ICocktailDto>(url, cocktailDto);
     }
 
+
+    // Ingredients
+    getAllIngredients(): Observable<IIngredientDto[]> {
+        const url = g.ingredientController + g.all;
+        return this.http.get<IIngredientDto[]>(url);
+    }   
+    
     
     //events
     getAllEvents(): Observable<IAppEventDto[]> {

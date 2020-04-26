@@ -1,1 +1,6 @@
 <p>ingredients works!</p>
+<div *ngFor="let ingredient of ingredients">
+    <div>
+        <app-ingredient [ingredient]="ingredient"></app-ingredient>
+    </div>
+</div>

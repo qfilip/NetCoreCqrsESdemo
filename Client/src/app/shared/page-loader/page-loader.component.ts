@@ -12,12 +12,10 @@ import { PageLoaderInfo } from "src/app/_notgenerated/helpers";
 export class PageLoaderComponent implements OnInit, OnDestroy {
   constructor(private pageLoaderService: PageLoaderService) {}
 
-  status: PageLoaderInfo;
+  status: PageLoaderInfo = { loading: false, message: "Loading..." };
   unsubscribe: Subject<any> = new Subject();
 
   ngOnInit(): void {
-    this.status = { loading: false, message: "Loading..." } as PageLoaderInfo;
-
     this.pageLoaderService.pageLoaderState
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(status => {

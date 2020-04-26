@@ -30,7 +30,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EntityType")
+                    b.Property<int>("EntityStatus")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -49,7 +49,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EntityType")
+                    b.Property<int>("EntityStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -71,7 +71,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EntityType")
+                    b.Property<int>("EntityStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -102,7 +102,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EntityType")
+                    b.Property<int>("EntityStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("IngredientId")

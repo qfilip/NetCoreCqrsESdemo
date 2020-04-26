@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NetCoreCQRSdemo.Domain.Enumerations
 {
-    public enum eEntityType
+    public enum eEntityStatus
     {
         Active,
         Historical,

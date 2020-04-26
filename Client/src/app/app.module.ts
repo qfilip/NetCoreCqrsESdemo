@@ -16,6 +16,7 @@ import { NavPanelComponent } from './components/nav-panel/nav-panel.component';
 import { CocktailsComponent } from './components/app-components/cocktails/cocktails.component';
 import { IngredientsComponent } from './components/app-components/ingredients/ingredients.component';
 import { EventsComponent } from './components/app-components/events/events.component';
+import { IngredientComponent } from './components/app-components/ingredients/ingredient/ingredient.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EventsComponent } from './components/app-components/events/events.compo
     
     CocktailsComponent,
     IngredientsComponent,
-    EventsComponent
+    EventsComponent,
+    IngredientComponent
   ],
   imports: [
     BrowserModule,

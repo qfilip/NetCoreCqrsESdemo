@@ -5,7 +5,7 @@
 export interface IBaseDto
 {
 	id: string;
-	entityType: number;
+	entityStatus: number;
 	createdOn: any;
 }
 export interface IAppEventDto extends IBaseDto

@@ -12,6 +12,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    EntityStatus = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     Arguments = table.Column<string>(nullable: true),
                     CommandCode = table.Column<int>(nullable: false)
@@ -26,6 +27,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    EntityStatus = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
@@ -39,6 +41,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    EntityStatus = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Strength = table.Column<int>(nullable: false)
@@ -53,6 +56,7 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    EntityStatus = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     CocktailId = table.Column<string>(nullable: true),
                     IngredientId = table.Column<string>(nullable: true),

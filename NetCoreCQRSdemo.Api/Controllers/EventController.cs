@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreCQRSdemo.Api.Controllers.Base;
 using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Commands.SnapshotCommands;
@@ -13,20 +14,12 @@ using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
 {
-    [ApiController]
-    [EnableCors]
-    [AllowAnonymous]
     [Route("events")]
-    public class EventController : ControllerBase
+    public class EventController : BaseController
     {
-        private readonly IMediator _mediator;
-        private readonly ApplicationDbContext _context;
 
-        public EventController(IMediator mediator, ApplicationDbContext context)
-        {
-            _mediator = mediator;
-            _context = context;
-        }
+        public EventController(IMediator mediator, ApplicationDbContext context) : base(mediator, context)
+        {}
 
         [HttpGet]
         [Route("all")]

@@ -10,7 +10,7 @@ namespace NetCoreCQRSdemo.Domain
             Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
-        public eEntityType EntityType { get; set; }
+        public eEntityStatus EntityStatus { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using NetCoreCQRSdemo.Persistence.Context;
 namespace NetCoreCQRSdemo.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200425160138_#Initial")]
+    [Migration("20200426135451_#Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EntityStatus")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
@@ -47,6 +50,9 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("EntityStatus")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -66,6 +72,9 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("EntityStatus")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -94,6 +103,9 @@ namespace NetCoreCQRSdemo.Persistence.Migrations
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("EntityStatus")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("IngredientId")
                         .HasColumnType("TEXT");
