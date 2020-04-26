@@ -9,12 +9,13 @@ import { Router } from "@angular/router";
 export class HeaderComponent implements OnInit {
     constructor(private router: Router) { }
 
-    @Output('onClicked') onClicked: EventEmitter<string> = new EventEmitter(null);
+    activeTab: number = 0;
 
     ngOnInit(): void { }
 
-    public backToIndex() {
-        this.onClicked.emit('');
-        this.router.navigate(['']);
+    navigateTo(route: string, activeTab: number) {
+        this.activeTab = activeTab;
+        const navigateTo = `/${route}`;
+        this.router.navigate([navigateTo]);
     }
 }

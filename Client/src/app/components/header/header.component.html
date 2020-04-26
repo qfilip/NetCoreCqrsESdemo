@@ -1,5 +1,17 @@
-<div
-    (click)="backToIndex()"
-    class="header-container w3-container w3-center w3-black">
+<div class="header-container w3-container w3-center w3-black">
     <h1>Change Tracer</h1>
+    <div class="w3-row">
+        <div (click)="navigateTo('', 0)" class="w3-quarter nav-button" [ngClass]="{'active-tab': activeTab === 0}">
+            Index
+        </div>
+        <div (click)="navigateTo('cocktails', 1)" class="w3-quarter nav-button" [ngClass]="{'active-tab': activeTab === 1}">
+            Cocktails
+        </div>
+        <div (click)="navigateTo('ingredients', 2)" class="w3-quarter nav-button" [ngClass]="{'active-tab': activeTab === 2}">
+            Ingredients
+        </div>
+        <div (click)="navigateTo('events', 3)" class="w3-quarter nav-button" [ngClass]="{'active-tab': activeTab === 3}">
+            Events
+        </div>
+    </div>
 </div>

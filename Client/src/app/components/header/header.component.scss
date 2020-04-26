@@ -3,10 +3,29 @@
     margin-bottom: 0;
     padding-bottom: 0;
     transition: .5s;
+    color: orangered;
+}
 
-    &:hover {
-        cursor: pointer;
-        border-bottom: 4px solid orangered;
-        color: orangered;
+.nav-button {
+    border: 2px solid transparent;
+    background: transparent;
+
+    transition: .2s;
+    &:focus {
+        outline: transparent;
     }
+    &:hover {
+        background-color: black;
+        color: orangered;
+        border-top: 2px solid orangered;
+        border-bottom: 2px solid orangered;
+    }
+    cursor: pointer;
+}
+
+.active-tab {
+    background-color: black;
+    color: orangered;
+    border-top: 2px solid orangered;
+    border-bottom: 2px solid orangered;
 }
