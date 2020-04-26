@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Commands
 {
-    public class CreateCocktailCommand : BaseCommand, IRequest<CocktailDto>
+    public class CreateCocktailCommand : BaseCommand<CocktailDto>
     {
         public CocktailDto Dto;
         public CreateCocktailCommand(ApplicationDbContext dbContext, CocktailDto dto) : base(dbContext)
@@ -17,7 +17,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands
             Dto = dto;
         }
 
-        public override CocktailDto DeserializeArguments<CocktailDto>(string args)
+        public override CocktailDto DeserializeArguments(string args)
         {
             return JsonConvert.DeserializeObject<CocktailDto>(args);
         }

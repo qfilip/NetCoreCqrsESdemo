@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreCQRSdemo.Api.Controllers.Base;
 using NetCoreCQRSdemo.Api.Scripts;
 using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
@@ -12,20 +13,11 @@ using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
 {
-    [ApiController]
-    [EnableCors]
-    [AllowAnonymous]
     [Route("cocktails")]
-    public class CocktailController : ControllerBase
+    public class CocktailController : BaseController
     {
-        private readonly IMediator _mediator;
-        private readonly ApplicationDbContext _context;
-
-        public CocktailController(IMediator mediator, ApplicationDbContext context)
-        {
-            _mediator = mediator;
-            _context = context;
-        }
+        public CocktailController(IMediator mediator, ApplicationDbContext context) : base(mediator, context)
+        {}
 
         [HttpGet]
         [Route("seed")]
@@ -33,7 +25,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         {
             var t = new Tests(_context);
             t.SeedDb();
-            // t.GetEvent();
         }
 
         [HttpGet]

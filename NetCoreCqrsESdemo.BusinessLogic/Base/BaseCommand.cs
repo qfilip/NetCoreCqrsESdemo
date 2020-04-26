@@ -12,17 +12,15 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
-    public abstract class BaseCommand
+    public abstract class BaseCommand<TRequest> : BaseCommandGeneric, IRequest<TRequest>
     {
-        public ApplicationDbContext dbContext;
-        public BaseCommand(ApplicationDbContext dbContext)
+        public BaseCommand(ApplicationDbContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
         public abstract string SerializeArguments();
-        public abstract TDto DeserializeArguments<TDto>(string args) where TDto : BaseDto, new();
-        public async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand
+        public abstract TRequest DeserializeArguments(string args);
+        public async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand<TRequest>
         {
             var @event = new AppEvent()
             {

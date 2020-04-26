@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Commands.SnapshotCommands
 {
-    public class SetInitialStateCommand : BaseCommand, IRequest<SimpleResponse>
+    public class SetInitialStateCommand : BaseCommand<SimpleResponse>
     {
         public List<CocktailDto> Dtos;
         public SetInitialStateCommand(ApplicationDbContext dbContext) : base(dbContext) { }
 
-        public override SimpleResponse DeserializeArguments<SimpleResponse>(string args)
+        public override SimpleResponse DeserializeArguments(string args)
         {
-            return new SimpleResponse() { Id = Guid.NewGuid().ToString() };
+            return new SimpleResponse();
         }
 
         public override string SerializeArguments()

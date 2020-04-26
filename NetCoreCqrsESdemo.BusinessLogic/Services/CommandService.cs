@@ -17,7 +17,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
             var commands = AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.IsSubclassOf(typeof(BaseCommand)));
+                .Where(type => type.IsSubclassOf(typeof(BaseCommandGeneric)));
 
             _appCommands = new Dictionary<int, Type>();
             _appCommandsEnumerated = new Dictionary<eCommand, int>();

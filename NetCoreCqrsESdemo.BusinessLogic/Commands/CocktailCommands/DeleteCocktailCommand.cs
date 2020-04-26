@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Commands
 {
-    public class DeleteCocktailCommand : BaseCommand, IRequest<CocktailDto>
+    public class DeleteCocktailCommand : BaseCommand<CocktailDto>
     {
         public CocktailDto Dto;
         public DeleteCocktailCommand(ApplicationDbContext dbContext, CocktailDto dto) : base(dbContext)
@@ -21,7 +21,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands
             Dto = dto;
         }
 
-        public override CocktailDto DeserializeArguments<CocktailDto>(string args)
+        public override CocktailDto DeserializeArguments(string args)
         {
             return JsonConvert.DeserializeObject<CocktailDto>(args);
         }
