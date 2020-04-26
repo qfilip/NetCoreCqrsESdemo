@@ -16,6 +16,7 @@ import { CocktailsComponent } from './components/app-components/cocktails/cockta
 import { IngredientsComponent } from './components/app-components/ingredients/ingredients.component';
 import { EventsComponent } from './components/app-components/events/events.component';
 import { IngredientComponent } from './components/app-components/ingredients/ingredient/ingredient.component';
+import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient-dialog';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { IngredientComponent } from './components/app-components/ingredients/ing
     CocktailsComponent,
     IngredientsComponent,
     EventsComponent,
-    IngredientComponent
+    IngredientComponent,
+    CreateIngredientDialog
   ],
   imports: [
     BrowserModule,

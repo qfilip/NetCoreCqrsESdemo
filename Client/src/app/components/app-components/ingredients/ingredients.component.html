@@ -1,6 +1,30 @@
-<p>ingredients works!</p>
-<div *ngFor="let ingredient of ingredients">
-    <div>
-        <app-ingredient [ingredient]="ingredient"></app-ingredient>
+<div class="w3-container">
+    <div class="w3-row">
+        <div class="w3-twothird">
+            <h3 class="w3-center">List of ingredients</h3>
+            <hr/>
+
+            <div *ngFor="let ingredient of ingredients">
+                <app-ingredient [ingredient]="ingredient"></app-ingredient>
+            </div>
+            <div>
+                <button
+                    (click)="openCreateDialog()" 
+                    class="outln w3-circle">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="w3-third">
+            <h3 class="w3-center">Local changes</h3>
+            <hr/>
+            <div>
+                <button>Save Changes</button>
+            </div>
+        </div>
     </div>
 </div>
+
+<app-create-ingredient-dialog #acid></app-create-ingredient-dialog>
