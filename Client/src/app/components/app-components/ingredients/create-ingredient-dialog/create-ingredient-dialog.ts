@@ -1,29 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { IIngredientDto } from 'src/app/_generated/interfaces';
 
 @Component({
     selector: 'app-create-ingredient-dialog',
     templateUrl: './create-ingredient-dialog.html',
     styleUrls: ['./create-ingredient-dialog.scss']
 })
-export class CreateIngredientDialog implements OnInit {
-    visible: boolean;
+export class CreateIngredientDialog {
+    visible = false;
+    errorMessage = '';
+    ingredient: IIngredientDto;
+
+    @Output('onConfirmed') emitter = new EventEmitter<IIngredientDto>();
     
     constructor() {
-        this.visible = false;
-    }
-    
-    ngOnInit(): void {
+        this.reset();
     }
 
-    protected onConfirm() {
+    onConfirm() {
+        if(this.ingredient.name.length > 0) {
+            this.emitter.emit(this.ingredient);
+            this.reset();
+            this.visible = false;
+            return;
+        }
 
+        this.errorMessage = 'Ingredient name cannot be empty';
     }
 
-    protected onCLose() {
+    onClose() {
         this.visible = false;
     }
 
     open() {
+        this.reset();
         this.visible = true;
+    }
+
+    private reset() {
+        this.ingredient = { name: '', strength: 0 } as IIngredientDto;
+        this.errorMessage = '';
     }
 }

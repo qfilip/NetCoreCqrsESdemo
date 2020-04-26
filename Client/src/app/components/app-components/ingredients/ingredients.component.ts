@@ -40,11 +40,6 @@ export class IngredientsComponent implements OnInit {
 
     openCreateDialog() {
         this.createDialog.open();
-        // console.log('here')
-        // const ing = {
-        //     name: 'Fuck'
-        // } as IIngredientDto;
-        // this.dialogService.openCreateIngredientDialog(ing);
     }
 
 }

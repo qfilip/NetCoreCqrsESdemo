@@ -7,6 +7,8 @@ $text-highlighted: yellow;
 
 $background-dark: #444;
 
+$dialog-padding: 5px;
+
 .outln {
     outline: none !important;
 }
@@ -39,6 +41,12 @@ $background-dark: #444;
     }
 }
 
+.btn-flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .dialog {
     z-index: 999;
     min-width: 100vw;
@@ -48,4 +56,18 @@ $background-dark: #444;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dialog-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-displayed {
+    display: block;
+}
+
+.dialog-hidden {
+    display: none;
 }

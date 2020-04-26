@@ -5,26 +5,29 @@ import { takeUntil } from 'rxjs/operators';
 import { PageLoaderInfo } from "src/app/_notgenerated/helpers";
 
 @Component({
-  selector: "app-page-loader",
-  templateUrl: "./page-loader.component.html",
-  styleUrls: ["./page-loader.component.scss"]
+    selector: "app-page-loader",
+    templateUrl: "./page-loader.component.html",
+    styleUrls: ["./page-loader.component.scss"]
 })
 export class PageLoaderComponent implements OnInit, OnDestroy {
-  constructor(private pageLoaderService: PageLoaderService) {}
+    constructor(private pageLoaderService: PageLoaderService) {
+    }
 
-  status: PageLoaderInfo = { loading: false, message: "Loading..." };
-  unsubscribe: Subject<any> = new Subject();
+    status: PageLoaderInfo = { loading: false, message: "Loading..." } as PageLoaderInfo;
+    unsubscribe: Subject<any> = new Subject();
 
-  ngOnInit(): void {
-    this.pageLoaderService.pageLoaderState
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(status => {
-        this.status = status;
-      });
-  }
+    ngOnInit(): void {
+        this.pageLoaderService.pageLoaderState
+            .pipe(takeUntil(this.unsubscribe))
+            .subscribe(status => {
+                if(!!status) {
+                    this.status = status;
+                }
+            });
+    }
 
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
+    ngOnDestroy() {
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
+    }
 }

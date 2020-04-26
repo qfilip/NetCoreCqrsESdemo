@@ -1,5 +1,29 @@
-<div class="w3-modal" [ngClass]="(visible) ? 'displayed' : 'hidden'">
-    <div>
-        Ingredient creation dialog
-    </div>
+<div class="w3-modal w3-center" [ngClass]="(visible) ? 'dialog-displayed' : 'dialog-hidden'">
+        <div class="w3-container dialog-content">
+            <br/>
+            <div class="w3-row">
+                <div class="w3-twothird w3-left">
+                    Enter ingredient's name
+                </div>
+                <div class="w3-third">
+                    <input type="text" [(ngModel)]="ingredient.name">
+                </div>
+            </div>
+            <div class="w3-row">
+                <div class="w3-twothird w3-left">
+                    Enter ingredient's strength
+                </div>
+                <div class="w3-third">
+                    <input type="number" [(ngModel)]="ingredient.strength" [max]="60" [min]="0">
+                </div>
+            </div>
+            <br/>
+            <div class="w3-center w3-red">{{ errorMessage }}</div>
+            <div class="w3-row">
+                <div class="btn-flex">
+                    <button (click)="onConfirm()">Ok</button>
+                    <button (click)="onClose()">Cancel</button>
+                </div>
+            </div>
+        </div>
 </div>
