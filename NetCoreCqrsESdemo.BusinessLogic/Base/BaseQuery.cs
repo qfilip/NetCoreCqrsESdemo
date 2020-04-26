@@ -8,13 +8,8 @@ using System.Text;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
-    public abstract class BaseQuery
+    public abstract class BaseQuery<TRequest> : BaseQueryGeneric, IRequest<TRequest>
     {
-        public readonly ApplicationDbContext context;
-
-        public BaseQuery(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
+        public BaseQuery(ApplicationDbContext context) : base(context) { }
     }
 }

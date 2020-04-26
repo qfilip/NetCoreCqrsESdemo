@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Queries
 {
-    public class GetAllCocktailsQuery : BaseQuery, IRequest<List<CocktailDto>>
+    public class GetAllCocktailsQuery : BaseQuery<List<CocktailDto>>
     {
         public GetAllCocktailsQuery(ApplicationDbContext context) : base(context)
         {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Queries.EventQueries
 {
-    public class GetAllEventsQuery : BaseQuery, IRequest<List<AppEventDto>>
+    public class GetAllEventsQuery : BaseQuery<List<AppEventDto>>
     {
         public GetAllEventsQuery(ApplicationDbContext context) : base(context)
         {
