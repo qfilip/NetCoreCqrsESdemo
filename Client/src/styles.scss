@@ -4,8 +4,11 @@
 /*colors*/
 $text-default: whitesmoke;
 $text-highlighted: yellow;
+$text-orange: orangered;
 
-$background-dark: #444;
+$background-dark: #181818;
+$background-medium: #616161;
+$background-light: #e7e7e7;
 
 $dialog-padding: 5px;
 
@@ -14,6 +17,7 @@ $dialog-padding: 5px;
 }
 
 .btn {
+    text-align: center;
     border: 2px solid transparent;
     border-top: 2px solid silver;
     border-bottom: 2px solid silver;
@@ -24,10 +28,10 @@ $dialog-padding: 5px;
         outline: transparent;
     }
     &:hover {
-        background-color: black;
-        color: orangered;
-        border-top: 2px solid orangered;
-        border-bottom: 2px solid orangered;
+        background-color: $background-dark;
+        color: $text-highlighted;
+        border-top: 2px solid $text-orange;
+        border-bottom: 2px solid $text-orange;
     }
     cursor: pointer;
 }
@@ -70,4 +74,8 @@ $dialog-padding: 5px;
 
 .dialog-hidden {
     display: none;
+}
+
+body {
+    background-color: $background-light;
 }

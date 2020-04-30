@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 .header-container > h1 {
     border-bottom: 4px solid black;
     margin-bottom: 0;
@@ -7,6 +9,7 @@
 }
 
 .nav-button {
+    text-align: center;
     border: 2px solid transparent;
     background: transparent;
 
@@ -15,17 +18,50 @@
         outline: transparent;
     }
     &:hover {
-        background-color: black;
-        color: orangered;
-        border-top: 2px solid orangered;
-        border-bottom: 2px solid orangered;
+        background-color: $background-dark;
+        color: $text-highlighted;
+        border-top: 2px solid $text-orange;
+        border-bottom: 2px solid $text-orange;
     }
     cursor: pointer;
 }
 
 .active-tab {
-    background-color: black;
-    color: orangered;
-    border-top: 2px solid orangered;
-    border-bottom: 2px solid orangered;
+    background-color: $background-dark;
+    color: $text-highlighted;
+    border-top: 2px solid $text-orange;
+    border-bottom: 2px solid $text-orange;
 }
+
+.header-dark {
+    background-color: $background-dark;
+}
+
+.flip-card {
+    font-size: 1.3rem;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateX(180deg);
+}
+
+.flip-card-front {
+    text-align: center;
+    color: $text-highlighted;
+}
+
+.flip-card-back {
+    transform: rotateX(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    border-bottom: 1px solid black;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
