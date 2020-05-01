@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IIngredientDto } from 'src/app/_generated/interfaces';
+import { DtoFunctions } from 'src/app/functions/dtoFunctions';
 
 @Component({
     selector: 'app-create-ingredient-dialog',
@@ -10,15 +11,18 @@ export class CreateIngredientDialog {
     visible = false;
     errorMessage = '';
     ingredient: IIngredientDto;
+    dtoFuncs: DtoFunctions;
 
     @Output('onConfirmed') emitter = new EventEmitter<IIngredientDto>();
     
     constructor() {
+        this.dtoFuncs = new DtoFunctions();
         this.reset();
     }
 
     onConfirm() {
         if(this.ingredient.name.length > 0) {
+            this.ingredient.id = this.dtoFuncs.generateId();
             this.emitter.emit(this.ingredient);
             this.reset();
             this.visible = false;

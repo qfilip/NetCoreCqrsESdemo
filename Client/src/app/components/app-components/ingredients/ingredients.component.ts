@@ -4,6 +4,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { IIngredientDto } from 'src/app/_generated/interfaces';
 import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient-dialog';
+import { eCommand } from 'src/app/_generated/enums';
+import { CommandHandler } from 'src/app/functions/commandFunctions';
 
 @Component({
     selector: 'app-ingredients',
@@ -12,8 +14,8 @@ import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingred
 })
 export class IngredientsComponent implements OnInit {
 
-    ingredients: IIngredientDto[];
-    private commandList: Command<IIngredientDto>[];
+    ingredients: IIngredientDto[] = [];
+    private handler: CommandHandler;
 
     @ViewChild('acid') createDialog: CreateIngredientDialog;
 
@@ -23,6 +25,7 @@ export class IngredientsComponent implements OnInit {
 
     ngOnInit() {
         // this.getIngredients();
+        this.handler = new CommandHandler();
     }
 
     // private getIngredients() {
@@ -40,6 +43,15 @@ export class IngredientsComponent implements OnInit {
 
     openCreateDialog() {
         this.createDialog.open();
+    }
+
+    undo() {
+        this.handler.reverse();
+    }
+
+    createCommand(e: IIngredientDto) {
+        const command = new Command(e, this.ingredients, eCommand.CreateCocktailCommand);
+        this.handler.execute(command);
     }
 
 }

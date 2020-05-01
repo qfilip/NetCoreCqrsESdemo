@@ -2,6 +2,8 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
+import { eCommand } from './enums';
+
 export interface IBaseDto
 {
 	id: string;
@@ -29,4 +31,9 @@ export interface IRecipeExcerptDto extends IBaseDto
 	cocktailId: string;
 	ingredientId: string;
 	amount: number;
+}
+export interface ICommandPayload<TDto>
+{
+	commandType: eCommand;
+	payload: TDto;
 }

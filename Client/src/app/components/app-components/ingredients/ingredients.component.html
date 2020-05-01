@@ -22,9 +22,13 @@
             <hr/>
             <div>
                 <button>Save Changes</button>
+                <button (click)="undo()">Undo</button>
             </div>
         </div>
     </div>
 </div>
 
-<app-create-ingredient-dialog #acid></app-create-ingredient-dialog>
+<app-create-ingredient-dialog 
+    #acid
+    (onConfirmed)="createCommand($event)">
+</app-create-ingredient-dialog>
