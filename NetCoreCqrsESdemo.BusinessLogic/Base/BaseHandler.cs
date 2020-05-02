@@ -14,10 +14,18 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
     {
         protected readonly ManualMapper _appMapper;
         protected readonly ApplicationDbContext _dbContext;
+        protected readonly IMediator _mediator;
 
         public BaseHandler(ApplicationDbContext dbContext)
         {
             _appMapper = new ManualMapper();
+            _dbContext = dbContext;
+        }
+
+        public BaseHandler(IMediator mediator, ApplicationDbContext dbContext)
+        {
+            _appMapper = new ManualMapper();
+            _mediator = mediator;
             _dbContext = dbContext;
         }
 
