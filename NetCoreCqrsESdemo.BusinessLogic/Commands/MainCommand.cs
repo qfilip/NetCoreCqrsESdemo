@@ -1,11 +1,14 @@
-﻿using NetCoreCQRSdemo.Domain.Dtos;
+﻿using MediatR;
+using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
+using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Commands
 {
@@ -18,13 +21,32 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands
 
     public class MainCommandHandler<T> : BaseHandler<MainCommand<T>, IEnumerable<CommandPayload<T>>> where T : BaseDto
     {
-        public MainCommandHandler(ApplicationDbContext dbContext) : base(dbContext)
+        public MainCommandHandler(IMediator mediator, CommandService commandService, ApplicationDbContext dbContext)
+            : base(mediator, commandService, dbContext)
         {
         }
 
-        public override async Task<IEnumerable<CommandPayload<T>>> Handle(MainCommand<T> request, CancellationToken cancellationToken)
+        public override async Task<IEnumerable<CommandPayload<T>>> Handle(MainCommand<T> command, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var commandsToExecute = new List<BaseCommand<T>>();
+            foreach(var request in command.Request)
+            {
+                var innerCommandType = _commandService.GetCommandByEnum(request.CommandType);
+                var innerCommand = (BaseCommand<T>) Activator.CreateInstance(innerCommandType, request.Payload);
+                commandsToExecute.Add(innerCommand);
+            }
+
+            using(var scope = new TransactionScope())
+            {
+                foreach(var cmd in commandsToExecute)
+                {
+                    await _mediator.Send(cmd);
+                }
+                await _dbContext.SaveChangesAsync();
+                scope.Complete();
+            }
+
+            return command.Request;
         }
     }
 }

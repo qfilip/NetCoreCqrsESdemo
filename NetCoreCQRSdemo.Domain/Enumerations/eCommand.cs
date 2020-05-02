@@ -5,6 +5,8 @@
         CreateCocktailCommand,
         DeleteCocktailCommand,
 
+        CreateIngredientCommand,
+
         SetInitialStateCommand
     }
 }
