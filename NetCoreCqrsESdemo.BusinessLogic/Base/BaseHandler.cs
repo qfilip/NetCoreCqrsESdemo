@@ -18,7 +18,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
         public BaseHandler(ApplicationDbContext dbContext)
         {
             _appMapper = new ManualMapper();
-            dbContext = _dbContext;
+            _dbContext = dbContext;
         }
 
         public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);

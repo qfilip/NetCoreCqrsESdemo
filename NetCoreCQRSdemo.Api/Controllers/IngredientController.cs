@@ -11,7 +11,8 @@ namespace NetCoreCQRSdemo.Api.Controllers
     public class IngredientController : BaseController
     {
         public IngredientController(IMediator mediator, ApplicationDbContext context) : base(mediator, context)
-        { }
+        {
+        }
 
         [Route("all")]
         [HttpGet]

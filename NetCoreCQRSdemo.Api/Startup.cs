@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Base;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -43,11 +44,11 @@ namespace NetCoreCQRSdemo.Api
 
             services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(_dataSource));
             services.AddSingleton<CommandService>();
-            services.AddMediatR(_assemblyBL);
+            services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
 
-            services.AddCors(x =>
-                x.AddDefaultPolicy(b =>
-                    b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+            services.AddCors(options =>
+                options.AddDefaultPolicy(builder =>
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
