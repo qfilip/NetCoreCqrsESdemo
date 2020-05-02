@@ -5,12 +5,5 @@ using System.Text;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
-    public class BaseQueryGeneric
-    {
-        public readonly ApplicationDbContext context;
-        public BaseQueryGeneric(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
-    }
+    public abstract class BaseQueryGeneric {}
 }

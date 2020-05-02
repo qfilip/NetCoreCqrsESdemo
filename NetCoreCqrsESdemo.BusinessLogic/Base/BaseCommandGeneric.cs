@@ -5,12 +5,7 @@ using System.Text;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
-    public class BaseCommandGeneric
+    public abstract class BaseCommandGeneric
     {
-        public ApplicationDbContext dbContext;
-        public BaseCommandGeneric(ApplicationDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
     }
 }

@@ -14,13 +14,22 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
     public abstract class BaseCommand<TRequest> : BaseCommandGeneric, IRequest<TRequest>
     {
-        public BaseCommand(ApplicationDbContext dbContext) : base(dbContext)
+        public readonly TRequest Request;
+        public BaseCommand(TRequest request)
         {
+            Request = request;
         }
 
-        public abstract string SerializeArguments();
-        public abstract TRequest DeserializeArguments(string args);
-        public async Task LogEvent<TCommand>(TCommand command) where TCommand : BaseCommand<TRequest>
+        public string SerializeArguments()
+        {
+            return JsonConvert.SerializeObject(Request);
+        }
+        public TRequest DeserializeArguments(string args)
+        {
+            return JsonConvert.DeserializeObject<TRequest>(args);
+        }
+
+        public async Task LogEvent<TCommand>(TCommand command, ApplicationDbContext dbContext) where TCommand : BaseCommand<TRequest>
         {
             var @event = new AppEvent()
             {
@@ -30,7 +39,6 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
             };
             
             await dbContext.Events.AddAsync(@event);
-            await dbContext.SaveChangesAsync();
         }
     }
 }

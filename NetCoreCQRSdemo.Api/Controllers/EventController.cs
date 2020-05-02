@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using NetCoreCQRSdemo.Api.Controllers.Base;
 using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
-using NetCoreCqrsESdemo.BusinessLogic.Commands.SnapshotCommands;
-using NetCoreCqrsESdemo.BusinessLogic.Queries.EventQueries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,16 +23,16 @@ namespace NetCoreCQRSdemo.Api.Controllers
         [Route("all")]
         public async Task<IActionResult> GetAll()
         {
-            var result = await _mediator.Send(new GetAllEventsQuery(_context));
-            return Ok(result);
+            // var result = await _mediator.Send(new GetAllEventsQuery(_context));
+            return Ok();
         }
 
         [HttpPost]
         [Route("clear")]
         public async Task<IActionResult> ClearEvents()
         {
-            var result = await _mediator.Send(new SetInitialStateCommand(_context));
-            return Ok(result);
+            // var result = await _mediator.Send(new SetInitialStateCommand(_context));
+            return Ok();
         }
     }
 }

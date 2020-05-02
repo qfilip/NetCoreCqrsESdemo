@@ -10,6 +10,5 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
     public abstract class BaseQuery<TRequest> : BaseQueryGeneric, IRequest<TRequest>
     {
-        public BaseQuery(ApplicationDbContext context) : base(context) { }
     }
 }

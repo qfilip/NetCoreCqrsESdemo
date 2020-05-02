@@ -14,20 +14,21 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries.IngredientQueries
 {
     public class GetAllIngredientsQuery : BaseQuery<IEnumerable<IngredientDto>>
     {
-        public GetAllIngredientsQuery(ApplicationDbContext context) : base(context)
+        public GetAllIngredientsQuery()
         {
         }
     }
 
     public class GetAllIngredientsQueryHandler : BaseHandler<GetAllIngredientsQuery, IEnumerable<IngredientDto>>
     {
-        public override async Task<IEnumerable<IngredientDto>> Handle(GetAllIngredientsQuery request, CancellationToken cancellationToken)
+        public GetAllIngredientsQueryHandler(ApplicationDbContext dbContext) : base(dbContext)
         {
-            var ingredients = await request.context.Ingredients
-                .Where(x => x.EntityStatus == eEntityStatus.Active)
-                .ToListAsync();
+        }
 
-            return _appMapper.MultiMap(ingredients, _appMapper.ToDto);
+        public override async Task<IEnumerable<IngredientDto>> Handle(GetAllIngredientsQuery query, CancellationToken cancellationToken)
+        {
+            var entities = await _dbContext.Ingredients.ToListAsync();
+            return _appMapper.MultiMap(entities, _appMapper.ToDto);
         }
     }
 }

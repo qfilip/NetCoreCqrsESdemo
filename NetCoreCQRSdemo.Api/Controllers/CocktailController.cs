@@ -31,24 +31,24 @@ namespace NetCoreCQRSdemo.Api.Controllers
         [Route("all")]
         public async Task<IActionResult> GetAllCocktailsAsync()
         {
-            var result = await _mediator.Send(new GetAllCocktailsQuery(_context));
-            return Ok(result);
+            // var result = await _mediator.Send(new GetAllCocktailsQuery(_context));
+            return Ok();
         }
 
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateCocktail([FromBody] CocktailDto dto)
         {
-            var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
-            return Ok(result);
+            // var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
+            return Ok();
         }
 
         [HttpPost]
         [Route("delete")]
         public async Task<IActionResult> DeleteCocktail([FromBody] CocktailDto dto)
         {
-            var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
-            return Ok(result);
+            // var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
+            return Ok();
         }
     }
 }

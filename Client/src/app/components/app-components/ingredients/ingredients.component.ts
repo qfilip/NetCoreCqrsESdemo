@@ -24,22 +24,22 @@ export class IngredientsComponent implements OnInit {
             private pageLoader: PageLoaderService) { }
 
     ngOnInit() {
-        // this.getIngredients();
+        this.getIngredients();
         this.handler = new CommandHandler();
     }
 
-    // private getIngredients() {
-    //     this.pageLoader.show('Fetching ingredients');
-    //     this.controller.getAllIngredients()
-    //     .subscribe(
-    //         response => {
-    //             this.ingredients = response;
-    //             this.pageLoader.hide();
-    //         },
-    //         error => {
-    //             this.pageLoader.hide();
-    //     });
-    // }
+    private getIngredients() {
+        this.pageLoader.show('Fetching ingredients');
+        this.controller.getAllIngredients()
+        .subscribe(
+            response => {
+                this.ingredients = response;
+                this.pageLoader.hide();
+            },
+            error => {
+                this.pageLoader.hide();
+        });
+    }
 
     openCreateDialog() {
         this.createDialog.open();

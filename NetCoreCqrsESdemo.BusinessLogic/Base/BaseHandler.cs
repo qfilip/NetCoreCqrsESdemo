@@ -13,9 +13,12 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
         where TRequest : IRequest<TResponse>
     {
         protected readonly ManualMapper _appMapper;
-        public BaseHandler()
+        protected readonly ApplicationDbContext _dbContext;
+
+        public BaseHandler(ApplicationDbContext dbContext)
         {
             _appMapper = new ManualMapper();
+            dbContext = _dbContext;
         }
 
         public abstract Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken);

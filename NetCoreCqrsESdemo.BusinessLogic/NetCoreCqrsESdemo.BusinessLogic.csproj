@@ -23,4 +23,11 @@
     <ProjectReference Include="..\NetCoreCQRSdemo.Persistence\NetCoreCQRSdemo.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\CocktailCommands\" />
+    <Folder Include="Commands\SnapshotCommands\" />
+    <Folder Include="Queries\CocktailQueries\" />
+    <Folder Include="Queries\EventQueries\" />
+  </ItemGroup>
+
 </Project>

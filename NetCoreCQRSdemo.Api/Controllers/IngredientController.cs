@@ -17,7 +17,7 @@ namespace NetCoreCQRSdemo.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllIngredientsAsync()
         {
-            var result = await _mediator.Send(new GetAllIngredientsQuery(_context));
+            var result = await _mediator.Send(new GetAllIngredientsQuery());
             return Ok(result);
         }
     }
