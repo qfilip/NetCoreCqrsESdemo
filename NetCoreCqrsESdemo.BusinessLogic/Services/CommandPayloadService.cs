@@ -23,22 +23,31 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
             _commandService = commandService;
         }
 
-        public async Task ParseAndSendPayload<T>(IEnumerable<CommandPayload<T>> payloads) where T : BaseDto
+        public async Task<IEnumerable<CommandPayload<T>>> ParseAndSendPayload<T>(IEnumerable<CommandPayload<T>> requests) where T : BaseDto
         {
+            var resultPayloads = new List<CommandPayload<T>>();
             var commandsToExecute = new List<BaseCommand<T>>();
-            foreach (var request in payloads)
+
+            foreach (var request in requests)
             {
                 var innerCommandType = _commandService.GetCommandByEnum(request.CommandType);
-                var innerCommand = (BaseCommand<T>)Activator.CreateInstance(innerCommandType, request.Payload);
-                commandsToExecute.Add(innerCommand);
+                var innerRequest = (BaseCommand<T>)Activator.CreateInstance(innerCommandType, request.Payload);
+
+                var requestReturn = await _mediator.Send(innerRequest);
+
+                var resultPayload = new CommandPayload<T>()
+                {
+                    CommandType = request.CommandType,
+                    Payload = requestReturn
+                };
+
+                resultPayloads.Add(resultPayload);
             }
 
             // should go to transaction scope, but SQLLite
-            foreach (var cmd in commandsToExecute)
-            {
-                await _mediator.Send(cmd);
-            }
             await _dbContext.SaveChangesAsync();
+
+            return resultPayloads;
         }
     }
 }

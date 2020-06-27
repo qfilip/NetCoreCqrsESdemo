@@ -22,10 +22,11 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 
         public override async Task<IngredientDto> Handle(CreateIngredientCommand command, CancellationToken cancellationToken)
         {
+            command.Request.Id = Guid.NewGuid().ToString();
             var entity = _appMapper.ToEntity(command.Request);
-            entity.Id = Guid.NewGuid().ToString();
 
             await _dbContext.Ingredients.AddAsync(entity);
+            await command.LogEvent(command, _dbContext);
 
             return _appMapper.ToDto(entity);
         }
