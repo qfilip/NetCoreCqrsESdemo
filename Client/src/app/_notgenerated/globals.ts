@@ -10,5 +10,4 @@ export const action = 'action';
 
 // get
 export const all = 'all';
-export const create = 'create';
-export const remove = 'delete';
+export const one = 'one';

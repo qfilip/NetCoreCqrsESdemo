@@ -8,10 +8,12 @@ export class CommandHandler {
         this.index = -1;
     }
 
-    execute(command: Command) {
+    execute(command: Command, trackChange: boolean = true) {
         command.execute();
-        this.stack.push(command);
-        this.index++;
+        if (trackChange) {
+            this.stack.push(command);
+            this.index++;
+        }
     }
 
     reverse() {
@@ -26,5 +28,10 @@ export class CommandHandler {
 
     getChanges() {
         return this.stack;
+    }
+
+    cleanStack() {
+        this.stack = [];
+        this.index = -1;
     }
 }

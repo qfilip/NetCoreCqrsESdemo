@@ -9,53 +9,28 @@ import { eControllerType } from '../_notgenerated/enums';
 export class ApiService {
     constructor(private http: HttpClient) {}
 
-    private getApiActionUrl(controller: eControllerType) {
+    private getControllerUrl(controller: eControllerType) {
         let url = '';
         if(controller === eControllerType.Cocktail) url += g.cocktailController;
         else if(controller === eControllerType.Ingredient) url += g.ingredientController;
         else if(controller === eControllerType.Event) url += g.eventController;
 
-        return url + g.action;
+        return url;
     }
 
     // api
     executeCommands<T extends IBaseDto>(commands: ICommandPayload<T>[], controller: eControllerType): Observable<ICommandPayload<T>[]> {
-        const url = this.getApiActionUrl(controller);
+        const url = this.getControllerUrl(controller) + g.action;
         return this.http.post<ICommandPayload<T>[]>(url, commands);
     }
 
-    // cocktails
-    getAllCocktails(): Observable<ICocktailDto[]> {
-        const url = g.cocktailController + g.all;
-        return this.http.get<ICocktailDto[]>(url);
+    getAll<T extends IBaseDto>(controller: eControllerType): Observable<T[]> {
+        const url = this.getControllerUrl(controller) + g.all;
+        return this.http.get<T[]>(url);
     }
 
-    createCocktail(cocktailDto: ICocktailDto): Observable<ICocktailDto> {
-        const url = g.cocktailController + g.create;
-        return this.http.post<ICocktailDto>(url, cocktailDto);
-    }
-
-    deleteCocktail(cocktailDto: ICocktailDto): Observable<ICocktailDto> {
-        const url = g.cocktailController + g.remove;
-        return this.http.post<ICocktailDto>(url, cocktailDto);
-    }
-
-
-    // Ingredients
-    getAllIngredients(): Observable<IIngredientDto[]> {
-        const url = g.ingredientController + g.all;
-        return this.http.get<IIngredientDto[]>(url);
-    }
-
-    // createIngredients(commandPayload: ICommandPayload<IIngredientDto>[]): Observable<IIngredientDto[]> {
-    //     const url = g.ingredientController + g.create;
-    //     return this.http.post<IIngredientDto[]>(url, commandPayload);
-    // }
-    
-    
-    //events
-    getAllEvents(): Observable<IAppEventDto[]> {
-        const url = g.eventController + g.all;
-        return this.http.get<IAppEventDto[]>(url);
+    get<T extends IBaseDto>(controller: eControllerType): Observable<T> {
+        const url = this.getControllerUrl(controller) + g.one;
+        return this.http.get<T>(url);
     }
 }

@@ -27,7 +27,6 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
         public async Task<IEnumerable<CommandPayload<T>>> ParseAndSendPayload<T>(IEnumerable<CommandPayload<T>> requests) where T : BaseDto
         {
             var resultPayloads = new List<CommandPayload<T>>();
-            var commandsToExecute = new List<BaseCommand<T>>();
 
             foreach (var request in requests)
             {

@@ -31,7 +31,7 @@ export class IngredientsComponent implements OnInit {
 
     private getIngredients() {
         this.pageLoader.show('Fetching ingredients');
-        this.controller.getAllIngredients()
+        this.controller.getAll<IIngredientDto>(eControllerType.Ingredient)
         .subscribe(
             response => {
                 this.ingredients = response;
@@ -58,7 +58,10 @@ export class IngredientsComponent implements OnInit {
         });
 
         this.controller.executeCommands(payloads, eControllerType.Ingredient)
-            .subscribe(r => console.log(r));
+            .subscribe(result => { 
+                this.cleanStackUpdateEntries(result);
+                this.refreshEventsPanel();
+            });
     }
 
     undo() {
@@ -70,4 +73,15 @@ export class IngredientsComponent implements OnInit {
         this.handler.execute(command);
     }
 
+    private cleanStackUpdateEntries(commands: ICommandPayload<IIngredientDto>[]) {
+        this.handler.cleanStack();
+        commands.forEach(x => {
+            const command = new Command(x.payload, this.ingredients, x.commandType);
+            this.handler.execute(command);
+        });
+    }
+
+    private refreshEventsPanel() {
+        // this.controller.
+    }
 }
