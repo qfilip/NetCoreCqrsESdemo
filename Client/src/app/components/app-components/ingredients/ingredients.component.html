@@ -24,6 +24,10 @@
                 <button (click)="saveChanges()">Save Changes</button>
                 <button (click)="undo()">Undo</button>
             </div>
+            <hr/>
+            <div *ngFor="let change of handler.localChanges">
+                {{ change.description }}
+            </div>
         </div>
     </div>
 </div>

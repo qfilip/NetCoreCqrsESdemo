@@ -9,10 +9,12 @@ export class PageLoaderInfo {
 export class Command {
     private array: IBaseDto[];
     
-    constructor(parameter: IBaseDto, array: IBaseDto[], type: eCommand) {
+    constructor(parameter: IBaseDto, array: IBaseDto[], type: eCommand, description: string = 'no description') {
         this.parameter = parameter;
         this.array = array;
         this.commandType = type;
+        this.description = description;
+        
         this.execute = () => this.array.push(parameter);
         this.reverse = () => {
             const index = this.array.findIndex(x => x.id === this.parameter.id);
@@ -22,6 +24,8 @@ export class Command {
 
     parameter: IBaseDto;
     commandType: eCommand;
+    description: string;
+    
     execute: () => any;
     reverse: () => any;
 }

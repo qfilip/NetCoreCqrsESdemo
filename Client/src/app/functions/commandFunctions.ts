@@ -1,6 +1,8 @@
 import { Command } from '../_notgenerated/helpers';
 
 export class CommandHandler {
+    localChanges: { index: number, description }[];
+
     private stack: Command[];
     private index: number;
     constructor() {
@@ -13,6 +15,8 @@ export class CommandHandler {
         if (trackChange) {
             this.stack.push(command);
             this.index++;
+
+            this.refreshLocalChanges();
         }
     }
 
@@ -24,6 +28,8 @@ export class CommandHandler {
         command.reverse();
         this.stack.pop();
         this.index--;
+
+        this.refreshLocalChanges();
     }
 
     getChanges() {
@@ -33,5 +39,12 @@ export class CommandHandler {
     cleanStack() {
         this.stack = [];
         this.index = -1;
+
+        this.refreshLocalChanges();
+    }
+
+    private refreshLocalChanges() {
+        this.localChanges = [];
+        this.stack.forEach((x, i) => this.localChanges.push({ index: i, description: x.description }));
     }
 }

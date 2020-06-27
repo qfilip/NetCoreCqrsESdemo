@@ -16,7 +16,7 @@ import { eControllerType } from 'src/app/_notgenerated/enums';
 export class IngredientsComponent implements OnInit {
 
     ingredients: IIngredientDto[] = [];
-    private handler: CommandHandler;
+    handler: CommandHandler;
 
     @ViewChild('acid') createDialog: CreateIngredientDialog;
 
@@ -49,18 +49,19 @@ export class IngredientsComponent implements OnInit {
     saveChanges() {
         const changes = this.handler.getChanges();
         let payloads: ICommandPayload<IIngredientDto>[] = [];
+        
         changes.forEach(x => {
             const payload = {
                 commandType: x.commandType,
                 payload: x.parameter
             } as ICommandPayload<IIngredientDto>;
+            
             payloads.push(payload);
         });
 
         this.controller.executeCommands(payloads, eControllerType.Ingredient)
             .subscribe(result => { 
                 this.cleanStackUpdateEntries(result);
-                this.refreshEventsPanel();
             });
     }
 
@@ -69,19 +70,17 @@ export class IngredientsComponent implements OnInit {
     }
 
     createCommand(e: IIngredientDto) {
-        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand);
+        const description = `Created ${e.name} ingredient`;
+        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, description);
         this.handler.execute(command);
     }
 
     private cleanStackUpdateEntries(commands: ICommandPayload<IIngredientDto>[]) {
         this.handler.cleanStack();
+        
         commands.forEach(x => {
             const command = new Command(x.payload, this.ingredients, x.commandType);
-            this.handler.execute(command);
+            this.handler.execute(command, false);
         });
-    }
-
-    private refreshEventsPanel() {
-        // this.controller.
     }
 }
