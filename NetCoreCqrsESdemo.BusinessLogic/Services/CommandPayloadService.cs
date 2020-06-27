@@ -33,15 +33,12 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                 commandsToExecute.Add(innerCommand);
             }
 
-            using (var scope = new TransactionScope())
+            // should go to transaction scope, but SQLLite
+            foreach (var cmd in commandsToExecute)
             {
-                foreach (var cmd in commandsToExecute)
-                {
-                    await _mediator.Send(cmd);
-                }
-                await _dbContext.SaveChangesAsync();
-                scope.Complete();
+                await _mediator.Send(cmd);
             }
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

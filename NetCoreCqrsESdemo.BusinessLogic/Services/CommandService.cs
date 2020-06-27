@@ -16,10 +16,14 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
         public CommandService()
         {
             var baseCommandName = "BaseCommand";
+            
             var commands = AppDomain.CurrentDomain
                 .GetAssemblies()
                 .SelectMany(assembly => assembly.GetTypes())
                 .Where(type => type.IsSubclassOf(typeof(BaseCommandGeneric)) && !type.Name.Contains(baseCommandName));
+
+            var enumCount = Enum.GetNames(typeof(eCommand)).Length;
+            var cmdCount = commands.Count();
 
             _appCommands = new Dictionary<eCommand, Type>();
             _appCommandsHashed = new Dictionary<int, Type>();
