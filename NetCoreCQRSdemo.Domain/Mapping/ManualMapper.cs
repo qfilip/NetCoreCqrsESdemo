@@ -95,9 +95,12 @@ namespace NetCoreCQRSdemo.Domain.Mapping
         public IEnumerable<TResult> MultiMap<TInput, TResult>(IEnumerable<TInput> inputs, Func<TInput, TResult> mapDefinition)
         {
             var resultSet = new List<TResult>();
-            foreach(var input in inputs)
+            if(inputs.Any())
             {
-                resultSet.Add(mapDefinition.Invoke(input));
+                foreach(var input in inputs)
+                {
+                    resultSet.Add(mapDefinition.Invoke(input));
+                }
             }
 
             return resultSet;

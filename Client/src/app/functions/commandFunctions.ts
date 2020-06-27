@@ -8,13 +8,13 @@ export class CommandHandler {
         this.index = -1;
     }
 
-    public execute(command: Command) {
+    execute(command: Command) {
         command.execute();
         this.stack.push(command);
         this.index++;
     }
 
-    public reverse() {
+    reverse() {
         if(this.index < 0)
             return;
 
@@ -22,5 +22,9 @@ export class CommandHandler {
         command.reverse();
         this.stack.pop();
         this.index--;
+    }
+
+    getChanges() {
+        return this.stack;
     }
 }

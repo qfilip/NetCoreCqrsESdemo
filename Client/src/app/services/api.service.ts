@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as g from '../_notgenerated/globals';
 import { HttpClient } from '@angular/common/http';
-import { ICocktailDto, IAppEventDto, IIngredientDto } from '../_generated/interfaces';
+import { ICocktailDto, IAppEventDto, IIngredientDto, ICommandPayload } from '../_generated/interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
@@ -29,7 +29,12 @@ export class ApiService {
     getAllIngredients(): Observable<IIngredientDto[]> {
         const url = g.ingredientController + g.all;
         return this.http.get<IIngredientDto[]>(url);
-    }   
+    }
+
+    createIngredients(commandPayload: ICommandPayload<IIngredientDto>[]): Observable<IIngredientDto[]> {
+        const url = g.ingredientController + g.create;
+        return this.http.post<IIngredientDto[]>(url, commandPayload);
+    }
     
     
     //events

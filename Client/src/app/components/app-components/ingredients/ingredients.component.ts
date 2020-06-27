@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageLoaderService } from 'src/app/services/page-loader.service';
 import { ApiService } from 'src/app/services/api.service';
-import { IIngredientDto } from 'src/app/_generated/interfaces';
+import { IIngredientDto, ICommandPayload } from 'src/app/_generated/interfaces';
 import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient-dialog';
 import { eCommand } from 'src/app/_generated/enums';
@@ -45,12 +45,26 @@ export class IngredientsComponent implements OnInit {
         this.createDialog.open();
     }
 
+    saveChanges() {
+        const changes = this.handler.getChanges();
+        let payloads: ICommandPayload<IIngredientDto>[] = [];
+        changes.forEach(x => {
+            const payload = {
+                commandType: x.commandType,
+                payload: x.parameter
+            } as ICommandPayload<IIngredientDto>;
+            payloads.push(payload);
+        });
+
+        this.controller.createIngredients(payloads).subscribe(r => console.log(r));
+    }
+
     undo() {
         this.handler.reverse();
     }
 
     createCommand(e: IIngredientDto) {
-        const command = new Command(e, this.ingredients, eCommand.CreateCocktailCommand);
+        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand);
         this.handler.execute(command);
     }
 

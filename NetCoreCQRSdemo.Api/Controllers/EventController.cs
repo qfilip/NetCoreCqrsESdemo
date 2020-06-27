@@ -1,13 +1,8 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreCQRSdemo.Api.Controllers.Base;
-using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
@@ -16,7 +11,7 @@ namespace NetCoreCQRSdemo.Api.Controllers
     public class EventController : BaseController
     {
 
-        public EventController(IMediator mediator, ApplicationDbContext context) : base(mediator, context)
+        public EventController(IMediator mediator, ApplicationDbContext context, CommandPayloadService commandPayloadService) : base(mediator, context, commandPayloadService)
         {}
 
         [HttpGet]

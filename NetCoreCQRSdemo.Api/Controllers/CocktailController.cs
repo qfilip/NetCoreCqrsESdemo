@@ -8,6 +8,7 @@ using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Commands;
 using NetCoreCqrsESdemo.BusinessLogic.Queries;
+using NetCoreCqrsESdemo.BusinessLogic.Services;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace NetCoreCQRSdemo.Api.Controllers
     [Route("cocktails")]
     public class CocktailController : BaseController
     {
-        public CocktailController(IMediator mediator, ApplicationDbContext context) : base(mediator, context)
+        public CocktailController(IMediator mediator, ApplicationDbContext context, CommandPayloadService commandPayloadService) : base(mediator, context, commandPayloadService)
         {}
 
         [HttpGet]

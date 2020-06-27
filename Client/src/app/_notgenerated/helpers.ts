@@ -12,6 +12,7 @@ export class Command {
     constructor(parameter: IBaseDto, array: IBaseDto[], type: eCommand) {
         this.parameter = parameter;
         this.array = array;
+        this.commandType = type;
         this.execute = () => this.array.push(parameter);
         this.reverse = () => {
             const index = this.array.findIndex(x => x.id === this.parameter.id);
@@ -20,7 +21,7 @@ export class Command {
     }
 
     parameter: IBaseDto;
+    commandType: eCommand;
     execute: () => any;
     reverse: () => any;
-    commandType: eCommand;
 }
