@@ -1,11 +1,18 @@
 @import '../../../styles.scss';
 
 .header-container > h1 {
+
     border-bottom: 4px solid black;
+    font-weight: bold;
+    font-size: 3rem;
     margin-bottom: 0;
     padding-bottom: 0;
     transition: .5s;
-    color: orangered;
+    color: $text-orange;
+
+    &:hover {
+        text-shadow: 2px 2px 5px $text-darkred;
+    }
 }
 
 .nav-button {

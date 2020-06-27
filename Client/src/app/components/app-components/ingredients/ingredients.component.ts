@@ -7,6 +7,7 @@ import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingred
 import { eCommand } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
 import { eControllerType } from 'src/app/_notgenerated/enums';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-ingredients',
@@ -70,9 +71,11 @@ export class IngredientsComponent implements OnInit {
     }
 
     createCommand(e: IIngredientDto) {
-        const description = `Created ${e.name} ingredient`;
-        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, description);
-        this.handler.execute(command);
+        for(let i = 0; i < 10; i++) {
+            const description = `Created ${e.name} ingredient`;
+            const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, description);
+            this.handler.execute(command);
+        }
     }
 
     private cleanStackUpdateEntries(commands: ICommandPayload<IIngredientDto>[]) {

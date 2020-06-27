@@ -5,12 +5,23 @@
 $text-default: whitesmoke;
 $text-highlighted: yellow;
 $text-orange: orangered;
+$text-darkred: maroon;
 
 $background-dark: #181818;
 $background-medium: #616161;
 $background-light: #e7e7e7;
 
 $dialog-padding: 5px;
+
+// fonts
+@font-face {
+    font-family: andromeda;
+    src: url(/fonts/Andromeda.ttf);
+  }
+
+.font-andromeda {
+    font-family: andromeda;
+}
 
 .outln {
     outline: none !important;
@@ -32,6 +43,27 @@ $dialog-padding: 5px;
         color: $text-highlighted;
         border-top: 2px solid $text-orange;
         border-bottom: 2px solid $text-orange;
+    }
+    cursor: pointer;
+}
+
+.btn-silver {
+    text-align: center;
+    color: $text-default;
+    border: 2px solid transparent;
+    border-top: 2px solid silver;
+    border-bottom: 2px solid silver;
+    background: transparent;
+
+    transition: .2s;
+    &:focus {
+        outline: transparent;
+    }
+    &:hover {
+        background-color: $background-medium;
+        color: $text-highlighted;
+        border-top: 2px solid $text-highlighted;
+        border-bottom: 2px solid $text-highlighted;
     }
     cursor: pointer;
 }
@@ -68,12 +100,28 @@ $dialog-padding: 5px;
     align-items: center;
 }
 
+.flex-x { display: flex; }
+
+.flex-y { 
+    display: flex;
+    align-items: center;
+}
+
 .dialog-displayed {
     display: block;
 }
 
 .dialog-hidden {
     display: none;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently */
 }
 
 body {

@@ -1,7 +1,7 @@
 <div class="w3-container">
     <div class="w3-row">
         <div class="w3-twothird">
-            <h3 class="w3-center">List of ingredients</h3>
+            <h3 class="">List of ingredients</h3>
             <hr/>
 
             <div *ngFor="let ingredient of ingredients">
@@ -20,13 +20,16 @@
         <div class="w3-third">
             <h3 class="w3-center">Local changes</h3>
             <hr/>
-            <div>
-                <button (click)="saveChanges()">Save Changes</button>
-                <button (click)="undo()">Undo</button>
+            <div class="flex-y flex-even">
+                <button (click)="saveChanges()" class="action-btn btn-silver">Save Changes</button>
+                <button (click)="undo()" class="action-btn btn-silver">Undo</button>
             </div>
             <hr/>
-            <div *ngFor="let change of handler.localChanges">
-                {{ change.description }}
+            <div>
+                <div *ngFor="let change of handler.localChanges" class="event-container flex-y w-70p self-center">
+                    <div class="event-index w-10p">{{ change.index + 1 }}</div>
+                    <div class="w-90p">{{ change.description }}</div>
+                </div>
             </div>
         </div>
     </div>
