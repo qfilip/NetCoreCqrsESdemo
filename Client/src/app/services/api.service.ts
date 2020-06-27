@@ -1,12 +1,28 @@
 import { Injectable } from '@angular/core';
 import * as g from '../_notgenerated/globals';
 import { HttpClient } from '@angular/common/http';
-import { ICocktailDto, IAppEventDto, IIngredientDto, ICommandPayload } from '../_generated/interfaces';
+import { ICocktailDto, IAppEventDto, IIngredientDto, ICommandPayload, IBaseDto } from '../_generated/interfaces';
 import { Observable } from 'rxjs';
+import { eControllerType } from '../_notgenerated/enums';
 
 @Injectable({providedIn: 'root'})
 export class ApiService {
     constructor(private http: HttpClient) {}
+
+    private getApiActionUrl(controller: eControllerType) {
+        let url = '';
+        if(controller === eControllerType.Cocktail) url += g.cocktailController;
+        else if(controller === eControllerType.Ingredient) url += g.ingredientController;
+        else if(controller === eControllerType.Event) url += g.eventController;
+
+        return url + g.action;
+    }
+
+    // api
+    executeCommands<T extends IBaseDto>(commands: ICommandPayload<T>[], controller: eControllerType): Observable<ICommandPayload<T>[]> {
+        const url = this.getApiActionUrl(controller);
+        return this.http.post<ICommandPayload<T>[]>(url, commands);
+    }
 
     // cocktails
     getAllCocktails(): Observable<ICocktailDto[]> {
@@ -31,10 +47,10 @@ export class ApiService {
         return this.http.get<IIngredientDto[]>(url);
     }
 
-    createIngredients(commandPayload: ICommandPayload<IIngredientDto>[]): Observable<IIngredientDto[]> {
-        const url = g.ingredientController + g.create;
-        return this.http.post<IIngredientDto[]>(url, commandPayload);
-    }
+    // createIngredients(commandPayload: ICommandPayload<IIngredientDto>[]): Observable<IIngredientDto[]> {
+    //     const url = g.ingredientController + g.create;
+    //     return this.http.post<IIngredientDto[]>(url, commandPayload);
+    // }
     
     
     //events

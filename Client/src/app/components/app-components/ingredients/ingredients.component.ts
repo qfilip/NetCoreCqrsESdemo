@@ -6,6 +6,7 @@ import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient-dialog';
 import { eCommand } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
+import { eControllerType } from 'src/app/_notgenerated/enums';
 
 @Component({
     selector: 'app-ingredients',
@@ -56,7 +57,8 @@ export class IngredientsComponent implements OnInit {
             payloads.push(payload);
         });
 
-        this.controller.createIngredients(payloads).subscribe(r => console.log(r));
+        this.controller.executeCommands(payloads, eControllerType.Ingredient)
+            .subscribe(r => console.log(r));
     }
 
     undo() {

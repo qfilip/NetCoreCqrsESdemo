@@ -8,6 +8,7 @@ using NetCoreCqrsESdemo.BusinessLogic.Commands;
 using NetCoreCqrsESdemo.BusinessLogic.Queries.IngredientQueries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
@@ -22,28 +23,20 @@ namespace NetCoreCQRSdemo.Api.Controllers
         {
         }
 
+        [HttpPost]
+        [Route("action")]
+        public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandPayload<IngredientDto>> commands)
+        {
+            var result = await _commandPayloadService.ParseAndSendPayload(commands);
+            return Ok(result);
+        }
+
         [Route("all")]
         [HttpGet]
         public async Task<IActionResult> GetAllIngredientsAsync()
         {
             var result = await _mediator.Send(new GetAllIngredientsQuery());
             return Ok(result);
-        }
-
-        [Route("create")]
-        [HttpPost]
-        public async Task<IActionResult> CreateIngredients([FromBody] IEnumerable<CommandPayload<IngredientDto>> payloads)
-        {
-            await _commandPayloadService.ParseAndSendPayload(payloads);
-            return Ok();
-        }
-
-        [Route("change")]
-        [HttpPost]
-        public async Task<IActionResult> ChangeIngredients([FromBody] IEnumerable<CommandPayload<IngredientDto>> payloads)
-        {
-            await _commandPayloadService.ParseAndSendPayload(payloads);
-            return Ok();
         }
     }
 }

@@ -6,10 +6,12 @@ using NetCoreCQRSdemo.Api.Controllers.Base;
 using NetCoreCQRSdemo.Api.Scripts;
 using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Base;
 using NetCoreCqrsESdemo.BusinessLogic.Commands;
 using NetCoreCqrsESdemo.BusinessLogic.Queries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
