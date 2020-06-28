@@ -11,34 +11,34 @@ using System.Transactions;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Services
 {
-    public class CommandPayloadService
+    public class CommandExecutionService
     {
         private readonly IMediator _mediator;
         private readonly ApplicationDbContext _dbContext;
         private readonly CommandService _commandService;
         
-        public CommandPayloadService(IMediator mediator, ApplicationDbContext dbContext, CommandService commandService)
+        public CommandExecutionService(IMediator mediator, ApplicationDbContext dbContext, CommandService commandService)
         {
             _mediator = mediator;
             _dbContext = dbContext;
             _commandService = commandService;
         }
 
-        public async Task<IEnumerable<CommandPayload<T>>> ParseAndSendPayload<T>(IEnumerable<CommandPayload<T>> requests) where T : BaseDto
+        public async Task<IEnumerable<CommandInfo<T>>> ParseAndExecute<T>(IEnumerable<CommandInfo<T>> requests) where T : BaseDto
         {
-            var resultPayloads = new List<CommandPayload<T>>();
+            var resultPayloads = new List<CommandInfo<T>>();
 
             foreach (var request in requests)
             {
-                var innerCommandType = _commandService.GetCommandByEnum(request.CommandType);
-                var innerRequest = (BaseCommand<T>)Activator.CreateInstance(innerCommandType, request.Payload);
+                var innerCommandType = _commandService.GetCommandByEnum(request.Type);
+                var innerRequest = (BaseCommand<T>)Activator.CreateInstance(innerCommandType, request.Dto);
 
-                var requestReturn = await _mediator.Send(innerRequest);
+                var requestResult = await _mediator.Send(innerRequest);
 
-                var resultPayload = new CommandPayload<T>()
+                var resultPayload = new CommandInfo<T>()
                 {
-                    CommandType = request.CommandType,
-                    Payload = requestReturn
+                    Type = request.Type,
+                    Dto = requestResult
                 };
 
                 resultPayloads.Add(resultPayload);

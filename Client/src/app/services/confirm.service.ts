@@ -10,7 +10,7 @@ export class ConfirmDialogService {
     private dialogInfo$: Subject<ConfirmDialogInfo> = new BehaviorSubject(null);
     private dialogResult$: Subject<boolean> = new BehaviorSubject(null);
 
-    open(message: string, okLabel: string = 'OK', cancelLabel: string = 'Cancel', cancelVisible: boolean= true): Observable<boolean> {
+    open(message: string, cancelVisible: boolean= true, okLabel: string = 'OK', cancelLabel: string = 'Cancel'): Observable<boolean> {
         const info = {
             visible: true,
             message: message,

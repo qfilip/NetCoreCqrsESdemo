@@ -18,9 +18,9 @@ namespace NetCoreCQRSdemo.Api.FluentConfigurations
                 .OrderBy(i => i.Name != nameof(Domain.Dtos.BaseDto))
                 .ToArray();
 
-            var payload = Assembly.GetAssembly(typeof(CommandPayload<>))
+            var payload = Assembly.GetAssembly(typeof(CommandInfo<>))
                 .ExportedTypes
-                .Where(i => i == typeof(CommandPayload<>))
+                .Where(i => i == typeof(CommandInfo<>))
                 .OrderBy(i => i.Name)
                 .ToArray();
 

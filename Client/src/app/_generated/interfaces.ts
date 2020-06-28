@@ -32,8 +32,8 @@ export interface IRecipeExcerptDto extends IBaseDto
 	ingredientId: string;
 	amount: number;
 }
-export interface ICommandPayload<TDto>
+export interface ICommandInfo<TDto>
 {
-	commandType: eCommand;
-	payload: TDto;
+	type: eCommand;
+	dto: TDto;
 }

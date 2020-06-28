@@ -5,6 +5,7 @@ export class CommandHandler {
 
     private stack: Command[];
     private index: number;
+    
     constructor() {
         this.stack = [];
         this.index = -1;

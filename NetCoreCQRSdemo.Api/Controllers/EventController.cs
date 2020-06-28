@@ -13,7 +13,7 @@ namespace NetCoreCQRSdemo.Api.Controllers
     public class EventController : BaseController
     {
 
-        public EventController(IMediator mediator, ApplicationDbContext context, CommandPayloadService commandPayloadService) : base(mediator, context, commandPayloadService)
+        public EventController(IMediator mediator, ApplicationDbContext context, CommandExecutionService commandExecutionService) : base(mediator, context, commandExecutionService)
         {}
 
         [HttpGet]

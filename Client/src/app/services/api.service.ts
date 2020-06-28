@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as g from '../_notgenerated/globals';
 import { HttpClient } from '@angular/common/http';
-import { ICocktailDto, IAppEventDto, IIngredientDto, ICommandPayload, IBaseDto } from '../_generated/interfaces';
+import { IBaseDto, ICommandInfo } from '../_generated/interfaces';
 import { Observable } from 'rxjs';
 import { eControllerType } from '../_notgenerated/enums';
 
@@ -19,9 +19,9 @@ export class ApiService {
     }
 
     // api
-    executeCommands<T extends IBaseDto>(commands: ICommandPayload<T>[], controller: eControllerType): Observable<ICommandPayload<T>[]> {
+    executeCommands<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<ICommandInfo<T>[]> {
         const url = this.getControllerUrl(controller) + g.action;
-        return this.http.post<ICommandPayload<T>[]>(url, commands);
+        return this.http.post<ICommandInfo<T>[]>(url, commands);
     }
 
     getAll<T extends IBaseDto>(controller: eControllerType): Observable<T[]> {

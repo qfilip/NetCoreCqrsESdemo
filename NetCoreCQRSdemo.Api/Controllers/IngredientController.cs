@@ -19,15 +19,15 @@ namespace NetCoreCQRSdemo.Api.Controllers
         public IngredientController(
             IMediator mediator,
             ApplicationDbContext context,
-            CommandPayloadService commandPayloadService) : base(mediator, context, commandPayloadService)
+            CommandExecutionService commandExecutionService) : base(mediator, context, commandExecutionService)
         {
         }
 
         [HttpPost]
         [Route("action")]
-        public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandPayload<IngredientDto>> commands)
+        public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandInfo<IngredientDto>> commands)
         {
-            var result = await _commandPayloadService.ParseAndSendPayload(commands);
+            var result = await _commandExecutionService.ParseAndExecute(commands);
             return Ok(result);
         }
 

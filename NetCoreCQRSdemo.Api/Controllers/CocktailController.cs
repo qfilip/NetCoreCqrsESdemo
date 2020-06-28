@@ -19,7 +19,7 @@ namespace NetCoreCQRSdemo.Api.Controllers
     [Route("cocktails")]
     public class CocktailController : BaseController
     {
-        public CocktailController(IMediator mediator, ApplicationDbContext context, CommandPayloadService commandPayloadService) : base(mediator, context, commandPayloadService)
+        public CocktailController(IMediator mediator, ApplicationDbContext context, CommandExecutionService commandExecutionsService) : base(mediator, context, commandExecutionsService)
         {}
 
         [HttpGet]

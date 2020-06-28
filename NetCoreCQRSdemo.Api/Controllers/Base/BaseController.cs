@@ -20,13 +20,13 @@ namespace NetCoreCQRSdemo.Api.Controllers.Base
     {
         protected readonly IMediator _mediator;
         protected readonly ApplicationDbContext _context;
-        protected readonly CommandPayloadService _commandPayloadService;
+        protected readonly CommandExecutionService _commandExecutionService;
 
-        public BaseController(IMediator mediator, ApplicationDbContext context, CommandPayloadService commandPayloadService)
+        public BaseController(IMediator mediator, ApplicationDbContext context, CommandExecutionService commandExecutionService)
         {
             _mediator = mediator;
             _context = context;
-            _commandPayloadService = commandPayloadService;
+            _commandExecutionService = commandExecutionService;
         }
     }
 }
