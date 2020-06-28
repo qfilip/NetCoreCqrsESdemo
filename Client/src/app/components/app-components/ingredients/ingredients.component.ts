@@ -34,6 +34,7 @@ export class IngredientsComponent implements OnInit {
     }
 
     private getIngredients() {
+        this.ingredients = [];
         this.pageLoader.show('Fetching ingredients');
         this.controller.getAll<IIngredientDto>(eControllerType.Ingredient)
             .subscribe(
@@ -97,6 +98,7 @@ export class IngredientsComponent implements OnInit {
     }
 
     private cleanStackUpdateEntries(commands: ICommandInfo<IIngredientDto>[]) {
+        this.getIngredients();
         this.handler.cleanStack();
 
         commands.forEach(x => {
@@ -109,6 +111,14 @@ export class IngredientsComponent implements OnInit {
     private changesSavedSuccessMessage() {
         const msg = 'Local changes are saved in the database, and transfered to events page';
         const cancelVsible = false;
-        this.confirmDialog.open(msg, cancelVsible).subscribe();
+        this.confirmDialog.open(msg, cancelVsible).subscribe(r => console.log(r));
+    }
+
+    clogData() {
+        console.table(this.ingredients);
+    }
+
+    reseed() {
+        this.controller.reseedDb().subscribe(r => console.log(r));
     }
 }

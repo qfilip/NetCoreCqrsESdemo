@@ -19,6 +19,10 @@ export class ApiService {
     }
 
     // api
+    reseedDb() {
+        const url = g.cocktailController + 'seed';
+        return this.http.get(url);
+    }
     executeCommands<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<ICommandInfo<T>[]> {
         const url = this.getControllerUrl(controller) + g.action;
         return this.http.post<ICommandInfo<T>[]>(url, commands);

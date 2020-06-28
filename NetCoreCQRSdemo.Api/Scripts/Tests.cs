@@ -1,4 +1,5 @@
-﻿using NetCoreCQRSdemo.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using NetCoreCQRSdemo.Domain.Entities;
 using NetCoreCQRSdemo.Persistence.Context;
 using System;
 using System.Collections.Generic;
@@ -22,10 +23,21 @@ namespace NetCoreCQRSdemo.Api.Scripts
             
             // generate ingredients
             var allIngredients = CreateInitialIngredients();
+            allIngredients.ForEach(x => x.Id = Guid.NewGuid().ToString());
 
             // generate cocktails
-            var darkNstormy = new Cocktail() { Name = "Dark 'N' Stormy" };
-            var moscowMule = new Cocktail() { Name = "Dark 'N' Moscow Mule" };
+            var darkNstormy = new Cocktail() {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Dark 'N' Stormy",
+                CreatedOn = DateTime.Now,
+                EntityStatus = Domain.Enumerations.eEntityStatus.Active
+            };
+            var moscowMule = new Cocktail() {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Dark 'N' Moscow Mule",
+                CreatedOn = DateTime.Now,
+                EntityStatus = Domain.Enumerations.eEntityStatus.Active
+            };
 
             // generate recipes
             var recipes = new List<RecipeExcerpt>();
@@ -42,6 +54,8 @@ namespace NetCoreCQRSdemo.Api.Scripts
 
             recipes.AddRange(CreateRecipe(darkNstormy, allIngredients, dnsRecipe));
             recipes.AddRange(CreateRecipe(moscowMule, allIngredients, mMuleRecipe));
+
+            recipes.ForEach(x => x.Id = Guid.NewGuid().ToString());
 
             // add to DB
             _context.Cocktails.Add(moscowMule);

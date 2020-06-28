@@ -24,10 +24,12 @@ namespace NetCoreCQRSdemo.Api.Controllers
 
         [HttpGet]
         [Route("seed")]
-        public void SeedDatabase()
+        public IActionResult SeedDatabase()
         {
             var t = new Tests(_context);
             t.SeedDb();
+
+            return Ok();
         }
 
         [HttpGet]
