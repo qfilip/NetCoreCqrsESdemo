@@ -4,9 +4,10 @@ using System.Text;
 
 namespace NetCoreCQRSdemo.Domain.Enumerations
 {
-    public enum eSaveChangeType
+    public enum eEventType
     {
-        Single,
-        Batch
+        Create,
+        Edit,
+        Delete
     }
 }

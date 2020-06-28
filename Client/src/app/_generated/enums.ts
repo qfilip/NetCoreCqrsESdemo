@@ -8,7 +8,8 @@ export enum eCommand {
 	CreateIngredientCommand = 2, 
 	SetInitialStateCommand = 3
 }
-export enum eSaveChangeType { 
-	Single = 0, 
-	Batch = 1
+export enum eEventType { 
+	Create = 0, 
+	Edit = 1, 
+	Delete = 2
 }

@@ -1,0 +1,9 @@
+@import '../../../../../styles.scss';
+
+.event-card {
+    border: 2px solid $text-default;
+    background: linear-gradient(to right, transparent, $dark-transparent-more, transparent);
+    font-size: 2rem;
+    min-width: 3rem;
+    min-height: 3rem;
+}

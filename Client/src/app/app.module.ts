@@ -18,6 +18,7 @@ import { EventsComponent } from './components/app-components/events/events.compo
 import { IngredientComponent } from './components/app-components/ingredients/ingredient/ingredient.component';
 import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient-dialog';
 import { ConfirmDialogService } from './services/confirm.service';
+import { EventCardComponent } from './components/app-components/events/event-card/event-card.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ConfirmDialogService } from './services/confirm.service';
     CocktailsComponent,
     IngredientsComponent,
     EventsComponent,
+    EventCardComponent,
     IngredientComponent,
     CreateIngredientDialog
   ],

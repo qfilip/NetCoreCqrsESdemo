@@ -2,6 +2,7 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
+import { eEventType } from './enums';
 import { eCommand } from './enums';
 
 export interface IBaseDto
@@ -14,6 +15,7 @@ export interface IAppEventDto extends IBaseDto
 {
 	arguments: string;
 	commandCode: number;
+	eventType: eEventType;
 }
 export interface ICocktailDto extends IBaseDto
 {

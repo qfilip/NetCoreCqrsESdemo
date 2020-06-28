@@ -1,4 +1,5 @@
 ﻿using NetCoreCQRSdemo.Domain.Dtos;
+using NetCoreCQRSdemo.Domain.Enumerations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
 using System;
@@ -11,7 +12,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 {
     public class CreateIngredientCommand : BaseCommand<IngredientDto>
     {
-        public CreateIngredientCommand(IngredientDto dto) : base(dto) {}
+        public CreateIngredientCommand(IngredientDto dto) : base(dto, eEventType.Create) {}
     }
 
     public class CreateIngredientCommandHandler : BaseHandler<CreateIngredientCommand, IngredientDto>
@@ -22,8 +23,8 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 
         public override async Task<IngredientDto> Handle(CreateIngredientCommand command, CancellationToken cancellationToken)
         {
-            command.Request.Id = Guid.NewGuid().ToString();
-            var entity = _appMapper.ToEntity(command.Request);
+            command._dto.Id = Guid.NewGuid().ToString();
+            var entity = _appMapper.ToEntity(command._dto);
 
             await _dbContext.Ingredients.AddAsync(entity);
             await command.LogEvent(command, _dbContext);

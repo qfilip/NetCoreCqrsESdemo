@@ -36,7 +36,7 @@ namespace NetCoreCQRSdemo.Api.FluentConfigurations
 
             builder.ExportAsEnums(new Type[] {
                 typeof(eCommand),
-                typeof(eSaveChangeType)
+                typeof(eEventType)
             },
             cfg => cfg.ExportTo("enums.ts"));
         }

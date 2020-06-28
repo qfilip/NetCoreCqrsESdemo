@@ -11,6 +11,9 @@ $background-dark: #181818;
 $background-medium: #616161;
 $background-light: #e7e7e7;
 
+$dark-transparent: #000000cc;
+$dark-transparent-more: #00000055;
+
 $dialog-padding: 5px;
 
 // fonts
@@ -122,6 +125,26 @@ $dialog-padding: 5px;
     -moz-user-select: none; /* Old versions of Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently */
+}
+
+.w-10p {
+    width: 10%;
+}
+
+.w-50p {
+    width: 50%;
+}
+
+.w-70p {
+    width: 70%;
+}
+
+.w-80p {
+    width: 80%;
+}
+
+.w-90p {
+    width: 90%;
 }
 
 body {

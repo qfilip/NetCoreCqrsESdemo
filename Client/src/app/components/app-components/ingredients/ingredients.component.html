@@ -4,7 +4,7 @@
             <h3 class="">List of ingredients</h3>
             <hr/>
 
-            <div *ngFor="let ingredient of ingredients">
+            <div *ngFor="let ingredient of ingredients" class="ingredient-row">
                 <app-ingredient [ingredient]="ingredient"></app-ingredient>
             </div>
             <div>
@@ -20,14 +20,13 @@
             <h3 class="w3-center">Local changes</h3>
             <hr/>
             <div class="flex-y flex-even">
-                <button (click)="saveChanges()" class="action-btn btn-silver">Save Changes</button>
-                <button (click)="undo()" class="action-btn btn-silver">Undo</button>
+                <button (click)="saveChanges()" class="w-50p action-btn btn-silver"><i class="fas fa-sync"></i></button>
+                <button (click)="undo()" class="w-50p action-btn btn-silver"><i class="fas fa-backspace"></i></button>
             </div>
             <hr/>
             <div>
                 <div *ngFor="let change of handler.localChanges" class="event-container flex-y w-70p self-center">
-                    <div class="event-index w-10p">{{ change.index + 1 }}</div>
-                    <div class="w-90p">{{ change.description }}</div>
+                    <app-event-card></app-event-card>
                 </div>
             </div>
         </div>
