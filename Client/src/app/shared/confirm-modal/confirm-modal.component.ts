@@ -10,7 +10,9 @@ import { ConfirmDialogInfo } from 'src/app/_notgenerated/helpers';
     styleUrls: ['./confirm-modal.component.scss']
 })
 export class ConfirmModalComponent implements OnInit, OnDestroy {
-    constructor(private confirService: ConfirmDialogService) {}
+    constructor(private confirService: ConfirmDialogService) {
+        this.dialogInfo = { visible: false, message: null, okLabel: 'Ok', cancelLabel: 'Cancel', cancelVisible: true };
+    }
     
     dialogInfo: ConfirmDialogInfo;
     unsubscribe: Subject<any> = new Subject();

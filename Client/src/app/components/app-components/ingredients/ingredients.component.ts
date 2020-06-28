@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageLoaderService } from 'src/app/services/page-loader.service';
 import { ApiService } from 'src/app/services/api.service';
-import { IIngredientDto, ICommandInfo } from 'src/app/_generated/interfaces';
+import { IIngredientDto, ICommandInfo, IAppEventDto } from 'src/app/_generated/interfaces';
 import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient-dialog';
-import { eCommand } from 'src/app/_generated/enums';
+import { eCommand, eEventType } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
 import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
@@ -87,7 +87,8 @@ export class IngredientsComponent implements OnInit {
     createCommand(e: IIngredientDto) {
         for (let i = 0; i < 10; i++) {
             const description = `Created ${e.name} ingredient`;
-            const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, description);
+            const event = { eventType: eEventType.Create } as IAppEventDto;
+            const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, event, description);
             this.handler.execute(command);
         }
     }
@@ -96,7 +97,8 @@ export class IngredientsComponent implements OnInit {
         this.handler.cleanStack();
 
         commands.forEach(x => {
-            const command = new Command(x.dto, this.ingredients, x.type);
+            const event = { eventType: x.eventType } as IAppEventDto;
+            const command = new Command(x.dto, this.ingredients, x.type, event);
             this.handler.execute(command, false);
         });
     }

@@ -1,5 +1,5 @@
-import { eCommand } from '../_generated/enums';
-import { IBaseDto } from '../_generated/interfaces';
+import { eCommand, eEventType } from '../_generated/enums';
+import { IBaseDto, IAppEventDto } from '../_generated/interfaces';
 
 export class PageLoaderInfo {
     loading: boolean;
@@ -17,10 +17,11 @@ export class ConfirmDialogInfo {
 export class Command {
     private array: IBaseDto[];
     
-    constructor(parameter: IBaseDto, array: IBaseDto[], type: eCommand, description: string = 'no description') {
+    constructor(parameter: IBaseDto, array: IBaseDto[], type: eCommand, event: IAppEventDto, description: string = 'no description') {
         this.parameter = parameter;
         this.array = array;
         this.commandType = type;
+        this.event = event;
         this.description = description;
         
         this.execute = () => this.array.push(parameter);
@@ -32,6 +33,7 @@ export class Command {
 
     parameter: IBaseDto;
     commandType: eCommand;
+    event: IAppEventDto;
     description: string;
     
     execute: () => any;

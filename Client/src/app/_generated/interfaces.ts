@@ -37,5 +37,6 @@ export interface IRecipeExcerptDto extends IBaseDto
 export interface ICommandInfo<TDto>
 {
 	type: eCommand;
+	eventType: eEventType;
 	dto: TDto;
 }

@@ -1,7 +1,8 @@
 import { Command } from '../_notgenerated/helpers';
+import { IAppEventDto } from '../_generated/interfaces';
 
 export class CommandHandler {
-    localChanges: { index: number, description }[];
+    localChanges: { index: number, event: IAppEventDto, description: string }[];
 
     private stack: Command[];
     private index: number;
@@ -46,6 +47,6 @@ export class CommandHandler {
 
     private refreshLocalChanges() {
         this.localChanges = [];
-        this.stack.forEach((x, i) => this.localChanges.push({ index: i, description: x.description }));
+        this.stack.forEach((x, i) => this.localChanges.push({ index: i, event: x.event, description: x.description }));
     }
 }

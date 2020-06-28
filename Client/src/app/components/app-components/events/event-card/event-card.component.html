@@ -1,3 +1,5 @@
 <div class="event-card w3-center">
-    <i class="fas fa-info"></i>
+    <i *ngIf="isEventTypeOf(_eEventType.Create)" class="fas fa-plus"></i>
+    <i *ngIf="isEventTypeOf(_eEventType.Edit)" class="fas fa-screwdriver"></i>
+    <i *ngIf="isEventTypeOf(_eEventType.Delete)" class="fas fa-dumpster"></i>
 </div>
