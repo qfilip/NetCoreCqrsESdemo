@@ -34,6 +34,14 @@ export class CommandHandler {
         this.refreshLocalChanges();
     }
 
+    revertToIndex(index: number) {
+        this.stack.forEach((x, i) => {
+            if(i > index) {
+                x.reverse();
+            }
+        })
+    }
+
     getChanges() {
         return this.stack;
     }

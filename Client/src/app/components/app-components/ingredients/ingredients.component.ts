@@ -85,6 +85,10 @@ export class IngredientsComponent implements OnInit {
         this.handler.reverse();
     }
 
+    revertToIndex(changeIndex: number) {
+        this.handler.revertToIndex(changeIndex);
+    }
+
     createCommand(e: IIngredientDto) {
         const description = `Created ${e.name} ingredient`;
         const event = { eventType: eEventType.Create } as IAppEventDto;

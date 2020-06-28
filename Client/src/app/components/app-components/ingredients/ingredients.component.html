@@ -26,8 +26,13 @@
             <hr/>
             <div>
                 <div class=" flex-y w-70p">
-                    <div *ngFor="let change of handler.localChanges">
-                        <app-event-card [event]="change.event"></app-event-card>
+                    <div *ngFor="let change of handler.localChanges; let i = index;">
+                        <app-event-card 
+                            (onChangeRevert)="revertToIndex($event)"
+                            [index]="i"
+                            [event]="change.event"
+                            [description]="change.description"
+                        ></app-event-card>
                     </div>
                 </div>
             </div>
