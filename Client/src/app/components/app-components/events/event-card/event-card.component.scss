@@ -6,4 +6,12 @@
     font-size: 2rem;
     min-width: 3rem;
     min-height: 3rem;
+    margin: 2px;
+    transition: .2s;
+
+    &:hover {
+        cursor: pointer;
+        border: 2px solid $text-highlighted;
+        color: $text-highlighted;
+    }
 }

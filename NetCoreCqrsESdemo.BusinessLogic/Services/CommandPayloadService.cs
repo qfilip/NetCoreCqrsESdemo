@@ -38,6 +38,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                 var resultPayload = new CommandInfo<T>()
                 {
                     Type = request.Type,
+                    EventType = innerRequest._eventType,
                     Dto = requestResult
                 };
 

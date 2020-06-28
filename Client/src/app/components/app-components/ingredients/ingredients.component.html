@@ -25,9 +25,10 @@
             </div>
             <hr/>
             <div>
-                <div *ngFor="let change of handler.localChanges" class="event-container flex-y w-70p self-center">
-                    <app-event-card [event]="change.event"></app-event-card>
-                    <div> {{ change.event.eventType }} </div>
+                <div class=" flex-y w-70p">
+                    <div *ngFor="let change of handler.localChanges">
+                        <app-event-card [event]="change.event"></app-event-card>
+                    </div>
                 </div>
             </div>
         </div>

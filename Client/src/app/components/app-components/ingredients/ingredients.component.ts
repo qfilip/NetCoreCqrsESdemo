@@ -75,6 +75,7 @@ export class IngredientsComponent implements OnInit {
                     this.controller.executeCommands(payloads, eControllerType.Ingredient)
                         .subscribe(result => {
                             this.cleanStackUpdateEntries(result);
+                            this.changesSavedSuccessMessage();
                         });
                 }
             });
@@ -85,12 +86,10 @@ export class IngredientsComponent implements OnInit {
     }
 
     createCommand(e: IIngredientDto) {
-        for (let i = 0; i < 10; i++) {
-            const description = `Created ${e.name} ingredient`;
-            const event = { eventType: eEventType.Create } as IAppEventDto;
-            const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, event, description);
-            this.handler.execute(command);
-        }
+        const description = `Created ${e.name} ingredient`;
+        const event = { eventType: eEventType.Create } as IAppEventDto;
+        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, event, description);
+        this.handler.execute(command);
     }
 
     private cleanStackUpdateEntries(commands: ICommandInfo<IIngredientDto>[]) {
@@ -101,5 +100,11 @@ export class IngredientsComponent implements OnInit {
             const command = new Command(x.dto, this.ingredients, x.type, event);
             this.handler.execute(command, false);
         });
+    }
+
+    private changesSavedSuccessMessage() {
+        const msg = 'Local changes are saved in the database, and transfered to events page';
+        const cancelVsible = false;
+        this.confirmDialog.open(msg, cancelVsible).subscribe();
     }
 }
