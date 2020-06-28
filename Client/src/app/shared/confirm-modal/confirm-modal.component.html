@@ -1,9 +1,9 @@
-<div class="confirm-modal">
-    <div>
-        <div>Are you sure you want to perform this action?</div>
-        <div>
-            <button>Yes</button>
-            <button>No?</button>
+<div *ngIf="dialogInfo.visible" class="confirm-modal w3-display-container">
+    <div class="dialog-container noselect w3-panel w3-display-middle">
+        <div class="dialog-message">{{ dialogInfo.message }}</div>
+        <div class="button-container">
+            <button class="btn-silver">{{ dialogInfo.okLabel }}</button>
+            <button *ngIf="dialogInfo.cancelVisible" class="btn-silver">{{ dialogInfo.cancelLabel }}</button>
         </div>
     </div>
 </div>

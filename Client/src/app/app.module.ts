@@ -17,6 +17,7 @@ import { IngredientsComponent } from './components/app-components/ingredients/in
 import { EventsComponent } from './components/app-components/events/events.component';
 import { IngredientComponent } from './components/app-components/ingredients/ingredient/ingredient.component';
 import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient-dialog';
+import { ConfirmDialogService } from './services/confirm.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CreateIngredientDialog } from './components/app-components/ingredients/
   providers: [
     ApiService,
     PageLoaderService,
+    ConfirmDialogService
   ],
   bootstrap: [AppComponent]
 })

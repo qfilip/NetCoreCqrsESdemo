@@ -8,6 +8,7 @@ import { eCommand } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
 import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
+import { ConfirmDialogService } from 'src/app/services/confirm.service';
 
 @Component({
     selector: 'app-ingredients',
@@ -23,7 +24,9 @@ export class IngredientsComponent implements OnInit {
 
         constructor(
             private controller: ApiService,
-            private pageLoader: PageLoaderService) { }
+            private pageLoader: PageLoaderService,
+            private confirmDialog: ConfirmDialogService
+        ) { }
 
     ngOnInit() {
         this.getIngredients();
@@ -85,5 +88,9 @@ export class IngredientsComponent implements OnInit {
             const command = new Command(x.payload, this.ingredients, x.commandType);
             this.handler.execute(command, false);
         });
+    }
+
+    test() {
+        this.confirmDialog.open('Hello');
     }
 }

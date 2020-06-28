@@ -6,6 +6,14 @@ export class PageLoaderInfo {
     message: string;
 }
 
+export class ConfirmDialogInfo {
+    visible: boolean;
+    message: string;
+    okLabel: string;
+    cancelLabel: string;
+    cancelVisible: boolean;
+}
+
 export class Command {
     private array: IBaseDto[];
     
