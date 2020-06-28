@@ -1,9 +1,11 @@
 <div *ngIf="dialogInfo.visible" class="confirm-modal w3-display-container">
     <div class="dialog-container noselect w3-panel w3-display-middle">
         <div class="dialog-message">{{ dialogInfo.message }}</div>
+        <br/>
+        <br/>
         <div class="button-container">
-            <button class="btn-silver">{{ dialogInfo.okLabel }}</button>
-            <button *ngIf="dialogInfo.cancelVisible" class="btn-silver">{{ dialogInfo.cancelLabel }}</button>
+            <button (click)="onConfirm()" class="btn-silver confirm-dialog-btn">{{ dialogInfo.okLabel }}</button>
+            <button *ngIf="dialogInfo.cancelVisible" (click)="onDeny()" class="btn-silver confirm-dialog-btn">{{ dialogInfo.cancelLabel }}</button>
         </div>
     </div>
 </div>

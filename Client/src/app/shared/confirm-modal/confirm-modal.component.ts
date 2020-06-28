@@ -25,6 +25,14 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
             });
     }
 
+    onConfirm() {
+        this.confirService.setDialogResult(true);
+    }
+
+    onDeny() {
+        this.confirService.setDialogResult(false);
+    }
+
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();

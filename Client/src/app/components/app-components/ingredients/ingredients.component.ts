@@ -91,6 +91,10 @@ export class IngredientsComponent implements OnInit {
     }
 
     test() {
-        this.confirmDialog.open('Hello');
+        this.confirmDialog.open('Hello').subscribe(result => {
+            if(!!result) {
+                console.log('I accept');
+            }
+        });
     }
 }
