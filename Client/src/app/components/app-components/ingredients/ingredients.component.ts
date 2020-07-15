@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { IIngredientDto, ICommandInfo, IAppEventDto } from 'src/app/_generated/interfaces';
 import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient-dialog';
-import { eCommand, eEventType } from 'src/app/_generated/enums';
+import { eCommand, eCommandType } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
 import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
@@ -18,7 +18,7 @@ import { ConfirmDialogService } from 'src/app/services/confirm.service';
 export class IngredientsComponent implements OnInit {
 
     ingredients: IIngredientDto[] = [];
-    handler: CommandHandler;
+    handler: CommandHandler<IIngredientDto>;
 
     @ViewChild('acid') createDialog: CreateIngredientDialog;
 
@@ -30,7 +30,7 @@ export class IngredientsComponent implements OnInit {
 
     ngOnInit() {
         this.getIngredients();
-        this.handler = new CommandHandler();
+        this.handler = new CommandHandler<IIngredientDto>();
     }
 
     private getIngredients() {
@@ -52,9 +52,9 @@ export class IngredientsComponent implements OnInit {
     }
 
     saveChanges() {
-        const changes = this.handler.getChanges();
+        const payloads = this.handler.getCommandPayload();
 
-        if (changes.length === 0) {
+        if (payloads.length === 0) {
             this.confirmDialog.open('No changes were made', false).subscribe();
             return;
         }
@@ -62,18 +62,8 @@ export class IngredientsComponent implements OnInit {
         this.confirmDialog.open('Pending changes are about to be saved. Proceed?')
             .subscribe(proceed => {
                 if (!!proceed) {
-                    let payloads: ICommandInfo<IIngredientDto>[] = [];
 
-                    changes.forEach(x => {
-                        const payload = {
-                            type: x.commandType,
-                            dto: x.parameter
-                        } as ICommandInfo<IIngredientDto>;
-
-                        payloads.push(payload);
-                    });
-
-                    this.controller.executeCommands(payloads, eControllerType.Ingredient)
+                    this.controller.executeCommands<IIngredientDto>(payloads, eControllerType.Ingredient)
                         .subscribe(result => {
                             this.cleanStackUpdateEntries(result);
                             this.changesSavedSuccessMessage();
@@ -92,8 +82,7 @@ export class IngredientsComponent implements OnInit {
 
     createCommand(e: IIngredientDto) {
         const description = `Created ${e.name} ingredient`;
-        const event = { eventType: eEventType.Create } as IAppEventDto;
-        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, event, description);
+        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, eCommandType.Create, description);
         this.handler.execute(command);
     }
 
@@ -102,8 +91,7 @@ export class IngredientsComponent implements OnInit {
         this.handler.cleanStack();
 
         commands.forEach(x => {
-            const event = { eventType: x.eventType } as IAppEventDto;
-            const command = new Command(x.dto, this.ingredients, x.type, event);
+            const command = new Command(x.dto, this.ingredients, x.command, x.commandType);
             this.handler.execute(command, false);
         });
     }
@@ -111,7 +99,7 @@ export class IngredientsComponent implements OnInit {
     private changesSavedSuccessMessage() {
         const msg = 'Local changes are saved in the database, and transfered to events page';
         const cancelVsible = false;
-        this.confirmDialog.open(msg, cancelVsible).subscribe(r => console.log(r));
+        this.confirmDialog.open(msg, cancelVsible).subscribe();
     }
 
     clogData() {

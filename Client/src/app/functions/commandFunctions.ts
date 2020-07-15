@@ -1,8 +1,9 @@
 import { Command } from '../_notgenerated/helpers';
-import { IAppEventDto } from '../_generated/interfaces';
+import { IBaseDto, ICommandInfo } from '../_generated/interfaces';
+import { eCommandType } from '../_generated/enums';
 
-export class CommandHandler {
-    localChanges: { index: number, event: IAppEventDto, description: string }[];
+export class CommandHandler<TDto extends IBaseDto> {
+    localChanges: { index: number, commandType: eCommandType, description: string }[];
 
     private stack: Command[];
     private index: number;
@@ -37,13 +38,20 @@ export class CommandHandler {
     revertToIndex(index: number) {
         this.stack.forEach((x, i) => {
             if(i > index) {
-                x.reverse();
+                this.reverse();
             }
-        })
+        });
     }
 
-    getChanges() {
-        return this.stack;
+    getCommandPayload() {
+        let commandsPayload = [];
+        const mapPayload = (x: Command) => 
+            { return  { command: x.command, commandType: x.commandType, dto: x.parameter} as ICommandInfo<TDto> };
+
+        this.stack.forEach(x => commandsPayload.push(mapPayload(x)));
+
+
+        return commandsPayload;
     }
 
     cleanStack() {
@@ -54,7 +62,9 @@ export class CommandHandler {
     }
 
     private refreshLocalChanges() {
-        this.localChanges = [];
-        this.stack.forEach((x, i) => this.localChanges.push({ index: i, event: x.event, description: x.description }));
+        let updatedChanges = [];
+        this.stack.forEach((x, i) => updatedChanges.push({ index: i, commandType: x.commandType, description: x.description }));
+        
+        this.localChanges = [...updatedChanges];
     }
 }

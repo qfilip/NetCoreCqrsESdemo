@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NetCoreCQRSdemo.Domain.Enumerations
 {
-    public enum eEventType
+    public enum eCommandType
     {
         Create,
         Edit,

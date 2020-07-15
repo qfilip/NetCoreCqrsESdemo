@@ -30,15 +30,15 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
 
             foreach (var request in requests)
             {
-                var innerCommandType = _commandService.GetCommandByEnum(request.Type);
+                var innerCommandType = _commandService.GetCommandByEnum(request.Command);
                 var innerRequest = (BaseCommand<T>)Activator.CreateInstance(innerCommandType, request.Dto);
 
                 var requestResult = await _mediator.Send(innerRequest);
 
                 var resultPayload = new CommandInfo<T>()
                 {
-                    Type = request.Type,
-                    EventType = innerRequest._eventType,
+                    Command = request.Command,
+                    CommandType = innerRequest._commandType,
                     Dto = requestResult
                 };
 

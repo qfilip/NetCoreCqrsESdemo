@@ -30,7 +30,7 @@
                         <app-event-card 
                             (onChangeRevert)="revertToIndex($event)"
                             [index]="i"
-                            [event]="change.event"
+                            [commandType]="change.commandType"
                             [description]="change.description"
                         ></app-event-card>
                     </div>

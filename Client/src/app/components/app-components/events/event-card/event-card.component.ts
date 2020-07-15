@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IAppEventDto } from 'src/app/_generated/interfaces';
-import { eEventType } from 'src/app/_generated/enums';
+import { eCommandType } from 'src/app/_generated/enums';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
 
 @Component({
@@ -10,19 +10,19 @@ import { ConfirmDialogService } from 'src/app/services/confirm.service';
   })
 export class EventCardComponent implements OnInit {
     @Input('index') index: number;
-    @Input('event') appEvent: IAppEventDto = {} as IAppEventDto;
+    @Input('commandType') commandType: eCommandType;
     @Input('description') description: string;
 
     @Output('onChangeRevert') onChangeRevert: EventEmitter<number> = new EventEmitter<number>();
     
     constructor(private confirmDialog: ConfirmDialogService) {}
     
-    _eEventType = eEventType;
+    _eCommandType = eCommandType;
 
     ngOnInit() {}
 
-    isEventTypeOf(eventType: eEventType): boolean {
-        return eventType === this.appEvent.eventType;
+    isEventTypeOf(commandType: eCommandType): boolean {
+        return commandType === this.commandType;
     }
 
     chooseAction() {

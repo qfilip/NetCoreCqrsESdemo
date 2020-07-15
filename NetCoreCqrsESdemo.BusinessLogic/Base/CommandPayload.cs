@@ -5,8 +5,8 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
     public class CommandInfo<TDto> where TDto : BaseDto
     {
-        public eCommand Type { get; set; }
-        public eEventType EventType { get; set; }
+        public eCommand Command { get; set; }
+        public eCommandType CommandType { get; set; }
         public TDto Dto { get; set; }
     }
 }

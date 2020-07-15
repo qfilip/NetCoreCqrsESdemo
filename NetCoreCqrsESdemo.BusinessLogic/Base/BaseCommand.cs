@@ -16,12 +16,12 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
     public abstract class BaseCommand<TRequest> : BaseCommandGeneric, IRequest<TRequest>
     {
         public readonly TRequest _dto;
-        public readonly eEventType _eventType;
+        public readonly eCommandType _commandType;
         
-        public BaseCommand(TRequest dto, eEventType eventType)
+        public BaseCommand(TRequest dto, eCommandType commandType)
         {
             _dto = dto;
-            _eventType = eventType;
+            _commandType = commandType;
         }
 
         public string SerializeArguments()
@@ -41,7 +41,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
                 Arguments = command.SerializeArguments(),
                 CommandCode = (typeof(TCommand)).GetHashCode(),
                 CreatedOn = DateTime.Now,
-                EventType = command._eventType,
+                CommandType = command._commandType,
                 EntityStatus = eEntityStatus.Active
             };
             

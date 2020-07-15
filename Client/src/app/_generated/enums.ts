@@ -8,7 +8,7 @@ export enum eCommand {
 	CreateIngredientCommand = 2, 
 	SetInitialStateCommand = 3
 }
-export enum eEventType { 
+export enum eCommandType { 
 	Create = 0, 
 	Edit = 1, 
 	Delete = 2

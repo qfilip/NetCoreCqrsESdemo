@@ -8,6 +8,6 @@ namespace NetCoreCQRSdemo.Domain.Entities
     {
         public string Arguments { get; set; }
         public int CommandCode { get; set; }
-        public eEventType EventType { get; set; }
+        public eCommandType CommandType { get; set; }
     }
 }

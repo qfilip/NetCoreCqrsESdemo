@@ -12,7 +12,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 {
     public class CreateIngredientCommand : BaseCommand<IngredientDto>
     {
-        public CreateIngredientCommand(IngredientDto dto) : base(dto, eEventType.Create) {}
+        public CreateIngredientCommand(IngredientDto dto) : base(dto, eCommandType.Create) {}
     }
 
     public class CreateIngredientCommandHandler : BaseHandler<CreateIngredientCommand, IngredientDto>
