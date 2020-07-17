@@ -9,6 +9,8 @@ using NetCoreCqrsESdemo.BusinessLogic.Services;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
@@ -28,9 +30,18 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
         {
             return JsonConvert.SerializeObject(_dto);
         }
+
         public TRequest DeserializeArguments(string args)
         {
             return JsonConvert.DeserializeObject<TRequest>(args);
+        }
+
+        private string GetHash(string input)
+        {
+            using var sha1 = new SHA1Managed();
+            var bytes = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            return Convert.ToBase64String(bytes);
         }
 
         public async Task LogEvent<TCommand>(TCommand command, ApplicationDbContext dbContext) where TCommand : BaseCommand<TRequest>
@@ -39,7 +50,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
             {
                 Id = Guid.NewGuid().ToString(),
                 Arguments = command.SerializeArguments(),
-                CommandCode = (typeof(TCommand)).GetHashCode(),
+                CommandHash = GetHash(typeof(TCommand).Name),
                 CreatedOn = DateTime.Now,
                 CommandType = command._commandType,
                 EntityStatus = eEntityStatus.Active

@@ -8,7 +8,7 @@ namespace NetCoreCQRSdemo.Domain.Dtos
     public class AppEventDto : BaseDto
     {
         public string Arguments { get; set; }
-        public int CommandCode { get; set; }
+        public string CommandHash { get; set; }
         public eCommandType CommandType { get; set; }
     }
 }

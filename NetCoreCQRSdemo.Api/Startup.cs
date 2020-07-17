@@ -19,12 +19,14 @@ namespace NetCoreCQRSdemo.Api
     public class Startup
     {
         private readonly string _dataSource;
+        private readonly string _appMaps;
         private Assembly _assemblyBL;
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             string path = GlobalVariables.DatasourcePrefix + environment.WebRootPath;
-            
+
+            _appMaps = Path.Combine(environment.WebRootPath, GlobalVariables.MappingFile);
             _dataSource = Path.Combine(path, GlobalVariables.DatabaseName);
             _assemblyBL = Assembly.Load(GlobalVariables.NMSP_BusinessLogic);
         }
@@ -42,9 +44,13 @@ namespace NetCoreCQRSdemo.Api
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
+            //services.AddHostedService<AppConfigurationService>();
+            services.AddHostedService(provider => new AppConfigurationService(_appMaps));
             services.AddDbContext<ApplicationDbContext>(cfg => cfg.UseSqlite(_dataSource));
-            services.AddSingleton<CommandService>();
+            
+            services.AddSingleton(provider => new CommandService(_appMaps));
             services.AddTransient<CommandExecutionService>();
+            
             services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
 
             services.AddCors(options =>

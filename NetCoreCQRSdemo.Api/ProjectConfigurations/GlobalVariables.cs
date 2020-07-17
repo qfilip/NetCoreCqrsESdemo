@@ -2,6 +2,7 @@
 {
     public static class GlobalVariables
     {
+        public static string MappingFile = "appmaps.json";
         public static string DatasourcePrefix = "Datasource=";
         public static string DatabaseName = "db.db3";
 

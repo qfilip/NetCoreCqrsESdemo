@@ -14,7 +14,7 @@ export interface IBaseDto
 export interface IAppEventDto extends IBaseDto
 {
 	arguments: string;
-	commandCode: number;
+	commandHash: string;
 	commandType: eCommandType;
 }
 export interface ICocktailDto extends IBaseDto

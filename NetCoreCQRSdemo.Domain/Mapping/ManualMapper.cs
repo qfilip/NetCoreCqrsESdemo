@@ -45,7 +45,7 @@ namespace NetCoreCQRSdemo.Domain.Mapping
             {
                 Id = dto.Id,
                 Arguments = dto.Arguments,
-                CommandCode = dto.CommandCode,
+                CommandHash = dto.CommandHash,
                 CommandType = dto.CommandType
             };
         }
@@ -89,7 +89,7 @@ namespace NetCoreCQRSdemo.Domain.Mapping
             {
                 Id = entity.Id,
                 Arguments = entity.Arguments,
-                CommandCode = entity.CommandCode,
+                CommandHash = entity.CommandHash,
                 CommandType = entity.CommandType
             };
         }

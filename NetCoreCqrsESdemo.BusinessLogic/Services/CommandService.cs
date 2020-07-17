@@ -1,4 +1,5 @@
-﻿using NetCoreCQRSdemo.Domain.Enumerations;
+﻿using NetCoreCQRSdemo.Domain.DomainBase;
+using NetCoreCQRSdemo.Domain.Enumerations;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
 using System;
 using System.Collections.Generic;
@@ -9,46 +10,24 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
 {
     public class CommandService
     {
-        private IDictionary<eCommand, Type> _appCommands;
-        private IDictionary<int, Type> _appCommandsHashed;
-        private IDictionary<eCommand, int> _appCommandsEnumerated;
-
-        public CommandService()
+        private readonly List<CommandMap> _map;
+        
+        public CommandService(string appMappings)
         {
-            var baseCommandName = "BaseCommand";
-            
-            var commands = AppDomain.CurrentDomain
-                .GetAssemblies()
-                .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.IsSubclassOf(typeof(BaseCommandGeneric)) && !type.Name.Contains(baseCommandName));
-
-            var enumCount = Enum.GetNames(typeof(eCommand)).Length;
-            var cmdCount = commands.Count();
-
-            _appCommands = new Dictionary<eCommand, Type>();
-            _appCommandsHashed = new Dictionary<int, Type>();
-            _appCommandsEnumerated = new Dictionary<eCommand, int>();
-            
-            foreach (var command in commands)
-            {
-                var commandHash = command.GetHashCode();
-                eCommand commandEnum =
-                    (eCommand)Enum.Parse(typeof(eCommand), command.Name);
-
-                _appCommands.Add(commandEnum, command);
-                _appCommandsHashed.Add(commandHash, command);
-                _appCommandsEnumerated.Add(commandEnum, commandHash);
-            }
+            _map = Newtonsoft.Json.JsonConvert
+                .DeserializeObject<List<CommandMap>>(appMappings);
         }
 
-        public Type GetCommandByCode(int commandHash)
+        public Type GetCommandByCode(string commandHash)
         {
-            return _appCommandsHashed[commandHash];
+            return _map.Where(x => x.Hash == commandHash)
+                .Select(x => x.Type).FirstOrDefault();
         }
 
         public Type GetCommandByEnum(eCommand commandEnumeration)
         {
-            return _appCommands[commandEnumeration];
+            return _map.Where(x => x.Enumeration == commandEnumeration)
+                .Select(x => x.Type).FirstOrDefault();
         }
     }
 }
