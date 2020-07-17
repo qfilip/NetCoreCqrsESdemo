@@ -15,18 +15,18 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
     public abstract class BaseCommand<TRequest> : BaseCommandGeneric, IRequest<TRequest>
     {
-        public TRequest Dto { get; set; }
+        public readonly TRequest _dto;
         public readonly eCommandType _commandType;
         
         public BaseCommand(TRequest dto, eCommandType commandType)
         {
-            Dto = dto;
+            _dto = dto;
             _commandType = commandType;
         }
 
         public string SerializeArguments()
         {
-            return JsonConvert.SerializeObject(Dto);
+            return JsonConvert.SerializeObject(_dto);
         }
         public TRequest DeserializeArguments(string args)
         {

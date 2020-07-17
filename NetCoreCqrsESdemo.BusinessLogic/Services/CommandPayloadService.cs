@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore.Internal;
 using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Domain.Enumerations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Runtime.InteropServices;
@@ -58,27 +60,23 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
         }
 
         private IEnumerable<BaseCommand<T>> CleanRequestStack<T>(IEnumerable<CommandInfo<T>> requests) where T : BaseDto
-        {
-            var commands = new List<BaseCommand<T>>();
+        {   
+            var commands = new List<CommandContainer<T>>();
             var filteredCommands = new List<BaseCommand<T>>();
-            
-            var commandsT = new List<CommandContainer<T>>();
-            var filteredCommandsT = new List<CommandContainer<T>>();
 
             foreach (var request in requests)
             {
                 var innerCommandType = _commandService.GetCommandByEnum(request.Command);
                 var innerRequest = (BaseCommand<T>)Activator.CreateInstance(innerCommandType, request.Dto);
 
-                commands.Add(innerRequest);
-                commandsT.Add(new CommandContainer<T> { Instance = innerRequest, Definition = request.Command });
+                commands.Add(new CommandContainer<T> { Instance = innerRequest, Definition = request.Command });
             }
 
-            var distinctDtoIds = commands.Select(x => x.Dto.Id).Distinct().ToList();
+            var distinctDtoIds = commands.Select(x => x.Instance._dto.Id).Distinct().ToList();
             foreach(var distinctDtoId in distinctDtoIds)
             {
-                var commandsForDto = commands.Where(x => x.Dto.Id == distinctDtoId);
-                var commandForDtoTypes = commandsForDto.Select(x => x._commandType).Distinct();
+                var commandsForDto = commands.Where(x => x.Instance._dto.Id == distinctDtoId).ToList();
+                var commandForDtoTypes = commandsForDto.Select(x => x.Instance._commandType).Distinct();
 
                 var actions = eCommandType.None;
 
@@ -100,22 +98,48 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                 }
                 else if (ignoreChangesOnDeleted)
                 {
-                    commandsToExecute = commandsForDto.Where(x => x._commandType == eCommandType.Delete).ToList();
+                    // delete command must be last and single ?
+                    var deleteCommand = commandsForDto
+                        .Select(x => x.Instance)
+                        .Where(x => x._commandType == eCommandType.Delete)
+                        .Single();
+
+                    commandsToExecute.Add(deleteCommand);
                 }
                 else if(ignoreModifications)
                 {
-                    var lastEditCommandDto = commandsForDto
-                        .Where(x => x._commandType == eCommandType.Edit)
-                        .Last().Dto;
+                    var instances = commandsForDto.Select(x => x.Instance).ToList();
+                    var instanceCount = instances.Count - 1;
+                    var lastEditCommandPosition = -1;
+                    for(var i = 0; i < instanceCount; i++)
+                    {
+                        if(instances[i]._commandType == eCommandType.Edit)
+                        {
+                            lastEditCommandPosition = i;
+                        }
+                    }
 
-                    var createCommand = commandsForDto.Where(x => x._commandType == eCommandType.Create).First();
-                    createCommand.Dto = lastEditCommandDto;
+                    if(lastEditCommandPosition == -1)
+                    {
+                        throw new ArgumentException("Edit command for Dto not found ");
+                    }
+
+                    var lastDtoVersion = instances[lastEditCommandPosition]._dto;
+
+                    // create command must be on first position and single?
+                    if(commandsForDto[0].Instance._commandType != eCommandType.Create)
+                    {
+                        throw new InvalidEnumArgumentException("Create command must be first");
+                    }
+
+                    var commandEnum = _commandService.GetCommandByEnum(commandsForDto[0].Definition);
+                    var createCommand = (BaseCommand<T>)Activator.CreateInstance(commandEnum, lastDtoVersion);
 
                     commandsToExecute.Add(createCommand);
                 }
                 else
                 {
-                    commandsToExecute = commandsForDto.ToList();
+                    commandsToExecute = commandsForDto.Select(x => x.Instance).ToList();
                 }
 
                 filteredCommands.AddRange(commandsToExecute);
