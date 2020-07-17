@@ -76,8 +76,8 @@ export class IngredientsComponent implements OnInit {
         this.handler.reverse();
     }
 
-    revertToIndex(changeIndex: number) {
-        this.handler.revertToIndex(changeIndex);
+    revertToChange(changeIndex: number) {
+        this.handler.revertToChange(changeIndex);
     }
 
     createCommand(e: IIngredientDto) {

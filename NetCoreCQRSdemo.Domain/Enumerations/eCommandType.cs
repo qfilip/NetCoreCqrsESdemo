@@ -6,8 +6,9 @@ namespace NetCoreCQRSdemo.Domain.Enumerations
 {
     public enum eCommandType
     {
-        Create,
-        Edit,
-        Delete
+        None = 0,
+        Create = 1,
+        Edit = 2,
+        Delete = 4
     }
 }

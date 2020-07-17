@@ -28,7 +28,7 @@
                 <div class=" flex-y w-70p">
                     <div *ngFor="let change of handler.localChanges; let i = index;">
                         <app-event-card 
-                            (onChangeRevert)="revertToIndex($event)"
+                            (onChangeRevert)="revertToChange($event)"
                             [index]="i"
                             [commandType]="change.commandType"
                             [description]="change.description"

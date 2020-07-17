@@ -1,5 +1,5 @@
 import { eCommand, eCommandType } from '../_generated/enums';
-import { IBaseDto, IAppEventDto } from '../_generated/interfaces';
+import { IBaseDto } from '../_generated/interfaces';
 
 export class PageLoaderInfo {
     loading: boolean;

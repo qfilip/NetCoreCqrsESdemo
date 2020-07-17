@@ -9,7 +9,8 @@ export enum eCommand {
 	SetInitialStateCommand = 3
 }
 export enum eCommandType { 
-	Create = 0, 
-	Edit = 1, 
-	Delete = 2
+	None = 0, 
+	Create = 1, 
+	Edit = 2, 
+	Delete = 4
 }
