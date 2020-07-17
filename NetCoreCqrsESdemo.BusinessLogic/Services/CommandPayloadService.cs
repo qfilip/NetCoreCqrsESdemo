@@ -43,11 +43,11 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
 
             foreach (var command in filteredCommands)
             {
-                var requestResult = await _mediator.Send(command);
+                var requestResult = await _mediator.Send(command.Instance);
                 var resultPayload = new CommandInfo<T>()
                 {
-                    // Command = command
-                    CommandType = command._commandType,
+                    Command = command.Definition,
+                    CommandType = command.Instance._commandType,
                     Dto = requestResult
                 };
 
@@ -59,10 +59,10 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
             return resultPayloads;
         }
 
-        private IEnumerable<BaseCommand<T>> CleanRequestStack<T>(IEnumerable<CommandInfo<T>> requests) where T : BaseDto
+        private IEnumerable<CommandContainer<T>> CleanRequestStack<T>(IEnumerable<CommandInfo<T>> requests) where T : BaseDto
         {   
             var commands = new List<CommandContainer<T>>();
-            var filteredCommands = new List<BaseCommand<T>>();
+            var filteredCommands = new List<CommandContainer<T>>();
 
             foreach (var request in requests)
             {
@@ -91,7 +91,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                 var ignoreChangesOnDeleted = (actions & eCommandType.Delete) > 0;
                 var ignoreModifications = (actions & eCommandType.Create) > 0 && (actions & eCommandType.Edit) > 0;
 
-                var commandsToExecute = new List<BaseCommand<T>>();
+                var commandsToExecute = new List<CommandContainer<T>>();
                 if (ignoreAllCommands)
                 {
                     // do nothing
@@ -104,27 +104,21 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                         .Where(x => x._commandType == eCommandType.Delete)
                         .Single();
 
-                    commandsToExecute.Add(deleteCommand);
+                    var deleteCommandIndex = FindCommandIndex(commandsForDto, eCommandType.Delete);
+                    var commandEnum = commandsForDto[deleteCommandIndex].Definition;
+
+                    commandsToExecute.Add(new CommandContainer<T> { Instance = deleteCommand, Definition = commandEnum });
                 }
                 else if(ignoreModifications)
                 {
-                    var instances = commandsForDto.Select(x => x.Instance).ToList();
-                    var instanceCount = instances.Count - 1;
-                    var lastEditCommandPosition = -1;
-                    for(var i = 0; i < instanceCount; i++)
-                    {
-                        if(instances[i]._commandType == eCommandType.Edit)
-                        {
-                            lastEditCommandPosition = i;
-                        }
-                    }
+                    var lastEditCommandIndex = FindCommandIndex(commandsForDto, eCommandType.Edit);
 
-                    if(lastEditCommandPosition == -1)
+                    if(lastEditCommandIndex == -1)
                     {
                         throw new ArgumentException("Edit command for Dto not found ");
                     }
 
-                    var lastDtoVersion = instances[lastEditCommandPosition]._dto;
+                    var lastDtoVersion = commandsForDto.Select(x => x.Instance).ToList()[lastEditCommandIndex]._dto;
 
                     // create command must be on first position and single?
                     if(commandsForDto[0].Instance._commandType != eCommandType.Create)
@@ -132,14 +126,15 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                         throw new InvalidEnumArgumentException("Create command must be first");
                     }
 
-                    var commandEnum = _commandService.GetCommandByEnum(commandsForDto[0].Definition);
-                    var createCommand = (BaseCommand<T>)Activator.CreateInstance(commandEnum, lastDtoVersion);
+                    var commandEnum = commandsForDto[0].Definition;
+                    var commandType = _commandService.GetCommandByEnum(commandEnum);
+                    var createCommand = (BaseCommand<T>)Activator.CreateInstance(commandType, lastDtoVersion);
 
-                    commandsToExecute.Add(createCommand);
+                    commandsToExecute.Add(new CommandContainer<T> { Instance = createCommand, Definition = commandEnum });
                 }
                 else
                 {
-                    commandsToExecute = commandsForDto.Select(x => x.Instance).ToList();
+                    commandsToExecute = commandsForDto;
                 }
 
                 filteredCommands.AddRange(commandsToExecute);
@@ -150,7 +145,21 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
             return filteredCommands;
         }
 
-        private (BaseCommand<T>, eCommand) ToTuple<T>(BaseCommand<T> instance, eCommand commandEnum) where T : BaseDto =>
-            (instance, commandEnum);
+        private int FindCommandIndex<T>(List<CommandContainer<T>> container, eCommandType commandType) where T : BaseDto
+        {
+            var instances = container.Select(x => x.Instance).ToList();
+            var instanceCount = instances.Count - 1;
+            
+            var position = -1;
+            for (var i = 0; i < instanceCount; i++)
+            {
+                if (instances[i]._commandType == commandType)
+                {
+                    position = i;
+                }
+            }
+
+            return position;
+        }
     }
 }
