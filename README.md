@@ -2,7 +2,7 @@
 First (and probably last) attempt to make (bad) event sourced app for purely educational purposes.
 
 ## Should feature:
-- Ability to add, remove, modify entites.
+- Ability to add, remove, modify entites, without calling api on every change.
 - Automatic recording of any change (event)
 - Ability to revert changes (and database state) to the specified state.
 
