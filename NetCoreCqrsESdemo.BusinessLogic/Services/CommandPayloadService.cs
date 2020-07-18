@@ -148,7 +148,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
         private int FindCommandIndex<T>(List<CommandContainer<T>> container, eCommandType commandType) where T : BaseDto
         {
             var instances = container.Select(x => x.Instance).ToList();
-            var instanceCount = instances.Count - 1;
+            var instanceCount = instances.Count;
             
             var position = -1;
             for (var i = 0; i < instanceCount; i++)
