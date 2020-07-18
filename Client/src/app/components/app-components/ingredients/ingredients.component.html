@@ -5,7 +5,7 @@
             <hr/>
 
             <div *ngFor="let ingredient of ingredients" class="ingredient-row">
-                <app-ingredient [ingredient]="ingredient"></app-ingredient>
+                <app-ingredient (onEditClicked)="openEditDialog($event)" [ingredient]="ingredient"></app-ingredient>
             </div>
             <div>
                 <button
@@ -40,9 +40,7 @@
     </div>
 </div>
 
-<app-create-ingredient-dialog 
-    #acid
-    (onConfirmed)="createCommand($event)">
-</app-create-ingredient-dialog>
+<app-create-ingredient-dialog #acid (onConfirmed)="onIngredientCreate($event)"></app-create-ingredient-dialog>
+<app-edit-ingredient-dialog #aeid (onConfirmed)="onIngredientEdit($event)"></app-edit-ingredient-dialog>
 <button (click)="clogData()">test returned data</button>
 <button (click)="reseed()">ReseedDb</button>

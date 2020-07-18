@@ -3,12 +3,13 @@ import { PageLoaderService } from 'src/app/services/page-loader.service';
 import { ApiService } from 'src/app/services/api.service';
 import { IIngredientDto, ICommandInfo, IAppEventDto } from 'src/app/_generated/interfaces';
 import { Command } from 'src/app/_notgenerated/helpers';
-import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient-dialog';
+import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient.dialog';
 import { eCommand, eCommandType } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
 import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
+import { EditIngredientDialog } from './edit-ingredient-dialog/edit-ingredient.dialog';
 
 @Component({
     selector: 'app-ingredients',
@@ -21,6 +22,7 @@ export class IngredientsComponent implements OnInit {
     handler: CommandHandler<IIngredientDto>;
 
     @ViewChild('acid') createDialog: CreateIngredientDialog;
+    @ViewChild('aeid') editDialog: EditIngredientDialog;
 
     constructor(
         private controller: ApiService,
@@ -49,6 +51,10 @@ export class IngredientsComponent implements OnInit {
 
     openCreateDialog() {
         this.createDialog.open();
+    }
+
+    openEditDialog(e: IIngredientDto) {
+        this.editDialog.open(e);
     }
 
     saveChanges() {
@@ -80,9 +86,15 @@ export class IngredientsComponent implements OnInit {
         this.handler.revertToChange(changeIndex);
     }
 
-    createCommand(e: IIngredientDto) {
+    onIngredientCreate(e: IIngredientDto) {
         const description = `Created ${e.name} ingredient`;
         const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, eCommandType.Create, description);
+        this.handler.execute(command);
+    }
+
+    onIngredientEdit(e: IIngredientDto) {
+        const description = `Edited ${e.name} ingredient`;
+        const command = new Command(e, this.ingredients, eCommand.EditIngredientCommand, eCommandType.Edit, description);
         this.handler.execute(command);
     }
 

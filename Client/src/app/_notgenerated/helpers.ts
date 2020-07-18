@@ -21,6 +21,7 @@ export class Command {
         this.parameter = parameter;
         this.array = array;
         this.command = command;
+        this.commandType = commandType;
         this.description = description;
         
         this.execute = () => this.array.push(parameter);

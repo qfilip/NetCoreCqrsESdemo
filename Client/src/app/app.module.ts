@@ -16,12 +16,14 @@ import { CocktailsComponent } from './components/app-components/cocktails/cockta
 import { IngredientsComponent } from './components/app-components/ingredients/ingredients.component';
 import { EventsComponent } from './components/app-components/events/events.component';
 import { IngredientComponent } from './components/app-components/ingredients/ingredient/ingredient.component';
-import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient-dialog';
 import { ConfirmDialogService } from './services/confirm.service';
 import { EventCardComponent } from './components/app-components/events/event-card/event-card.component';
+import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient.dialog';
+import { EditIngredientDialog } from './components/app-components/ingredients/edit-ingredient-dialog/edit-ingredient.dialog';
 
 @NgModule({
   declarations: [
+    // Global Components
     AppComponent,
     HeaderComponent,
     FooterComponent,
@@ -29,12 +31,16 @@ import { EventCardComponent } from './components/app-components/events/event-car
     PageLoaderComponent,
     ConfirmModalComponent,
     
+    // Components
     CocktailsComponent,
     IngredientsComponent,
     EventsComponent,
     EventCardComponent,
     IngredientComponent,
-    CreateIngredientDialog
+
+    // Dialogues
+    CreateIngredientDialog,
+    EditIngredientDialog
   ],
   imports: [
     BrowserModule,

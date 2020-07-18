@@ -44,6 +44,7 @@ export class CommandHandler<TDto extends IBaseDto> {
     }
 
     getCommandPayload() {
+        debugger
         let commandsPayload = [];
         const mapPayload = (x: Command) => 
             { return  { command: x.command, commandType: x.commandType, dto: x.parameter} as ICommandInfo<TDto> };

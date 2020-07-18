@@ -6,7 +6,7 @@ export enum eCommand {
 	CreateCocktailCommand = 0, 
 	DeleteCocktailCommand = 1, 
 	CreateIngredientCommand = 2, 
-	SetInitialStateCommand = 3
+	EditIngredientCommand = 3
 }
 export enum eCommandType { 
 	None = 0, 

@@ -1,21 +1,22 @@
 ﻿using NetCoreCQRSdemo.Domain.DomainBase;
 using NetCoreCQRSdemo.Domain.Enumerations;
-using NetCoreCqrsESdemo.BusinessLogic.Base;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Services
 {
     public class CommandService
     {
         private readonly List<CommandMap> _map;
-        
+
         public CommandService(string appMappings)
         {
+            var mappingFileContent = File.ReadAllText(appMappings);
+            
             _map = Newtonsoft.Json.JsonConvert
-                .DeserializeObject<List<CommandMap>>(appMappings);
+                .DeserializeObject<List<CommandMap>>(mappingFileContent);
         }
 
         public Type GetCommandByCode(string commandHash)

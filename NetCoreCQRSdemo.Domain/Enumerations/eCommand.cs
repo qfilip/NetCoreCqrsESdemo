@@ -6,7 +6,6 @@
         DeleteCocktailCommand,
 
         CreateIngredientCommand,
-
-        SetInitialStateCommand
+        EditIngredientCommand,
     }
 }

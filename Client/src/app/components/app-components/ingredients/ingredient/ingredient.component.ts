@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IIngredientDto } from 'src/app/_generated/interfaces';
 
 @Component({
@@ -8,10 +8,14 @@ import { IIngredientDto } from 'src/app/_generated/interfaces';
 })
 export class IngredientComponent implements OnInit {
 
+    @Output('onEditClicked') onEditClicked = new EventEmitter<IIngredientDto>();
     @Input('ingredient') ingredient: IIngredientDto;
 
     constructor() { }
 
+    openEditDialog() {
+        this.onEditClicked.emit(this.ingredient);
+    }
     ngOnInit(): void {
     }
 
