@@ -38,9 +38,10 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             var entity = await _dbContext.Ingredients
                 .Where(x => x.Id == command._dto.Id).SingleOrDefaultAsync();
 
-            entity = _appMapper.ToEntity(command._dto);
+            entity.Name = command._dto.Name;
+            entity.Strength = command._dto.Strength;
 
-            return command._dto;
+            return _appMapper.ToDto(entity);
         }
     }
 }

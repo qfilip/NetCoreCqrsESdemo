@@ -10,9 +10,7 @@ import { DtoFunctions } from 'src/app/functions/dtoFunctions';
 export class EditIngredientDialog {
     @Output('onConfirmed') emitter = new EventEmitter<IIngredientDto>();
     
-    constructor() {
-        this.dtoFuncs = new DtoFunctions();
-    }
+    constructor() {}
     
     visible = false;
     errorMessage = '';
@@ -21,7 +19,6 @@ export class EditIngredientDialog {
 
     onConfirm() {
         if(this.ingredient.name.length > 0) {
-            this.ingredient.id = this.dtoFuncs.generateId();
             this.emitter.emit(this.ingredient);
             this.visible = false;
             return;
