@@ -10,7 +10,6 @@ import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
 import { EditIngredientDialog } from './edit-ingredient-dialog/edit-ingredient.dialog';
-import { runInThisContext } from 'vm';
 
 @Component({
     selector: 'app-ingredients',

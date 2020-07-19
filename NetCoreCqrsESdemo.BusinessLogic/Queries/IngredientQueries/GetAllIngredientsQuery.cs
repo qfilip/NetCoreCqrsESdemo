@@ -27,7 +27,10 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries.IngredientQueries
 
         public override async Task<IEnumerable<IngredientDto>> Handle(GetAllIngredientsQuery query, CancellationToken cancellationToken)
         {
-            var entities = await _dbContext.Ingredients.ToListAsync();
+            var entities = await _dbContext.Ingredients
+                .Where(x => x.EntityStatus == eEntityStatus.Active)
+                .ToListAsync();
+
             return _appMapper.MultiMap(entities, _appMapper.ToDto);
         }
     }
