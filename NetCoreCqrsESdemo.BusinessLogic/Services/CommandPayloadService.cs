@@ -89,8 +89,8 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                 // ignoreChangesOnDeleted //    ignore changes on entity that will be deleted, just delete it
                 // ignoreModifications //       if entity was created and then modified locally, just add last version of it
 
-                var ignoreAllCommands = (actions & eCommandType.Create) > 0 && (actions & eCommandType.Delete) > 0;
-                var ignoreChangesOnDeleted = (actions & eCommandType.Delete) > 0;
+                var ignoreAllCommands = (actions & eCommandType.Create) > 0 && (actions & eCommandType.Remove) > 0;
+                var ignoreChangesOnDeleted = (actions & eCommandType.Remove) > 0;
                 var ignoreModifications = (actions & eCommandType.Create) > 0 && (actions & eCommandType.Edit) > 0;
 
                 var commandsToExecute = new List<CommandContainer<T>>();
@@ -103,10 +103,10 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
                     // delete command must be last and single ?
                     var deleteCommand = commandsForDto
                         .Select(x => x.Instance)
-                        .Where(x => x._commandType == eCommandType.Delete)
+                        .Where(x => x._commandType == eCommandType.Remove)
                         .Single();
 
-                    var deleteCommandIndex = FindCommandIndex(commandsForDto, eCommandType.Delete);
+                    var deleteCommandIndex = FindCommandIndex(commandsForDto, eCommandType.Remove);
                     var commandEnum = commandsForDto[deleteCommandIndex].Definition;
 
                     commandsToExecute.Add(new CommandContainer<T> { Instance = deleteCommand, Definition = commandEnum });

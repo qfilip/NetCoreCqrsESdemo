@@ -13,5 +13,5 @@ export enum eCommandType {
 	None = 0, 
 	Create = 1, 
 	Edit = 2, 
-	Delete = 4
+	Remove = 4
 }

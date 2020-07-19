@@ -10,6 +10,7 @@ import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
 import { EditIngredientDialog } from './edit-ingredient-dialog/edit-ingredient.dialog';
+import { runInThisContext } from 'vm';
 
 @Component({
     selector: 'app-ingredients',
@@ -53,8 +54,26 @@ export class IngredientsComponent implements OnInit {
         this.createDialog.open();
     }
 
+    onIngredientCreate(e: IIngredientDto) {
+        const description = `Created ${e.name} ingredient`;
+        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, eCommandType.Create, description);
+        this.handler.execute(command);
+    }
+
     openEditDialog(e: IIngredientDto) {
         this.editDialog.open(e);
+    }
+
+    onIngredientEdit(e: IIngredientDto) {
+        const description = `Edited ${e.name} ingredient`;
+        const command = new Command(e, this.ingredients, eCommand.EditIngredientCommand, eCommandType.Edit, description);
+        this.handler.execute(command);
+    }
+
+    openRemoveDialog(ingredientId: string) {
+        const ingredient = this.ingredients.find(x => x.id === ingredientId);
+        const command = new Command(ingredient, this.ingredients, eCommand.RemoveIngredientCommand, eCommandType.Remove);
+        this.handler.execute(command);
     }
 
     saveChanges() {
@@ -71,9 +90,9 @@ export class IngredientsComponent implements OnInit {
 
                     this.controller.executeCommands<IIngredientDto>(payloads, eControllerType.Ingredient)
                         .subscribe(result => {
-                            this.ingredients = result;
                             this.handler.cleanStack();
                             this.changesSavedSuccessMessage();
+                            this.getIngredients();
                         });
                 }
             });
@@ -85,18 +104,6 @@ export class IngredientsComponent implements OnInit {
 
     revertToChange(changeIndex: number) {
         this.handler.revertToChange(changeIndex);
-    }
-
-    onIngredientCreate(e: IIngredientDto) {
-        const description = `Created ${e.name} ingredient`;
-        const command = new Command(e, this.ingredients, eCommand.CreateIngredientCommand, eCommandType.Create, description);
-        this.handler.execute(command);
-    }
-
-    onIngredientEdit(e: IIngredientDto) {
-        const description = `Edited ${e.name} ingredient`;
-        const command = new Command(e, this.ingredients, eCommand.EditIngredientCommand, eCommandType.Edit, description);
-        this.handler.execute(command);
     }
 
     private changesSavedSuccessMessage() {

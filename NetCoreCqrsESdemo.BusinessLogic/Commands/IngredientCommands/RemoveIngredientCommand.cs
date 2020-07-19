@@ -14,7 +14,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 {
     public class RemoveIngredientCommand : BaseCommand<IngredientDto>
     {
-        public RemoveIngredientCommand(IngredientDto dto) : base(dto, eCommandType.Delete) {}
+        public RemoveIngredientCommand(IngredientDto dto) : base(dto, eCommandType.Remove) {}
     }
 
     public class RemoveIngredientValidator : AbstractValidator<RemoveIngredientCommand>
@@ -35,7 +35,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             var entity = await _dbContext.Ingredients
                 .FirstOrDefaultAsync(x => x.Id == request._dto.Id);
 
-            entity.EntityStatus = eEntityStatus.Deleted;
+            entity.EntityStatus = eEntityStatus.Removed;
 
             return _appMapper.ToDto(entity);
         }

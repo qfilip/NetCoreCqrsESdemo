@@ -22,12 +22,13 @@ export class Command {
     commandType: eCommandType;
     description: string;
     
-    constructor(parameter: IBaseDto, array: IBaseDto[], command: eCommand, commandType: eCommandType, description: string = 'no description') {
+    constructor(parameter: IBaseDto, array: IBaseDto[], command: eCommand, commandType: eCommandType, description: string = null) {
         this.parameter = parameter;
         this.array = array;
         this.command = command;
         this.commandType = commandType;
-        this.description = description;
+
+        this.description = !!description ? description : this.generateDescription(parameter, commandType);
     }
     
     execute() {
@@ -40,7 +41,7 @@ export class Command {
             this.array[index] = this.parameter;
             return;
         }
-        if (this.commandType === eCommandType.Delete) {
+        if (this.commandType === eCommandType.Remove) {
             const index = this.array.findIndex(x => x.id === this.parameter.id);
             this.array.splice(index, 1);
             return;
@@ -50,5 +51,15 @@ export class Command {
     reverse() {
         const index = this.array.findIndex(x => x.id === this.parameter.id);
         this.array.splice(index, 1);
+    }
+
+    private generateDescription(dto: IBaseDto, commandType: eCommandType) {
+        let predicate = '';
+        // const types = Object.values(eCommandType);
+        predicate = commandType === eCommandType.Create ? 'Created' : predicate;
+        predicate = commandType === eCommandType.Edit ? 'Edited' : predicate;
+        predicate = commandType === eCommandType.Remove ? 'Deleted' : predicate;
+        
+        return `${predicate} entity with Id: ${dto.id}`;
     }
 }

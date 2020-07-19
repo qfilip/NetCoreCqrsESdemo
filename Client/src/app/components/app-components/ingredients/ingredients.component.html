@@ -5,7 +5,11 @@
             <hr/>
 
             <div *ngFor="let ingredient of ingredients" class="ingredient-row">
-                <app-ingredient (onEditClicked)="openEditDialog($event)" [ingredient]="ingredient"></app-ingredient>
+                <app-ingredient
+                    [ingredient]="ingredient"
+                    (onEditClicked)="openEditDialog($event)"
+                    (onRemoveClicked)="openRemoveDialog($event)">
+                </app-ingredient>
             </div>
             <div>
                 <button

@@ -8,6 +8,6 @@ namespace NetCoreCQRSdemo.Domain.Enumerations
     {
         Active,
         Historical,
-        Deleted = 99
+        Removed = 99
     }
 }

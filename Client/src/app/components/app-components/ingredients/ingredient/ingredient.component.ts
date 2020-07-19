@@ -9,14 +9,18 @@ import { IIngredientDto } from 'src/app/_generated/interfaces';
 export class IngredientComponent implements OnInit {
 
     @Output('onEditClicked') onEditClicked = new EventEmitter<IIngredientDto>();
+    @Output('onRemoveClicked') onRemoveClicked = new EventEmitter<string>();
+    
     @Input('ingredient') ingredient: IIngredientDto;
 
     constructor() { }
+    ngOnInit() {}
 
     openEditDialog() {
         this.onEditClicked.emit(this.ingredient);
     }
-    ngOnInit(): void {
-    }
 
+    openRemoveDialog() {
+        this.onRemoveClicked.emit(this.ingredient.id);
+    }
 }
