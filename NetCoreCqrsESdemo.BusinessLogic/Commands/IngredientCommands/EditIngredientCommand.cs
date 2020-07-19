@@ -31,9 +31,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 
     public class EditIngredientCommandHandler : BaseHandler<EditIngredientCommand, IngredientDto>
     {
-        public EditIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext)
-        {
-        }
+        public EditIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext) {}
 
         public override async Task<IngredientDto> Handle(EditIngredientCommand command, CancellationToken cancellationToken)
         {

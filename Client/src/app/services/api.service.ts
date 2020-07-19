@@ -23,9 +23,9 @@ export class ApiService {
         const url = g.cocktailController + 'seed';
         return this.http.get(url);
     }
-    executeCommands<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<ICommandInfo<T>[]> {
+    executeCommands<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<T[]> {
         const url = this.getControllerUrl(controller) + g.action;
-        return this.http.post<ICommandInfo<T>[]>(url, commands);
+        return this.http.post<T[]>(url, commands);
     }
 
     getAll<T extends IBaseDto>(controller: eControllerType): Observable<T[]> {

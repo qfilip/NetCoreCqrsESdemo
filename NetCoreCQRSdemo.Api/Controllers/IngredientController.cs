@@ -27,7 +27,9 @@ namespace NetCoreCQRSdemo.Api.Controllers
         [Route("action")]
         public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandInfo<IngredientDto>> commands)
         {
-            var result = await _commandExecutionService.ParseAndExecute(commands);
+            _ = await _commandExecutionService.ParseAndExecute(commands);
+            var result = await _mediator.Send(new GetAllIngredientsQuery());
+            
             return Ok(result);
         }
 

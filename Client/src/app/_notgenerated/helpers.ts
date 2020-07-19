@@ -16,6 +16,11 @@ export class ConfirmDialogInfo {
 
 export class Command {
     private array: IBaseDto[];
+
+    parameter: IBaseDto;
+    command: eCommand;
+    commandType: eCommandType;
+    description: string;
     
     constructor(parameter: IBaseDto, array: IBaseDto[], command: eCommand, commandType: eCommandType, description: string = 'no description') {
         this.parameter = parameter;
@@ -23,19 +28,27 @@ export class Command {
         this.command = command;
         this.commandType = commandType;
         this.description = description;
-        
-        this.execute = () => this.array.push(parameter);
-        this.reverse = () => {
+    }
+    
+    execute() {
+        if (this.commandType === eCommandType.Create) {
+            this.array.push(this.parameter);
+            return;
+        }
+        if (this.commandType === eCommandType.Edit) {
+            const index = this.array.findIndex(x => x.id === this.parameter.id);
+            this.array[index] = this.parameter;
+            return;
+        }
+        if (this.commandType === eCommandType.Delete) {
             const index = this.array.findIndex(x => x.id === this.parameter.id);
             this.array.splice(index, 1);
+            return;
         }
     }
 
-    parameter: IBaseDto;
-    command: eCommand;
-    commandType: eCommandType;
-    description: string;
-    
-    execute: () => any;
-    reverse: () => any;
+    reverse() {
+        const index = this.array.findIndex(x => x.id === this.parameter.id);
+        this.array.splice(index, 1);
+    }
 }

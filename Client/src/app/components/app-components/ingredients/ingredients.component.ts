@@ -71,7 +71,8 @@ export class IngredientsComponent implements OnInit {
 
                     this.controller.executeCommands<IIngredientDto>(payloads, eControllerType.Ingredient)
                         .subscribe(result => {
-                            this.cleanStackUpdateEntries(result);
+                            this.ingredients = result;
+                            this.handler.cleanStack();
                             this.changesSavedSuccessMessage();
                         });
                 }
@@ -96,16 +97,6 @@ export class IngredientsComponent implements OnInit {
         const description = `Edited ${e.name} ingredient`;
         const command = new Command(e, this.ingredients, eCommand.EditIngredientCommand, eCommandType.Edit, description);
         this.handler.execute(command);
-    }
-
-    private cleanStackUpdateEntries(commands: ICommandInfo<IIngredientDto>[]) {
-        this.getIngredients();
-        this.handler.cleanStack();
-
-        commands.forEach(x => {
-            const command = new Command(x.dto, this.ingredients, x.command, x.commandType);
-            this.handler.execute(command, false);
-        });
     }
 
     private changesSavedSuccessMessage() {

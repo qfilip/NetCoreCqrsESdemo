@@ -7,5 +7,6 @@
 
         CreateIngredientCommand,
         EditIngredientCommand,
+        RemoveIngredientCommand,
     }
 }

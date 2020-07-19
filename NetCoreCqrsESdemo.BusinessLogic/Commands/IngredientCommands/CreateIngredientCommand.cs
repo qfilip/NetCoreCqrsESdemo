@@ -17,9 +17,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
 
     public class CreateIngredientCommandHandler : BaseHandler<CreateIngredientCommand, IngredientDto>
     {
-        public CreateIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext)
-        {
-        }
+        public CreateIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext) {}
 
         public override async Task<IngredientDto> Handle(CreateIngredientCommand command, CancellationToken cancellationToken)
         {
@@ -27,7 +25,6 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             var entity = _appMapper.ToEntity(command._dto);
 
             await _dbContext.Ingredients.AddAsync(entity);
-            await command.LogEvent(command, _dbContext);
 
             return _appMapper.ToDto(entity);
         }
