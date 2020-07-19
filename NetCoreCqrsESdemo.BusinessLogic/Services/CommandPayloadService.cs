@@ -44,7 +44,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Services
             foreach (var command in filteredCommands)
             {
                 var requestResult = await _mediator.Send(command.Instance);
-                await command.Instance.LogEvent(command.Instance, _dbContext);
+                await command.Instance.LogEvent(_dbContext, command.Instance, requestResult);
 
                 var resultPayload = new CommandInfo<T>()
                 {

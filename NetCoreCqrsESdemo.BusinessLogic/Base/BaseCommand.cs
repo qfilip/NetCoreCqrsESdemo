@@ -15,25 +15,25 @@ using System.Threading.Tasks;
 
 namespace NetCoreCqrsESdemo.BusinessLogic.Base
 {
-    public abstract class BaseCommand<TRequest> : BaseCommandGeneric, IRequest<TRequest>
+    public abstract class BaseCommand<TDto> : BaseCommandGeneric, IRequest<TDto>
     {
-        public readonly TRequest _dto;
+        public readonly TDto _dto;
         public readonly eCommandType _commandType;
         
-        public BaseCommand(TRequest dto, eCommandType commandType)
+        public BaseCommand(TDto dto, eCommandType commandType)
         {
             _dto = dto;
             _commandType = commandType;
         }
 
-        public string SerializeArguments()
+        public string SerializeArguments(TDto commandDtoResult)
         {
-            return JsonConvert.SerializeObject(_dto);
+            return JsonConvert.SerializeObject(commandDtoResult);
         }
 
-        public TRequest DeserializeArguments(string args)
+        public TDto DeserializeArguments(string args)
         {
-            return JsonConvert.DeserializeObject<TRequest>(args);
+            return JsonConvert.DeserializeObject<TDto>(args);
         }
 
         private string GetHash(string input)
@@ -44,12 +44,12 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
             return Convert.ToBase64String(bytes);
         }
 
-        public async Task LogEvent<TCommand>(TCommand command, ApplicationDbContext dbContext) where TCommand : BaseCommand<TRequest>
+        public async Task LogEvent<TCommand>(ApplicationDbContext dbContext, TCommand command, TDto commandDtoResult) where TCommand : BaseCommand<TDto>
         {
             var @event = new AppEvent()
             {
                 Id = Guid.NewGuid().ToString(),
-                Arguments = command.SerializeArguments(),
+                Arguments = command.SerializeArguments(commandDtoResult),
                 CommandHash = GetHash(typeof(TCommand).Name),
                 CreatedOn = DateTime.Now,
                 CommandType = command._commandType,
