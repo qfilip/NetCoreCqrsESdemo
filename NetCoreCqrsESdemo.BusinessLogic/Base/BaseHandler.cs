@@ -24,6 +24,13 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Base
             _dbContext = dbContext;
         }
 
+        public BaseHandler(ApplicationDbContext dbContext, IMediator mediator)
+        {
+            _appMapper = new ManualMapper();
+            _dbContext = dbContext;
+            _mediator = mediator;
+        }
+
         public BaseHandler(IMediator mediator, CommandService commandService, ApplicationDbContext dbContext)
         {
             _appMapper = new ManualMapper();

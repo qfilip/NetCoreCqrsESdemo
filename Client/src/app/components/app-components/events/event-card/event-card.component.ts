@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { IAppEventDto } from 'src/app/_generated/interfaces';
 import { eCommandType } from 'src/app/_generated/enums';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
+import { ConfirmModalDialog } from 'src/app/shared/confirm-modal/confirm-modal.component';
 
 @Component({
     selector: 'app-event-card',
@@ -14,8 +15,10 @@ export class EventCardComponent implements OnInit {
     @Input('description') description: string;
 
     @Output('onChangeRevert') onChangeRevert: EventEmitter<number> = new EventEmitter<number>();
+
+    @ViewChild('confirmModal') confirmModal: ConfirmModalDialog;
     
-    constructor(private confirmDialog: ConfirmDialogService) {}
+    constructor() {}
     
     _eCommandType = eCommandType;
 
@@ -27,11 +30,7 @@ export class EventCardComponent implements OnInit {
 
     chooseAction() {
         const message = `Event description: ${this.description}. Revert to this?`;
-        this.confirmDialog.open(message, true, 'Revert')
-            .subscribe(result => {
-                if(!!result) {
-                    this.onChangeRevert.emit(this.index);
-                }
-            });
+        const proceed = () => { this.onChangeRevert.emit(this.index); }
+        this.confirmModal.open(message, proceed);
     }
 }

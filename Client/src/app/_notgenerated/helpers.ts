@@ -12,6 +12,7 @@ export class ConfirmDialogInfo {
     okLabel: string;
     cancelLabel: string;
     cancelVisible: boolean;
+    acceptFn: () => void;
 }
 
 export class Command {

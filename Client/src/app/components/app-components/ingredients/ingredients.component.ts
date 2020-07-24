@@ -10,6 +10,7 @@ import { eControllerType } from 'src/app/_notgenerated/enums';
 import { NgForm } from '@angular/forms';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
 import { EditIngredientDialog } from './edit-ingredient-dialog/edit-ingredient.dialog';
+import { ConfirmModalDialog } from 'src/app/shared/confirm-modal/confirm-modal.component';
 
 @Component({
     selector: 'app-ingredients',
@@ -23,11 +24,11 @@ export class IngredientsComponent implements OnInit {
 
     @ViewChild('acid') createDialog: CreateIngredientDialog;
     @ViewChild('aeid') editDialog: EditIngredientDialog;
+    @ViewChild('confirmModal') confirmModal: ConfirmModalDialog;
 
     constructor(
         private controller: ApiService,
-        private pageLoader: PageLoaderService,
-        private confirmDialog: ConfirmDialogService
+        private pageLoader: PageLoaderService
     ) { }
 
     ngOnInit() {
@@ -79,22 +80,20 @@ export class IngredientsComponent implements OnInit {
         const payloads = this.handler.getCommandPayload();
 
         if (payloads.length === 0) {
-            this.confirmDialog.open('No changes were made', false).subscribe();
+            this.confirmModal.open('No changes were made', () => {}, false);
             return;
         }
 
-        this.confirmDialog.open('Pending changes are about to be saved. Proceed?')
-            .subscribe(proceed => {
-                if (!!proceed) {
+        const proceed = () => {
+            this.controller.executeCommands<IIngredientDto>(payloads, eControllerType.Ingredient)
+                .subscribe(result => {
+                    this.handler.cleanStack();
+                    this.changesSavedSuccessMessage();
+                    this.getIngredients();
+                });
+        }
 
-                    this.controller.executeCommands<IIngredientDto>(payloads, eControllerType.Ingredient)
-                        .subscribe(result => {
-                            this.handler.cleanStack();
-                            this.changesSavedSuccessMessage();
-                            this.getIngredients();
-                        });
-                }
-            });
+        this.confirmModal.open('Pending changes are about to be saved. Proceed?', proceed);
     }
 
     undo() {
@@ -108,7 +107,7 @@ export class IngredientsComponent implements OnInit {
     private changesSavedSuccessMessage() {
         const msg = 'Local changes are saved in the database, and transfered to events page';
         const cancelVsible = false;
-        this.confirmDialog.open(msg, cancelVsible).subscribe();
+        this.confirmModal.open(msg, () => {}, cancelVsible);
     }
 
     clogData() {
@@ -117,5 +116,9 @@ export class IngredientsComponent implements OnInit {
 
     reseed() {
         this.controller.reseedDb().subscribe(r => console.log(r));
+    }
+    
+    testApiService() {
+        this.controller.test();
     }
 }

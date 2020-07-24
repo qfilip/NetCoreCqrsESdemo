@@ -1,6 +1,8 @@
 @import '../../../styles.scss';
 
 .confirm-modal {
+    top: 0;
+    z-index: 1000;
     position: absolute;
     min-width: 100vw;
     min-height: 100vh;

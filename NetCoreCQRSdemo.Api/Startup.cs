@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using NetCoreCQRSdemo.Api.ProjectConfigurations;
 using NetCoreCQRSdemo.Persistence.Context;
 using NetCoreCqrsESdemo.BusinessLogic.Base;
+using NetCoreCqrsESdemo.BusinessLogic.Commands;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -51,7 +52,7 @@ namespace NetCoreCQRSdemo.Api
             services.AddSingleton(provider => new CommandService(_appMaps));
             services.AddTransient<CommandExecutionService>();
             
-            services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly, typeof(MainCommandHandler<>).GetTypeInfo().Assembly);
 
             services.AddCors(options =>
                 options.AddDefaultPolicy(builder =>

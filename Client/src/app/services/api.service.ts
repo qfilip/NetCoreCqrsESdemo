@@ -4,11 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { IBaseDto, ICommandInfo } from '../_generated/interfaces';
 import { Observable } from 'rxjs';
 import { eControllerType } from '../_notgenerated/enums';
+import { map } from 'rxjs/operators';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ApiService {
     constructor(private http: HttpClient) {}
-
+    
     private getControllerUrl(controller: eControllerType) {
         let url = '';
         if(controller === eControllerType.Cocktail) url += g.cocktailController;
@@ -36,5 +37,8 @@ export class ApiService {
     get<T extends IBaseDto>(controller: eControllerType): Observable<T> {
         const url = this.getControllerUrl(controller) + g.one;
         return this.http.get<T>(url);
+    }
+    test() {
+        console.log('called');
     }
 }

@@ -9,35 +9,40 @@ import { ConfirmDialogInfo } from 'src/app/_notgenerated/helpers';
     templateUrl: './confirm-modal.component.html',
     styleUrls: ['./confirm-modal.component.scss']
 })
-export class ConfirmModalComponent implements OnInit, OnDestroy {
-    constructor(private confirService: ConfirmDialogService) {
-        this.dialogInfo = { visible: false, message: null, okLabel: 'Ok', cancelLabel: 'Cancel', cancelVisible: true };
-    }
+export class ConfirmModalDialog implements OnInit {
     
     dialogInfo: ConfirmDialogInfo;
-    unsubscribe: Subject<any> = new Subject();
 
-    ngOnInit(): void {
-        this.confirService.confirmDialogInfo
-            .pipe(takeUntil(this.unsubscribe))
-            .subscribe(dialogInfo => {
-                if(!!dialogInfo) {
-                    this.dialogInfo = dialogInfo;
-                }
-            });
+    ngOnInit() {
+        this.dialogInfo = {
+            visible: false,
+            acceptFn: () => {},
+            message: '',
+            okLabel: 'Ok',
+            cancelLabel: 'Cancel',
+            cancelVisible: true
+        } as ConfirmDialogInfo;
+    }
+
+    open(message: string, acceptFn: () => void, cancelVisible: boolean = true, okLabel: string = 'OK', cancelLabel: string = 'Cancel') {
+        const info = {
+            visible: true,
+            acceptFn: acceptFn,
+            message: message,
+            okLabel: okLabel,
+            cancelLabel: cancelLabel,
+            cancelVisible: cancelVisible
+        } as ConfirmDialogInfo;
+
+        this.dialogInfo = info;
     }
 
     onConfirm() {
-        const result = this.dialogInfo.cancelVisible ? true : false;
-        this.confirService.setDialogResult(result);
+        this.dialogInfo.acceptFn();
+        this.dialogInfo.visible = false;
     }
 
     onDeny() {
-        this.confirService.setDialogResult(false);
-    }
-
-    ngOnDestroy(): void {
-        this.unsubscribe.next();
-        this.unsubscribe.complete();
+        this.dialogInfo.visible = false;
     }
 }

@@ -11,12 +11,11 @@ import { ApiService } from './services/api.service';
 import { PageLoaderComponent } from './shared/page-loader/page-loader.component';
 import { PageLoaderService } from './services/page-loader.service';
 import { FormsModule } from '@angular/forms';
-import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.component';
+import { ConfirmModalDialog } from './shared/confirm-modal/confirm-modal.component';
 import { CocktailsComponent } from './components/app-components/cocktails/cocktails.component';
 import { IngredientsComponent } from './components/app-components/ingredients/ingredients.component';
 import { EventsComponent } from './components/app-components/events/events.component';
 import { IngredientComponent } from './components/app-components/ingredients/ingredient/ingredient.component';
-import { ConfirmDialogService } from './services/confirm.service';
 import { EventCardComponent } from './components/app-components/events/event-card/event-card.component';
 import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient.dialog';
 import { EditIngredientDialog } from './components/app-components/ingredients/edit-ingredient-dialog/edit-ingredient.dialog';
@@ -29,7 +28,9 @@ import { EditIngredientDialog } from './components/app-components/ingredients/ed
     FooterComponent,
     IndexComponent,
     PageLoaderComponent,
-    ConfirmModalComponent,
+
+    // Dialogs
+    ConfirmModalDialog,
     
     // Components
     CocktailsComponent,
@@ -50,8 +51,7 @@ import { EditIngredientDialog } from './components/app-components/ingredients/ed
   ],
   providers: [
     ApiService,
-    PageLoaderService,
-    ConfirmDialogService
+    PageLoaderService
   ],
   bootstrap: [AppComponent]
 })
