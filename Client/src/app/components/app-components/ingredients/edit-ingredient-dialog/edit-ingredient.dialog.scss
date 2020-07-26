@@ -2,7 +2,9 @@
 
 .dialog-content {
     width: 50%;
-    background: whitesmoke;
+    padding: 2rem;
+    border: 1px solid $text-darkred;
+    background: $background-dark;
     margin: auto;
-    color: black;
+    color: $text-default;
 }
