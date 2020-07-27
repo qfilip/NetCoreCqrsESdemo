@@ -9,6 +9,7 @@ import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateCocktailDialog } from './create-cocktail-dialog/create-cocktail.dialog';
 import { ConfirmModalDialog } from 'src/app/shared/confirm-modal/confirm-modal.component';
 import { EditCocktailDialog } from './edit-cocktail-dialog/edit-cocktail.dialog';
+import { CocktailController } from 'src/app/services/controllers/cocktail-controller.service';
 
 @Component({
   selector: 'app-cocktails',
@@ -25,7 +26,7 @@ export class CocktailsComponent implements OnInit {
     @ViewChild('confirmModal') confirmModal: ConfirmModalDialog;
 
     constructor(
-        private controller: ApiService,
+        private controller: CocktailController,
         private pageLoader: PageLoaderService
     ) { }
 
@@ -36,8 +37,8 @@ export class CocktailsComponent implements OnInit {
 
     private getCocktails() {
         this.cocktails = [];
-        this.pageLoader.show('Fetching cocktails');
-        this.controller.getAll<ICocktailDto>(eControllerType.Cocktail)
+        this.pageLoader.show(`Fetchin' cocktails...`);
+        this.controller.getAllCocktails()
             .subscribe(
                 response => {
                     this.cocktails = response;
@@ -52,7 +53,7 @@ export class CocktailsComponent implements OnInit {
         this.createDialog.open();
     }
 
-    onIngredientCreate(e: ICocktailDto) {
+    onCocktailCreate(e: ICocktailDto) {
         const description = `Created ${e.name} cocktail`;
         const command = new Command(e, this.cocktails, eCommand.CreateCocktailCommand, eCommandType.Create, description);
         this.handler.execute(command);
@@ -62,7 +63,7 @@ export class CocktailsComponent implements OnInit {
         this.editDialog.open(e);
     }
 
-    onIngredientEdit(e: ICocktailDto) {
+    onCocktailEdit(e: ICocktailDto) {
         const description = `Edited ${e.name} cocktail`;
         const command = new Command(e, this.cocktails, eCommand.EditCocktailCommand, eCommandType.Edit, description);
         this.handler.execute(command);
@@ -83,7 +84,7 @@ export class CocktailsComponent implements OnInit {
         }
 
         const proceed = () => {
-            this.controller.executeCommands<ICocktailDto>(payloads, eControllerType.Cocktail)
+            this.controller.executeCommands(payloads)
                 .subscribe(result => {
                     this.handler.cleanStack();
                     this.changesSavedSuccessMessage();
@@ -117,7 +118,7 @@ export class CocktailsComponent implements OnInit {
     }
     
     testApiService() {
-        this.controller.test();
+        // this.controller.test();
     }
 
 }

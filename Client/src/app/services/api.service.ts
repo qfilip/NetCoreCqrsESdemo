@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
-    constructor(private http: HttpClient) {}
+    constructor(protected http: HttpClient) {}
     
     private getControllerUrl(controller: eControllerType) {
         let url = '';
@@ -24,21 +24,18 @@ export class ApiService {
         const url = g.cocktailController + 'seed';
         return this.http.get(url);
     }
-    executeCommands<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<ICommandInfo<T>[]> {
+    executeCommandsBase<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<ICommandInfo<T>[]> {
         const url = this.getControllerUrl(controller) + g.action;
         return this.http.post<ICommandInfo<T>[]>(url, commands);
     }
 
-    getAll<T extends IBaseDto>(controller: eControllerType): Observable<T[]> {
-        const url = this.getControllerUrl(controller) + g.all;
-        return this.http.get<T[]>(url);
-    }
+    // getAll<T extends IBaseDto>(controller: eControllerType): Observable<T[]> {
+    //     const url = this.getControllerUrl(controller) + g.all;
+    //     return this.http.get<T[]>(url);
+    // }
 
-    get<T extends IBaseDto>(controller: eControllerType): Observable<T> {
-        const url = this.getControllerUrl(controller) + g.one;
-        return this.http.get<T>(url);
-    }
-    test() {
-        console.log('called');
-    }
+    // get<T extends IBaseDto>(controller: eControllerType): Observable<T> {
+    //     const url = this.getControllerUrl(controller) + g.one;
+    //     return this.http.get<T>(url);
+    // }
 }

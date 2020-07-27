@@ -4,6 +4,7 @@ using NetCoreCQRSdemo.Api.Controllers.Base;
 using NetCoreCQRSdemo.Api.Scripts;
 using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Queries.CocktailQueries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
 using System.Threading.Tasks;
 
@@ -27,10 +28,10 @@ namespace NetCoreCQRSdemo.Api.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<IActionResult> GetAllCocktailsAsync()
+        public async Task<IActionResult> GetAllCocktails()
         {
-            // var result = await _mediator.Send(new GetAllCocktailsQuery(_context));
-            return Ok();
+            var result = await _mediator.Send(new GetAllCocktailsQuery());
+            return Ok(result);
         }
 
         [HttpPost]

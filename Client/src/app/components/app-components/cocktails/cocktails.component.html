@@ -1,7 +1,7 @@
 <div class="w3-container">
     <div class="w3-row">
         <div class="w3-twothird">
-            <h3 class="">List of cocktails</h3>
+            <h3>List of cocktails</h3>
             <hr/>
 
             <div *ngFor="let cocktail of cocktails" class="entity-row">
@@ -44,6 +44,6 @@
     </div>
 </div>
 
-<app-create-cocktail-dialog #accd (onConfirmed)="onIngredientCreate($event)"></app-create-cocktail-dialog>
-<app-edit-cocktail-dialog #aecd (onConfirmed)="onIngredientEdit($event)"></app-edit-cocktail-dialog>
+<app-create-cocktail-dialog #accd (onConfirmed)="onCocktailCreate($event)"></app-create-cocktail-dialog>
+<app-edit-cocktail-dialog #aecd (onConfirmed)="onCocktailEdit($event)"></app-edit-cocktail-dialog>
 <app-confirm-modal #confirmModal></app-confirm-modal>

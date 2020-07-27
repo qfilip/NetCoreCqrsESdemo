@@ -22,6 +22,8 @@ import { EditIngredientDialog } from './components/app-components/ingredients/ed
 import { CocktailComponent } from './components/app-components/cocktails/cocktail/cocktail.component';
 import { CreateCocktailDialog } from './components/app-components/cocktails/create-cocktail-dialog/create-cocktail.dialog';
 import { EditCocktailDialog } from './components/app-components/cocktails/edit-cocktail-dialog/edit-cocktail.dialog';
+import { CocktailController } from './services/controllers/cocktail-controller.service';
+import { IngredientController } from './services/controllers/ingredient-controller.service';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,10 @@ import { EditCocktailDialog } from './components/app-components/cocktails/edit-c
     FormsModule,
   ],
   providers: [
+    CocktailController,
+    IngredientController,
+
+    // Common
     ApiService,
     PageLoaderService
   ],

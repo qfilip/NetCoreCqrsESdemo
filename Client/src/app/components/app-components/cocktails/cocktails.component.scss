@@ -1,0 +1,30 @@
+@import '../../../../styles.scss';
+
+.action-btn {
+    &:hover {
+        border: none;
+    }
+    border: none;
+    font-size: 1.5rem;
+}
+
+.flex-even {
+    justify-content: space-evenly;
+}
+
+.event-index {
+    border: 2px solid transparent;
+    border-right: 2px solid $text-highlighted;
+    margin-right: 5px;
+    background: linear-gradient(to right, transparent , $background-dark);
+    color: $text-highlighted;
+    text-align: center;
+}
+
+.event-text {
+    color: $text-default;
+}
+
+.self-center {
+    margin: auto;
+}

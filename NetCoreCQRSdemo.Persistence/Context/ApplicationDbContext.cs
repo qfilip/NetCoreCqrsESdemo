@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using NetCoreCQRSdemo.Domain;
 using NetCoreCQRSdemo.Domain.Entities;
+using System;
 
 namespace NetCoreCQRSdemo.Persistence.Context
 {
@@ -21,24 +24,28 @@ namespace NetCoreCQRSdemo.Persistence.Context
             {
                 e.HasKey(e => e.Id);
                 e.HasIndex(e => e.Id).IsUnique();
+                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
             });
 
             modelBuilder.Entity<Ingredient>(e =>
             {
                 e.HasKey(e => e.Id);
                 e.HasIndex(e => e.Id).IsUnique();
+                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
             });
 
             modelBuilder.Entity<RecipeExcerpt>(e =>
             {
                 e.HasKey(e => e.Id);
                 e.HasIndex(e => e.Id).IsUnique();
+                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
             });
 
             modelBuilder.Entity<AppEvent>(e =>
             {
                 e.HasKey(e => e.Id);
                 e.HasIndex(e => e.Id).IsUnique();
+                e.HasQueryFilter(e => e.EntityStatus == Domain.Enumerations.eEntityStatus.Active);
             });
 
             base.OnModelCreating(modelBuilder);

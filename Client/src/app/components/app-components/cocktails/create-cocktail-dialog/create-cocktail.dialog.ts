@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ICocktailDto } from 'src/app/_generated/interfaces';
 import { DtoFunctions } from 'src/app/functions/dtoFunctions';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-create-cocktail-dialog',
@@ -15,8 +16,9 @@ export class CreateCocktailDialog {
     dtoFuncs: DtoFunctions;
 
     @Output('onConfirmed') emitter = new EventEmitter<ICocktailDto>();
+    @Output('onDataLoaded') onDataLoaded = new EventEmitter<boolean>();
     
-    constructor() {
+    constructor(private controller: ApiService) {
         this.dtoFuncs = new DtoFunctions();
         this.reset();
     }
@@ -39,7 +41,13 @@ export class CreateCocktailDialog {
 
     open() {
         this.reset();
+        this.getRequiredData();
         this.visible = true;
+        this.onDataLoaded.emit(true);
+    }
+
+    private getRequiredData() {
+        // this.controller.
     }
 
     private reset() {

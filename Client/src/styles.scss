@@ -125,8 +125,25 @@ $dialog-padding: 5px;
     display: none;
 }
 
+.dialog-content {
+    width: 50%;
+    padding: 2rem;
+    border: 2px double $text-orange;
+    background: $background-medium;
+    margin: auto;
+    color: $text-default;
+}
+
 .w-10p {
     width: 10%;
+}
+
+.w-20p {
+    width: 20%;
+}
+
+.w-40p {
+    width: 40%;
 }
 
 .w-50p {

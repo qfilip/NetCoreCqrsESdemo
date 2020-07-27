@@ -7,7 +7,3 @@ export const eventController = apiUrl + 'events/';
 //* end points *//
 // post
 export const action = 'action';
-
-// get
-export const all = 'all';
-export const one = 'one';

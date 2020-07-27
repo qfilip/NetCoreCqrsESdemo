@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 import { ConfirmDialogService } from 'src/app/services/confirm.service';
 import { EditIngredientDialog } from './edit-ingredient-dialog/edit-ingredient.dialog';
 import { ConfirmModalDialog } from 'src/app/shared/confirm-modal/confirm-modal.component';
+import { IngredientController } from 'src/app/services/controllers/ingredient-controller.service';
 
 @Component({
     selector: 'app-ingredients',
@@ -27,7 +28,7 @@ export class IngredientsComponent implements OnInit {
     @ViewChild('confirmModal') confirmModal: ConfirmModalDialog;
 
     constructor(
-        private controller: ApiService,
+        private controller: IngredientController,
         private pageLoader: PageLoaderService
     ) { }
 
@@ -39,7 +40,7 @@ export class IngredientsComponent implements OnInit {
     private getIngredients() {
         this.ingredients = [];
         this.pageLoader.show('Fetching ingredients');
-        this.controller.getAll<IIngredientDto>(eControllerType.Ingredient)
+        this.controller.getAllIngredients()
             .subscribe(
                 response => {
                     this.ingredients = response;
@@ -85,7 +86,7 @@ export class IngredientsComponent implements OnInit {
         }
 
         const proceed = () => {
-            this.controller.executeCommands<IIngredientDto>(payloads, eControllerType.Ingredient)
+            this.controller.executeCommands(payloads)
                 .subscribe(result => {
                     this.handler.cleanStack();
                     this.changesSavedSuccessMessage();
@@ -119,6 +120,6 @@ export class IngredientsComponent implements OnInit {
     }
     
     testApiService() {
-        this.controller.test();
+        // this.controller.test();
     }
 }

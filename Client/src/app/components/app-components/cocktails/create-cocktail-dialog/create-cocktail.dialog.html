@@ -1,1 +1,29 @@
-<p>create-cocktail-dialog works!</p>
+<div class="w3-modal w3-center" [ngClass]="(visible) ? 'dialog-displayed' : 'dialog-hidden'">
+    <div class="w3-container dialog-content">
+        <br/>
+        <div class="w3-row w3-margin-bottom">
+            <div class="w3-third w3-left">
+                Enter cocktail name
+            </div>
+            <div class="w3-third">
+                <input class="w-100p" type="text" [(ngModel)]="cocktail.name">
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-third w3-left">
+                Enter ingredient's strength
+            </div>
+            <div class="w3-third">
+                <!-- <input class="w-100p" type="number" [(ngModel)]="ingredient.strength" [max]="60" [min]="0"> -->
+            </div>
+        </div>
+        <br/>
+        <div class="w3-center w3-red">{{ errorMessage }}</div>
+        <div class="w3-row">
+            <div class="btn-flex">
+                <button (click)="onConfirm()" class="btn-silver">Ok</button>
+                <button (click)="onClose()" class="btn-silver">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
