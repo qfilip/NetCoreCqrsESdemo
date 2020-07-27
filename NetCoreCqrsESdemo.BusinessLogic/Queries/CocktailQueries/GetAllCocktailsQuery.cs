@@ -27,6 +27,7 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Queries.CocktailQueries
             public async override Task<IEnumerable<CocktailDto>> Handle(GetAllCocktailsQuery request, CancellationToken cancellationToken)
             {
                 var entities = await _dbContext.Cocktails
+                    .Include(x => x.Excerpts)
                     .ToListAsync();
 
                 var response = _appMapper.MultiMap(entities, _appMapper.ToDto);

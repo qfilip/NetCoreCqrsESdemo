@@ -20,10 +20,19 @@ $dialog-padding: 5px;
 @font-face {
     font-family: andromeda;
     src: url(/fonts/Andromeda.ttf);
-  }
+}
+
+@font-face {
+    font-family: maiandra;
+    src: url(/fonts/Maiandra.ttf) format("opentype");
+}
 
 .font-andromeda {
     font-family: andromeda;
+}
+
+.font-maiandra {
+    font-family: maiandra;
 }
 
 .entity-row {

@@ -1,7 +1,9 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ICocktailDto } from 'src/app/_generated/interfaces';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { ICocktailDto, IIngredientDto, IRecipeExcerptDto } from 'src/app/_generated/interfaces';
 import { DtoFunctions } from 'src/app/functions/dtoFunctions';
 import { ApiService } from 'src/app/services/api.service';
+import { IngredientController } from 'src/app/services/controllers/ingredient-controller.service';
+import { PageLoaderService } from 'src/app/services/page-loader.service';
 
 @Component({
   selector: 'app-create-cocktail-dialog',
@@ -12,13 +14,18 @@ export class CreateCocktailDialog {
 
     visible = false;
     errorMessage = '';
-    cocktail: ICocktailDto;
     dtoFuncs: DtoFunctions;
+    
+    cocktail: ICocktailDto;
+    ingredients: IIngredientDto[];
+    excerpts: IRecipeExcerptDto[] = [];
 
     @Output('onConfirmed') emitter = new EventEmitter<ICocktailDto>();
-    @Output('onDataLoaded') onDataLoaded = new EventEmitter<boolean>();
     
-    constructor(private controller: ApiService) {
+    constructor(
+        private controller: IngredientController,
+        private pageLoader: PageLoaderService
+    ) {
         this.dtoFuncs = new DtoFunctions();
         this.reset();
     }
@@ -42,12 +49,26 @@ export class CreateCocktailDialog {
     open() {
         this.reset();
         this.getRequiredData();
-        this.visible = true;
-        this.onDataLoaded.emit(true);
     }
 
     private getRequiredData() {
-        // this.controller.
+        this.pageLoader.show('Getting required data');
+        this.controller.getAllIngredients()
+            .subscribe(
+                result => {
+                    this.ingredients = result;
+                    this.mapData();
+                    this.pageLoader.hide();
+                },
+                error => {
+                    this.pageLoader.hide();
+                }
+            );
+    }
+
+    private mapData() {
+
+        this.visible = true;
     }
 
     private reset() {

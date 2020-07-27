@@ -34,6 +34,14 @@ namespace NetCoreCQRSdemo.Api.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("get-cocktail-edit-data")]
+        public async Task<IActionResult> GetCocktailEditData()
+        {
+            var result = await _mediator.Send(new GetAllCocktailsQuery());
+            return Ok(result);
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> CreateCocktail([FromBody] CocktailDto dto)

@@ -116,7 +116,7 @@ export class IngredientsComponent implements OnInit {
     }
 
     reseed() {
-        this.controller.reseedDb().subscribe(r => console.log(r));
+        // this.controller.reseedDb().subscribe(r => console.log(r));
     }
     
     testApiService() {
