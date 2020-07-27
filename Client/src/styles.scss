@@ -26,10 +26,13 @@ $dialog-padding: 5px;
     font-family: andromeda;
 }
 
-.outln {
-    outline: none !important;
+.entity-row {
+    padding: .2rem;
+    margin-bottom: .5rem;
+    background: linear-gradient(to right, $background-dark, $background-medium);
 }
 
+// Buttons
 .btn {
     text-align: center;
     border: 2px solid transparent;
@@ -86,6 +89,8 @@ $dialog-padding: 5px;
     align-items: center;
 }
 
+// Dialogues
+
 .dialog {
     z-index: 999;
     min-width: 100vw;
@@ -96,6 +101,8 @@ $dialog-padding: 5px;
     justify-content: center;
     align-items: center;
 }
+
+// Responsive
 
 .dialog-flex {
     display: flex;
@@ -118,15 +125,6 @@ $dialog-padding: 5px;
     display: none;
 }
 
-.noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently */
-}
-
 .w-10p {
     width: 10%;
 }
@@ -146,6 +144,34 @@ $dialog-padding: 5px;
 .w-90p {
     width: 90%;
 }
+
+.w-100p {
+    width: 100%;
+}
+
+// Misc
+
+.nmph {
+    border-radius: 0px;
+    background: #616161;
+    box-shadow: inset .3rem .3rem .4rem #535353, 
+    inset -.3rem -.3rem .4rem #6f6f6f;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently */
+}
+
+.outln {
+    outline: none !important;
+}
+
+// Global
 
 body {
     background-color: $background-light;

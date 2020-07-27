@@ -3,7 +3,8 @@
     public enum eCommand
     {
         CreateCocktailCommand,
-        DeleteCocktailCommand,
+        EditCocktailCommand,
+        RemoveCocktailCommand,
 
         CreateIngredientCommand,
         EditIngredientCommand,

@@ -4,7 +4,7 @@
             <h3 class="">List of ingredients</h3>
             <hr/>
 
-            <div *ngFor="let ingredient of ingredients" class="ingredient-row">
+            <div *ngFor="let ingredient of ingredients" class="entity-row">
                 <app-ingredient
                     [ingredient]="ingredient"
                     (onEditClicked)="openEditDialog($event)"

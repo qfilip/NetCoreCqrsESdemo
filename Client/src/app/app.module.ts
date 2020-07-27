@@ -19,6 +19,9 @@ import { IngredientComponent } from './components/app-components/ingredients/ing
 import { EventCardComponent } from './components/app-components/events/event-card/event-card.component';
 import { CreateIngredientDialog } from './components/app-components/ingredients/create-ingredient-dialog/create-ingredient.dialog';
 import { EditIngredientDialog } from './components/app-components/ingredients/edit-ingredient-dialog/edit-ingredient.dialog';
+import { CocktailComponent } from './components/app-components/cocktails/cocktail/cocktail.component';
+import { CreateCocktailDialog } from './components/app-components/cocktails/create-cocktail-dialog/create-cocktail.dialog';
+import { EditCocktailDialog } from './components/app-components/cocktails/edit-cocktail-dialog/edit-cocktail.dialog';
 
 @NgModule({
   declarations: [
@@ -33,15 +36,20 @@ import { EditIngredientDialog } from './components/app-components/ingredients/ed
     ConfirmModalDialog,
     
     // Components
+    CocktailComponent,
     CocktailsComponent,
-    IngredientsComponent,
-    EventsComponent,
-    EventCardComponent,
+
     IngredientComponent,
+    IngredientsComponent,
+    
+    EventCardComponent,
+    EventsComponent,
 
     // Dialogues
     CreateIngredientDialog,
-    EditIngredientDialog
+    EditIngredientDialog,
+    CreateCocktailDialog,
+    EditCocktailDialog
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,49 @@
-<p>cocktails works!</p>
+<div class="w3-container">
+    <div class="w3-row">
+        <div class="w3-twothird">
+            <h3 class="">List of cocktails</h3>
+            <hr/>
+
+            <div *ngFor="let cocktail of cocktails" class="entity-row">
+                <app-cocktail
+                    [cocktail]="cocktail"
+                    (onEditClicked)="openEditDialog($event)"
+                    (onRemoveClicked)="openRemoveDialog($event)">
+                </app-cocktail>
+            </div>
+            <div>
+                <button
+                    (click)="openCreateDialog()" 
+                    class="outln w3-circle">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="w3-third">
+            <h3 class="w3-center">Local changes</h3>
+            <hr/>
+            <div class="flex-y flex-even">
+                <button (click)="saveChanges()" class="w-50p action-btn btn-silver"><i class="fas fa-sync"></i></button>
+                <button (click)="undo()" class="w-50p action-btn btn-silver"><i class="fas fa-backspace"></i></button>
+            </div>
+            <hr/>
+            <div>
+                <div class=" flex-y w-70p">
+                    <div *ngFor="let change of handler.localChanges; let i = index;">
+                        <app-event-card 
+                            (onChangeRevert)="revertToChange($event)"
+                            [index]="i"
+                            [commandType]="change.commandType"
+                            [description]="change.description"
+                        ></app-event-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-create-cocktail-dialog #accd (onConfirmed)="onIngredientCreate($event)"></app-create-cocktail-dialog>
+<app-edit-cocktail-dialog #aecd (onConfirmed)="onIngredientEdit($event)"></app-edit-cocktail-dialog>
+<app-confirm-modal #confirmModal></app-confirm-modal>
