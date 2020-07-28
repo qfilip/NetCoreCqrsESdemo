@@ -1,6 +1,7 @@
 <div class="w3-modal w3-center" [ngClass]="(visible) ? 'dialog-displayed' : 'dialog-hidden'">
     <div class="w3-container dialog-content">
         <br/>
+
         <div class="w3-row w3-margin-bottom">
             <div class="w3-third w3-left">
                 Enter cocktail name
@@ -9,25 +10,33 @@
                 <input class="w-100p" type="text" [(ngModel)]="cocktail.name">
             </div>
         </div>
-        <div class="w3-row">
-            <div class="w3-twothird w3-left">
-                Add ingredients:
-                <div *ngIf="!!ingredients" class="w3-third">
-                    <div *ngFor="let excerpt of excerpts">
-                        <select>
 
+        <div class="w3-row w3-twothird w3-left">
+            <!-- Ingredients: -->
+            <div class="w3-third">Ingredient</div>
+            <div class="w3-twothird">Amount</div>
+            <div *ngIf="!!ingredients">
+                <div *ngFor="let excerpt of excerpts" class="w3-row">
+                    <div class="w3-third">
+                        <select (change)="changeIngredient(excerpt, $event)">
+                            <option *ngFor="let ingredient of ingredients" [value]="ingredient.id">{{ ingredient.name }}</option>
                         </select>
                     </div>
+                    <div class="w3-twothird">
+                        <input (change)="changeIngredientAmount(excerpt, $event)" type="range" [value]="excerpt.amount" min="1" max="10" />
+                        <span class="ml-5">{{ excerpt.amount }}</span>
+                    </div>
                 </div>
-                <div>
-                    <button class="w-100p action-btn btn-silver"><i class="fas fa-plus"></i></button>
-                </div>
+            </div>
+            <div>
+                <button (click)="createExcerpt()" class="w-100p action-btn btn-silver"><i class="fas fa-plus"></i></button>
             </div>
         </div>
         <br/>
         <div class="w3-center w3-red">{{ errorMessage }}</div>
         <div class="w3-row">
             <div class="btn-flex">
+                <button (click)="log()" class="btn-silver">Log</button>
                 <button (click)="onConfirm()" class="btn-silver">Ok</button>
                 <button (click)="onClose()" class="btn-silver">Cancel</button>
             </div>

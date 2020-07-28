@@ -51,6 +51,22 @@ export class CreateCocktailDialog {
         this.getRequiredData();
     }
 
+    createExcerpt() {
+        if(this.ingredients.length === 0) {
+            this.errorMessage = 'All available ingredients are used';
+            return;
+        }
+
+        const ingredient = this.ingredients[0];
+        const excerpt = {
+            amount: 0,
+            cocktailId: this.cocktail.id,
+            ingredientId: ingredient.id,
+        } as IRecipeExcerptDto;
+
+        this.excerpts.push(excerpt)
+    }
+
     private getRequiredData() {
         this.pageLoader.show('Getting required data');
         this.controller.getAllIngredients()
@@ -66,14 +82,32 @@ export class CreateCocktailDialog {
             );
     }
 
+    changeIngredient(excerpt: IRecipeExcerptDto, e: any) {
+        const ingredientId = e.target.value;
+        excerpt.ingredientId = ingredientId;
+    }
+
+    changeIngredientAmount(excerpt: IRecipeExcerptDto, e: any) {
+        console.log(e.target.value);
+        const amount = e.target.value;
+        excerpt.amount = amount;
+    }
+
     private mapData() {
 
         this.visible = true;
     }
 
     private reset() {
-        this.cocktail = { name: '', excerpts: [] } as ICocktailDto;
+        const id = this.dtoFuncs.generateId();
+        this.cocktail = { id: id, name: '', excerpts: [] } as ICocktailDto;
+        this.ingredients = [];
+        this.excerpts = [];
         this.errorMessage = '';
+    }
+
+    log() {
+        console.table(this.excerpts);
     }
 
 }
