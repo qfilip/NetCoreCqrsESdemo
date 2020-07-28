@@ -13,7 +13,7 @@ import { PageLoaderService } from 'src/app/services/page-loader.service';
 export class CreateCocktailDialog {
 
     visible = false;
-    errorMessage = '';
+    errorMessages: string[]= [];
     dtoFuncs: DtoFunctions;
     
     cocktail: ICocktailDto;
@@ -31,7 +31,8 @@ export class CreateCocktailDialog {
     }
 
     onConfirm() {
-        if(this.cocktail.name.length > 0) {
+        this.errorMessages = [];
+        if(this.cocktail.name.length > 0 && this.cocktail.excerpts.length > 0) {
             this.cocktail.id = this.dtoFuncs.generateId();
             this.emitter.emit(this.cocktail);
             this.reset();
@@ -39,7 +40,13 @@ export class CreateCocktailDialog {
             return;
         }
 
-        this.errorMessage = 'Cocktail name cannot be empty';
+        if(this.cocktail.name.length === 0) {
+            this.errorMessages.push('Cocktail name cannot be empty');
+        }
+
+        if(this.cocktail.excerpts.length === 0) {
+            this.errorMessages.push('Cocktail must contain at least one ingredient');
+        }
     }
 
     onClose() {
@@ -51,29 +58,13 @@ export class CreateCocktailDialog {
         this.getRequiredData();
     }
 
-    createExcerpt() {
-        if(this.ingredients.length === 0) {
-            this.errorMessage = 'All available ingredients are used';
-            return;
-        }
-
-        const ingredient = this.ingredients[0];
-        const excerpt = {
-            amount: 0,
-            cocktailId: this.cocktail.id,
-            ingredientId: ingredient.id,
-        } as IRecipeExcerptDto;
-
-        this.excerpts.push(excerpt)
-    }
-
     private getRequiredData() {
         this.pageLoader.show('Getting required data');
         this.controller.getAllIngredients()
             .subscribe(
                 result => {
                     this.ingredients = result;
-                    this.mapData();
+                    this.visible = true;
                     this.pageLoader.hide();
                 },
                 error => {
@@ -82,20 +73,37 @@ export class CreateCocktailDialog {
             );
     }
 
+    createExcerpt() {
+        if(this.ingredients.length === 0) {
+            this.errorMessages = ['All available ingredients are used'];
+            return;
+        }
+
+        const id = this.dtoFuncs.generateId();
+        const ingredient = this.ingredients[0];
+        const excerpt = {
+            id: id,
+            amount: 0,
+            cocktailId: this.cocktail.id,
+            ingredientId: ingredient.id,
+        } as IRecipeExcerptDto;
+
+        this.excerpts.push(excerpt)
+        this.cocktail.excerpts = this.excerpts;
+    }
+    
+    removeExcerpt(excerpt: IRecipeExcerptDto) {
+        this.excerpts = this.excerpts.filter(x => x.id !== excerpt.id);
+    }
+
     changeIngredient(excerpt: IRecipeExcerptDto, e: any) {
         const ingredientId = e.target.value;
         excerpt.ingredientId = ingredientId;
     }
 
     changeIngredientAmount(excerpt: IRecipeExcerptDto, e: any) {
-        console.log(e.target.value);
         const amount = e.target.value;
         excerpt.amount = amount;
-    }
-
-    private mapData() {
-
-        this.visible = true;
     }
 
     private reset() {
@@ -103,11 +111,6 @@ export class CreateCocktailDialog {
         this.cocktail = { id: id, name: '', excerpts: [] } as ICocktailDto;
         this.ingredients = [];
         this.excerpts = [];
-        this.errorMessage = '';
+        this.errorMessages = [];
     }
-
-    log() {
-        console.table(this.excerpts);
-    }
-
 }
