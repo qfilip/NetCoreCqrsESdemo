@@ -6,10 +6,10 @@ import { PageLoaderService } from 'src/app/services/page-loader.service';
 import { eControllerType } from 'src/app/_notgenerated/enums';
 import { eCommand, eCommandType } from 'src/app/_generated/enums';
 import { Command } from 'src/app/_notgenerated/helpers';
-import { CreateCocktailDialog } from './create-cocktail-dialog/create-cocktail.dialog';
 import { ConfirmModalDialog } from 'src/app/shared/confirm-modal/confirm-modal.component';
 import { EditCocktailDialog } from './edit-cocktail-dialog/edit-cocktail.dialog';
 import { CocktailController } from 'src/app/services/controllers/cocktail-controller.service';
+import { CreateCocktailDialog } from './create-cocktail-dialog/create-cocktail.dialog';
 
 @Component({
   selector: 'app-cocktails',
