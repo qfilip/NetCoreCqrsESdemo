@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\CocktailCommands\" />
     <Folder Include="Commands\SnapshotCommands\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Queries\EventQueries\" />

@@ -110,16 +110,4 @@ export class IngredientsComponent implements OnInit {
         const cancelVsible = false;
         this.confirmModal.open(msg, () => {}, cancelVsible);
     }
-
-    clogData() {
-        console.table(this.ingredients);
-    }
-
-    reseed() {
-        // this.controller.reseedDb().subscribe(r => console.log(r));
-    }
-    
-    testApiService() {
-        // this.controller.test();
-    }
 }

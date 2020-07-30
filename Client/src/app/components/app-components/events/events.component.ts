@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrls: ['./events.component.scss']
+    selector: 'app-events',
+    templateUrl: './events.component.html',
+    styleUrls: ['./events.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent {
 
-  constructor() { }
+    constructor(private api: ApiService) { }
 
-  ngOnInit(): void {
-  }
 
+    reseed() {
+        this.api.reseedDb().subscribe(r => alert('Done'));
+    }
 }

@@ -4,8 +4,11 @@ using NetCoreCQRSdemo.Api.Controllers.Base;
 using NetCoreCQRSdemo.Api.Scripts;
 using NetCoreCQRSdemo.Domain.Dtos;
 using NetCoreCQRSdemo.Persistence.Context;
+using NetCoreCqrsESdemo.BusinessLogic.Base;
+using NetCoreCqrsESdemo.BusinessLogic.Commands.CocktailCommands;
 using NetCoreCqrsESdemo.BusinessLogic.Queries.CocktailQueries;
 using NetCoreCqrsESdemo.BusinessLogic.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
@@ -13,8 +16,12 @@ namespace NetCoreCQRSdemo.Api.Controllers
     [Route("cocktails")]
     public class CocktailController : BaseController
     {
-        public CocktailController(IMediator mediator, ApplicationDbContext context, CommandExecutionService commandExecutionsService) : base(mediator, context, commandExecutionsService)
-        {}
+        public CocktailController(
+            IMediator mediator,
+            ApplicationDbContext context,
+            CommandExecutionService commandExecutionService) : base(mediator, context, commandExecutionService)
+        {
+        }
 
         [HttpGet]
         [Route("seed")]
@@ -24,6 +31,14 @@ namespace NetCoreCQRSdemo.Api.Controllers
             t.SeedDb();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("action")]
+        public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandInfo<CocktailDto>> commands)
+        {
+            var result = await _commandExecutionService.ParseAndExecute(commands);
+            return Ok(result);
         }
 
         [HttpGet]
@@ -40,22 +55,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         {
             var result = await _mediator.Send(new GetAllCocktailsQuery());
             return Ok(result);
-        }
-
-        [HttpPost]
-        [Route("create")]
-        public async Task<IActionResult> CreateCocktail([FromBody] CocktailDto dto)
-        {
-            // var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
-            return Ok();
-        }
-
-        [HttpPost]
-        [Route("delete")]
-        public async Task<IActionResult> DeleteCocktail([FromBody] CocktailDto dto)
-        {
-            // var result = await _mediator.Send(new CreateCocktailCommand(_context, dto));
-            return Ok();
         }
     }
 }
