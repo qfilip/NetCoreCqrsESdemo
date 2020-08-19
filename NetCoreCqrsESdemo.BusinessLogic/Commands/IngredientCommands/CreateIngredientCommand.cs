@@ -13,20 +13,21 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
     public class CreateIngredientCommand : BaseCommand<IngredientDto>
     {
         public CreateIngredientCommand(IngredientDto dto) : base(dto, eCommandType.Create) {}
-    }
-
-    public class CreateIngredientCommandHandler : BaseHandler<CreateIngredientCommand, IngredientDto>
-    {
-        public CreateIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext) {}
-
-        public override async Task<IngredientDto> Handle(CreateIngredientCommand command, CancellationToken cancellationToken)
+        
+        public class Handler : BaseHandler<CreateIngredientCommand, IngredientDto>
         {
-            command._dto.Id = Guid.NewGuid().ToString();
-            var entity = _appMapper.ToEntity(command._dto);
+            public Handler(ApplicationDbContext dbContext) : base(dbContext) {}
 
-            await _dbContext.Ingredients.AddAsync(entity);
+            public override async Task<IngredientDto> Handle(CreateIngredientCommand command, CancellationToken cancellationToken)
+            {
+                command._dto.Id = Guid.NewGuid().ToString();
+                var entity = _appMapper.ToEntity(command._dto);
 
-            return _appMapper.ToDto(entity);
+                await _dbContext.Ingredients.AddAsync(entity);
+
+                return _appMapper.ToDto(entity);
+            }
         }
     }
+
 }

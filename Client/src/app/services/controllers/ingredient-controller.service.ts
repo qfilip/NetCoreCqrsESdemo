@@ -11,7 +11,7 @@ export class IngredientController {
     constructor(private http: HttpClient) {}
     
     executeCommands(commands: ICommandInfo<IIngredientDto>[]): Observable<ICommandInfo<IIngredientDto>[]> {
-        let url = g.cocktailController + g.action;
+        let url = g.ingredientController + g.action;
         return this.http.post<ICommandInfo<IIngredientDto>[]>(url, commands);
     }
 

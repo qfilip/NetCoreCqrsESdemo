@@ -52,7 +52,7 @@ namespace NetCoreCQRSdemo.Api
             services.AddSingleton(provider => new CommandService(_appMaps));
             services.AddTransient<CommandExecutionService>();
             
-            services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly, typeof(MainCommandHandler<>).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(BaseHandler<,>).GetTypeInfo().Assembly);
 
             services.AddCors(options =>
                 options.AddDefaultPolicy(builder =>

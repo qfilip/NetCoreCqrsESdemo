@@ -24,20 +24,21 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             RuleFor(x => x._dto.Id).NotNull();
             RuleFor(x => x._dto.Id).NotEmpty();
         }
-    }
-
-    public class RemoveIngredientCommandHandler : BaseHandler<RemoveIngredientCommand, IngredientDto>
-    {
-        public RemoveIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext) {}
-
-        public async override Task<IngredientDto> Handle(RemoveIngredientCommand request, CancellationToken cancellationToken)
+    
+        public class Handler : BaseHandler<RemoveIngredientCommand, IngredientDto>
         {
-            var entity = await _dbContext.Ingredients
-                .FirstOrDefaultAsync(x => x.Id == request._dto.Id);
+            public Handler(ApplicationDbContext dbContext) : base(dbContext) {}
 
-            entity.EntityStatus = eEntityStatus.Removed;
+            public async override Task<IngredientDto> Handle(RemoveIngredientCommand request, CancellationToken cancellationToken)
+            {
+                var entity = await _dbContext.Ingredients
+                    .FirstOrDefaultAsync(x => x.Id == request._dto.Id);
 
-            return _appMapper.ToDto(entity);
+                entity.EntityStatus = eEntityStatus.Removed;
+
+                return _appMapper.ToDto(entity);
+            }
         }
     }
+
 }

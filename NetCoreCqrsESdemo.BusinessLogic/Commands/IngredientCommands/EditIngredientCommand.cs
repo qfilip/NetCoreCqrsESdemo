@@ -27,21 +27,22 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             RuleFor(x => x._dto.Id).NotNull();
             RuleFor(x => x._dto.Id).NotEmpty();
         }
-    }
-
-    public class EditIngredientCommandHandler : BaseHandler<EditIngredientCommand, IngredientDto>
-    {
-        public EditIngredientCommandHandler(ApplicationDbContext dbContext) : base(dbContext) {}
-
-        public override async Task<IngredientDto> Handle(EditIngredientCommand command, CancellationToken cancellationToken)
+    
+        public class Handler : BaseHandler<EditIngredientCommand, IngredientDto>
         {
-            var entity = await _dbContext.Ingredients
-                .Where(x => x.Id == command._dto.Id).SingleOrDefaultAsync();
+            public Handler(ApplicationDbContext dbContext) : base(dbContext) {}
 
-            entity.Name = command._dto.Name;
-            entity.Strength = command._dto.Strength;
+            public override async Task<IngredientDto> Handle(EditIngredientCommand command, CancellationToken cancellationToken)
+            {
+                var entity = await _dbContext.Ingredients
+                    .Where(x => x.Id == command._dto.Id).SingleOrDefaultAsync();
 
-            return _appMapper.ToDto(entity);
+                entity.Name = command._dto.Name;
+                entity.Strength = command._dto.Strength;
+
+                return _appMapper.ToDto(entity);
+            }
         }
     }
+
 }
