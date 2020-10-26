@@ -6,9 +6,6 @@ import { Command } from 'src/app/_notgenerated/helpers';
 import { CreateIngredientDialog } from './create-ingredient-dialog/create-ingredient.dialog';
 import { eCommand, eCommandType } from 'src/app/_generated/enums';
 import { CommandHandler } from 'src/app/functions/commandFunctions';
-import { eControllerType } from 'src/app/_notgenerated/enums';
-import { NgForm } from '@angular/forms';
-import { ConfirmDialogService } from 'src/app/services/confirm.service';
 import { EditIngredientDialog } from './edit-ingredient-dialog/edit-ingredient.dialog';
 import { ConfirmModalDialog } from 'src/app/shared/confirm-modal/confirm-modal.component';
 import { IngredientController } from 'src/app/services/controllers/ingredient-controller.service';
@@ -110,7 +107,7 @@ export class IngredientsComponent implements OnInit {
             
             return;
         }
-        
+
         this.handler.revertToChange(changeIndex);
     }
 

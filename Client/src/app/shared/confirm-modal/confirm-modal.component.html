@@ -1,4 +1,4 @@
-<div *ngIf="dialogInfo.visible" class="confirm-modal w3-display-container">
+<div [ngClass]="{'confirm-modal-active' : dialogInfo.visible}" class="confirm-modal w3-display-container">
     <div class="dialog-container noselect w3-panel w3-display-middle">
         <div class="dialog-message">{{ dialogInfo.message }}</div>
         <br/>
