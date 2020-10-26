@@ -24,7 +24,7 @@
       black,
       black
     );
-    //box-shadow: 0px 0px 2px red;
+    box-shadow: 0px 0px 2px red;
     color: yellow;
   }
   12.5% {
@@ -36,7 +36,7 @@
       black,
       black
     );
-    //box-shadow: 0px 0px 4px red;
+    box-shadow: 0px 0px 4px red;
     color: orange;
   }
   25% {
@@ -48,7 +48,7 @@
       black,
       black
     );
-    //box-shadow: 0px 0px 6px red;
+    box-shadow: 0px 0px 6px red;
     color: orangered;
   }
   37.5% {
@@ -60,7 +60,7 @@
       red,
       black
     );
-    //box-shadow: 0px 0px 4px red;
+    box-shadow: 0px 0px 4px red;
     color: orange;
   }
   50% {
@@ -72,7 +72,7 @@
       black,
       red
     );
-    //box-shadow: 0px 0px 2px red;
+    box-shadow: 0px 0px 2px red;
     color: yellow;
   }
   62.5% {
@@ -84,6 +84,8 @@
       black,
       black
     );
+    box-shadow: 0px 0px 2px red;
+    color: orange;
   }
   75% {
     background: linear-gradient(
@@ -94,6 +96,8 @@
       black,
       black
     );
+    box-shadow: 0px 0px 2px red;
+    color: orangered;
   }
   87.5% {
     background: linear-gradient(
@@ -104,6 +108,8 @@
       black,
       black
     );
+    box-shadow: 0px 0px 2px red;
+    color: red;
   }
   100% {
     background: linear-gradient(
@@ -114,5 +120,7 @@
       black,
       black
     );
+    box-shadow: 0px 0px 2px red;
+    color: red;
   }
 }

@@ -4,7 +4,7 @@ import { ICocktailDto, ICommandInfo } from 'src/app/_generated/interfaces';
 import * as g from '../../_notgenerated/globals';
 import { Observable } from 'rxjs';
 import { eControllerType } from 'src/app/_notgenerated/enums';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class CocktailController {

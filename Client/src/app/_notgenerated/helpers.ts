@@ -33,23 +33,38 @@ export class Command {
     }
     
     execute() {
+        this.commandDoUndo(true);
+    }
+
+    reverse() {
+        this.commandDoUndo(false);
+    }
+
+    private commandDoUndo(isDo: boolean) {
         if (this.commandType === eCommandType.Create) {
-            this.array.push(this.parameter);
-            return;
+            isDo ? this.create() : this.remove();
         }
-        if (this.commandType === eCommandType.Edit) {
-            const index = this.array.findIndex(x => x.id === this.parameter.id);
-            this.array[index] = this.parameter;
-            return;
+        else if (this.commandType === eCommandType.Edit) {
+            this.edit();
         }
-        if (this.commandType === eCommandType.Remove) {
-            const index = this.array.findIndex(x => x.id === this.parameter.id);
-            this.array.splice(index, 1);
+        else if(this.commandType === eCommandType.Remove) {
+            isDo ? this.remove() : this.create();
+        }
+        else {
             return;
         }
     }
 
-    reverse() {
+    private create() {
+        this.array.push(this.parameter);
+    }
+
+    private edit() {
+        const index = this.array.findIndex(x => x.id === this.parameter.id);
+        this.array[index] = this.parameter;
+    }
+
+    private remove() {
         const index = this.array.findIndex(x => x.id === this.parameter.id);
         this.array.splice(index, 1);
     }

@@ -37,7 +37,7 @@ export class CommandHandler<TDto extends IBaseDto> {
 
     revertToChange(changeIndex: number) {
         this.stack.forEach((x, i) => {
-            if(i > changeIndex) {
+            if(i >= changeIndex) {
                 this.reverse();
             }
         });
