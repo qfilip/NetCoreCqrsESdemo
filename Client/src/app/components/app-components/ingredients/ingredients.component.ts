@@ -102,6 +102,15 @@ export class IngredientsComponent implements OnInit {
     }
 
     revertToChange(changeIndex: number) {
+        const lastChange = this.handler.localChanges.length - 1;
+        if(lastChange === changeIndex) {
+            const msg = 'Cannot revert to last change. Delete the change, or revert to an earlier one.';
+            const cancelVsible = false;
+            this.confirmModal.open(msg, () => {}, cancelVsible);
+            
+            return;
+        }
+        
         this.handler.revertToChange(changeIndex);
     }
 
