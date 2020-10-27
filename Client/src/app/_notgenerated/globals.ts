@@ -5,5 +5,7 @@ export const ingredientController = apiUrl + 'ingredients/';
 export const eventController = apiUrl + 'events/';
 
 //* end points *//
-// post
 export const action = 'action';
+
+export const ingredient_all = 'all';
+export const ingredient_byIds = 'by-ids';

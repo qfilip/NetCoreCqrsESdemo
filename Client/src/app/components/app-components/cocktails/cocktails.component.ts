@@ -59,8 +59,8 @@ export class CocktailsComponent implements OnInit {
         this.handler.execute(command);
     }
 
-    openEditDialog(e: ICocktailDto) {
-        this.editDialog.open(e);
+    openEditDialog(cocktail: ICocktailDto) {
+        this.editDialog.open(cocktail);
     }
 
     onCocktailEdit(e: ICocktailDto) {
@@ -100,6 +100,15 @@ export class CocktailsComponent implements OnInit {
     }
 
     revertToChange(changeIndex: number) {
+        const lastChange = this.handler.localChanges.length - 1;
+        if(lastChange === changeIndex) {
+            const msg = 'Cannot revert to last change. Delete the change, or revert to an earlier one.';
+            const cancelVsible = false;
+            this.confirmModal.open(msg, () => {}, cancelVsible);
+            
+            return;
+        }
+        
         this.handler.revertToChange(changeIndex);
     }
 

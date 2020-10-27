@@ -16,7 +16,12 @@ export class IngredientController {
     }
 
     getAllIngredients(): Observable<IIngredientDto[]> {
-        const url = g.ingredientController + 'all';
+        const url = g.ingredientController + g.ingredient_all;
         return this.http.get<IIngredientDto[]>(url);
+    }
+
+    getIngredientsByIds(ingredientIds: string[]): Observable<IIngredientDto[]> {
+        const url = g.ingredientController + g.ingredient_byIds;
+        return this.http.post<IIngredientDto[]>(url, ingredientIds);
     }
 }

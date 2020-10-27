@@ -6,11 +6,11 @@ import { PageLoaderService } from 'src/app/services/page-loader.service';
 
 export class CocktailDialogFunctions {
     visible = false;
-    errorMessages: string[]= [];
+    errorMessages: string[] = [];
     dtoFuncs: DtoFunctions;
     
     cocktail: ICocktailDto;
-    ingredients: IIngredientDto[];
+    ingredients: IIngredientDto[] = [];
     excerpts: IRecipeExcerptDto[] = [];
 
     @Output('onConfirmed') emitter = new EventEmitter<ICocktailDto>();

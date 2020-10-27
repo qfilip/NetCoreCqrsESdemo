@@ -107,5 +107,8 @@ namespace NetCoreCQRSdemo.Domain.Mapping
 
             return resultSet;
         }
+
+        public string GuidToString(Guid guid) => guid.ToString();
+        public Guid StringToGuid(string guid) => Guid.Parse(guid);
     }
 }

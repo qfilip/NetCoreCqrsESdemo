@@ -1,4 +1,4 @@
-<div class="w3-modal w3-center" [ngClass]="(visible) ? 'dialog-displayed' : 'dialog-hidden'">
+<div class="w3-modal w3-center" [ngClass]="visible ? 'dialog-displayed' : 'dialog-hidden'">
     <div class="w3-container dialog-content">
         <div *ngFor="let errorMessage of errorMessages" class="w3-center w3-red">{{ errorMessage }}</div>
         <br/>
@@ -16,11 +16,25 @@
             <div class="w3-third">Ingredient</div>
             <div class="w3-twothird">Amount</div>
             
-            <div *ngIf="!!ingredients">
+            <div>
                 <div *ngFor="let excerpt of excerpts" class="w3-row">
                     <div class="w3-third">
                         <select (change)="changeIngredient(excerpt, $event)">
-                            <option *ngFor="let ingredient of ingredients" [value]="ingredient.id">{{ ingredient.name }}</option>
+                            <ng-container *ngFor="let ingredient of ingredients">
+                                <ng-container *ngIf="ingredient.id === excerpt.ingredientId">
+                                    <option 
+                                        selected
+                                        [value]="ingredient.id">
+                                        {{ ingredient.name }}
+                                    </option>
+                                </ng-container>
+                                <ng-container *ngIf="ingredient.id !== excerpt.ingredientId">
+                                    <option 
+                                        [value]="ingredient.id">
+                                        {{ ingredient.name }}
+                                    </option>
+                                </ng-container>
+                            </ng-container>
                         </select>
                     </div>
                     <div class="w3-twothird">

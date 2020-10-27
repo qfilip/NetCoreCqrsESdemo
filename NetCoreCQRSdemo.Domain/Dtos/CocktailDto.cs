@@ -6,5 +6,7 @@ namespace NetCoreCQRSdemo.Domain.Dtos
     {
         public string Name { get; set; }
         public List<RecipeExcerptDto> Excerpts { get; set; }
+
+        public List<IngredientDto> Ingredients { get; set; }
     }
 }

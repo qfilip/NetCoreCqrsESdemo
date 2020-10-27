@@ -7,7 +7,7 @@
             <div *ngFor="let cocktail of cocktails" class="entity-row">
                 <app-cocktail
                     [cocktail]="cocktail"
-                    (onEditClicked)="openEditDialog($event)"
+                    (onEditClicked)="openEditDialog(cocktail)"
                     (onRemoveClicked)="openRemoveDialog($event)">
                 </app-cocktail>
             </div>

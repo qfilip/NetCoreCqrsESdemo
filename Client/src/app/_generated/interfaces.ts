@@ -21,6 +21,7 @@ export interface ICocktailDto extends IBaseDto
 {
 	name: string;
 	excerpts: IRecipeExcerptDto[];
+	ingredients: IIngredientDto[];
 }
 export interface IIngredientDto extends IBaseDto
 {
