@@ -10,7 +10,8 @@ import { CocktailDialogFunctions } from '../cocktail-dialog.functions';
 export class EditCocktailDialog extends CocktailDialogFunctions {
     
     onConfirm() {
-        if(this.cocktail.name.length > 0 && this.cocktail.excerpts.length > 0) {
+        if(this.cocktail.name.length > 0 && this.excerpts.length > 0) {
+            this.cocktail.excerpts = this.excerpts;
             this.emitter.emit(this.cocktail);
             this.visible = false;
             

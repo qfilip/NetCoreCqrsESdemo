@@ -18,19 +18,21 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
     public class EditIngredientCommand : BaseCommand<IngredientDto>
     {
         public EditIngredientCommand(IngredientDto dto) : base(dto, eCommandType.Edit) { }
-    }
 
-    public class EditIngredientValidator : AbstractValidator<EditIngredientCommand>
-    {
-        public EditIngredientValidator()
+
+        public class Validator : AbstractValidator<EditIngredientCommand>
         {
-            RuleFor(x => x._dto.Id).NotNull();
-            RuleFor(x => x._dto.Id).NotEmpty();
+            public Validator()
+            {
+                RuleFor(x => x._dto.Id).NotNull();
+                RuleFor(x => x._dto.Id).NotEmpty();
+            }
         }
-    
+
+
         public class Handler : BaseHandler<EditIngredientCommand, IngredientDto>
         {
-            public Handler(ApplicationDbContext dbContext) : base(dbContext) {}
+            public Handler(ApplicationDbContext dbContext) : base(dbContext) { }
 
             public override async Task<IngredientDto> Handle(EditIngredientCommand command, CancellationToken cancellationToken)
             {
@@ -44,5 +46,4 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             }
         }
     }
-
 }

@@ -15,19 +15,22 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
     public class RemoveIngredientCommand : BaseCommand<IngredientDto>
     {
         public RemoveIngredientCommand(IngredientDto dto) : base(dto, eCommandType.Remove) {}
-    }
 
-    public class RemoveIngredientValidator : AbstractValidator<RemoveIngredientCommand>
-    {
-        public RemoveIngredientValidator()
+
+        public class Validator : AbstractValidator<RemoveIngredientCommand>
         {
-            RuleFor(x => x._dto.Id).NotNull();
-            RuleFor(x => x._dto.Id).NotEmpty();
+            public Validator()
+            {
+                RuleFor(x => x._dto.Id).NotNull();
+                RuleFor(x => x._dto.Id).NotEmpty();
+            }
+
         }
-    
+
+
         public class Handler : BaseHandler<RemoveIngredientCommand, IngredientDto>
         {
-            public Handler(ApplicationDbContext dbContext) : base(dbContext) {}
+            public Handler(ApplicationDbContext dbContext) : base(dbContext) { }
 
             public async override Task<IngredientDto> Handle(RemoveIngredientCommand request, CancellationToken cancellationToken)
             {
@@ -40,5 +43,4 @@ namespace NetCoreCqrsESdemo.BusinessLogic.Commands.IngredientCommands
             }
         }
     }
-
 }
