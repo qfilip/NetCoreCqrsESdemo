@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace NetCoreCQRSdemo.Api.Controllers
 {
-    [Route("cocktails")]
     public class CocktailController : BaseController
     {
         public CocktailController(
@@ -24,7 +23,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         }
 
         [HttpGet]
-        [Route("seed")]
         public IActionResult SeedDatabase()
         {
             var t = new Tests(_context);
@@ -34,7 +32,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         }
 
         [HttpPost]
-        [Route("action")]
         public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandInfo<CocktailDto>> commands)
         {
             var result = await _commandExecutionService.ParseAndExecute(commands);
@@ -42,16 +39,14 @@ namespace NetCoreCQRSdemo.Api.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
-        public async Task<IActionResult> GetAllCocktails()
+        public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllCocktailsQuery());
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("get-cocktail-edit-data")]
-        public async Task<IActionResult> GetCocktailEditData()
+        public async Task<IActionResult> GetEditData()
         {
             var result = await _mediator.Send(new GetAllCocktailsQuery());
             return Ok(result);

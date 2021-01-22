@@ -11,17 +11,17 @@ export class IngredientController {
     constructor(private http: HttpClient) {}
     
     executeCommands(commands: ICommandInfo<IIngredientDto>[]): Observable<ICommandInfo<IIngredientDto>[]> {
-        let url = g.ingredientController + g.action;
+        let url = g.ingredientController + g.common_executeCommands;
         return this.http.post<ICommandInfo<IIngredientDto>[]>(url, commands);
     }
 
     getAllIngredients(): Observable<IIngredientDto[]> {
-        const url = g.ingredientController + g.ingredient_all;
+        const url = g.ingredientController + g.common_getAll;
         return this.http.get<IIngredientDto[]>(url);
     }
 
     getIngredientsByIds(ingredientIds: string[]): Observable<IIngredientDto[]> {
-        const url = g.ingredientController + g.ingredient_byIds;
+        const url = g.ingredientController + g.common_getAllWithIds;
         return this.http.post<IIngredientDto[]>(url, ingredientIds);
     }
 }

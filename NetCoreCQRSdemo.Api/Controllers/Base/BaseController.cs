@@ -16,6 +16,7 @@ namespace NetCoreCQRSdemo.Api.Controllers.Base
     [ApiController]
     [EnableCors]
     [AllowAnonymous]
+    [Route("[controller]/[action]")]
     public class BaseController : ControllerBase
     {
         protected readonly IMediator _mediator;

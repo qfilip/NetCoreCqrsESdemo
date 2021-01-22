@@ -17,7 +17,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         {}
 
         [HttpGet]
-        [Route("all")]
         public async Task<IActionResult> GetAll()
         {
             // var result = await _mediator.Send(new GetAllEventsQuery(_context));
@@ -25,7 +24,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         }
 
         [HttpPost]
-        [Route("clear")]
         public async Task<IActionResult> ClearEvents()
         {
             // var result = await _mediator.Send(new SetInitialStateCommand(_context));

@@ -25,7 +25,7 @@ export class ApiService {
         return this.http.get(url);
     }
     executeCommandsBase<T extends IBaseDto>(commands: ICommandInfo<T>[], controller: eControllerType): Observable<ICommandInfo<T>[]> {
-        const url = this.getControllerUrl(controller) + g.action;
+        const url = this.getControllerUrl(controller) + g.executeCommands;
         return this.http.post<ICommandInfo<T>[]>(url, commands);
     }
 

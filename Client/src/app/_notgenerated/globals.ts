@@ -1,11 +1,19 @@
 export const apiUrl = 'http://localhost:54850/';
 
-export const cocktailController = apiUrl + 'cocktails/';
-export const ingredientController = apiUrl + 'ingredients/';
-export const eventController = apiUrl + 'events/';
+export const cocktailController = apiUrl + 'cocktail/';
+export const ingredientController = apiUrl + 'ingredient/';
+export const eventController = apiUrl + 'event/';
 
-//* end points *//
-export const action = 'action';
+//* end points common *//
+export const common_executeCommands = 'executecommands';
+export const common_getAll = 'getall';
+export const common_getAllWithIds = 'getallwithids';
 
-export const ingredient_all = 'all';
-export const ingredient_byIds = 'by-ids';
+//* cocktails *//
+export const cocktail_seedDb = 'seeddatabase';
+export const cocktail_getEditData = 'geteditdata';
+
+//* ingredients *//
+
+//* events *//
+export const events_clearEvents = 'clearevents';

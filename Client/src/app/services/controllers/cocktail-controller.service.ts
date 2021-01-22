@@ -13,16 +13,16 @@ export class CocktailController {
     constructor(private http: HttpClient) {}
     
     executeCommands(commands: ICommandInfo<ICocktailDto>[]): Observable<ICommandInfo<ICocktailDto>[]> {
-        let url = this.apiUrl + g.action;
+        let url = this.apiUrl + g.common_executeCommands;
         return this.http.post<ICommandInfo<ICocktailDto>[]>(url, commands);
     }
 
     getAllCocktails(): Observable<ICocktailDto[]> {
-        const url = this.apiUrl + 'all';
+        const url = this.apiUrl + g.common_getAll;
         return this.http.get<ICocktailDto[]>(url);
     }
 
     getCocktailEditData() {
-        const url = this.apiUrl + 'get-cocktail-edit-data';
+        const url = this.apiUrl + g.cocktail_getEditData;
     }
 }

@@ -25,7 +25,6 @@ namespace NetCoreCQRSdemo.Api.Controllers
         }
 
         [HttpPost]
-        [Route("action")]
         public async Task<IActionResult> ExecuteCommands(IEnumerable<CommandInfo<IngredientDto>> commands)
         {
             var result = await _commandExecutionService.ParseAndExecute(commands);
@@ -33,16 +32,14 @@ namespace NetCoreCQRSdemo.Api.Controllers
         }
 
         [HttpGet]
-        [Route("all")]
-        public async Task<IActionResult> GetAllIngredientsAsync()
+        public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllIngredientsQuery());
             return Ok(result);
         }
 
         [HttpPost]
-        [Route("by-ids")]
-        public async Task<IActionResult> GetIngredientsByIds(IEnumerable<Guid> ingredientIds)
+        public async Task<IActionResult> GetAllWithIds(IEnumerable<Guid> ingredientIds)
         {
             var result = await _mediator.Send(new GetIngredientsByIds(ingredientIds));
             return Ok(result);
